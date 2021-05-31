@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
+import { BrowserRouter as Router, Route, Link,Switch } from 'react-router-dom'
+import axios from 'axios'
+//import SavedItems from './SavedItems';
+import "../Styles/Footer.css";
+import "../Styles/NavBar.css";
+import "../Styles/JumiaAccount.css";
+import "../Styles/ChangePassword.css";
+import "../Styles/Home.css";
+import Footer from "./navBar-component/Footer"
 
-
+//import Register from "./Register"
+//import PedingView from "./PedingView"
+//import RecentlyViewed from "./RecentlyViewed";
+//import Register from "./Sign In/Register";
+import JumiaAccount from './CustomerAccount/JumiaAccount';
+import Test from './test';
 import NavBar from './navBar-component/Nav';
+//import Orders from './Orders';
+import Login from './Sign In/Login';
+import Register from './Sign In/Register';
+import Home from './Home';
+
 
 class App extends Component {
   state = { products:[
@@ -15,7 +34,43 @@ class App extends Component {
     { Id:7, Name: "coca-cola", Price: 15, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/48/385112/1.jpg?0684", Count: 0, Description: "coca-cola soda category", IsInCart: false },
     { Id:8, Name: "Tang", Price: 16, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/37/910081/1.jpg?9216", Count: 0, Description: "tang 1 cup of juice", IsInCart: false },
     { Id:9, Name: "Persil", Price: 17, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/91/824991/1.jpg?8988", Count: 0, Description: "persil for clothes", IsInCart: false },
-  ] }
+  ],
+Customers:[]
+
+
+}
+
+  addnewcustomer = (newObj) => {
+    console.log("AddnewCustomer");
+    console.log(newObj);
+    
+    axios.post("http://localhost:3000/Customers",newObj).then(res=>{
+        this.setState({
+            Customers:res.Customers
+        })
+    }).catch(error=>{
+        console.log(error)
+    })
+    
+}
+
+ login=(obj)=>{
+ 
+  this.state.setters.push(obj);
+  
+  this.setState({
+   
+    setters:this.state.setters
+
+})
+console.log("ddddd",this.state.setters)
+
+
+ }
+ 
+
+
+
   render() { 
 
     return ( 
@@ -23,7 +78,27 @@ class App extends Component {
         <Helmet>
           <title>J6 Ecommerece</title>
         </Helmet>
-          <NavBar/>
+        
+        
+               
+               <Router>
+               <NavBar/>
+             
+             <Switch>
+               <Route component={Home} path="/" exact /> 
+                 <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
+                 <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  />  
+                 {/* <Route component={JumiaAccount} path="/Account"/>  */}
+                 <JumiaAccount path="/Account" />
+                 </Switch>
+                
+                
+               <Footer/>
+                 
+            </Router>
+      
+         <Test/>
+           
       </React.Fragment>
     );
   }
