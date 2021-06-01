@@ -21,6 +21,25 @@ import NavBar from './navBar-component/Nav';
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
+import AboutUs from "./AboutUs";
+import ContactUs from "./ContactUs";
+import HelpCenter from "./HelpCenter";
+import Cart from "./Cart";
+import Product from "./Product";
+import {BiStar} from 'react-icons/bi'
+import Guide from './SellerComponent/KnowledgeTraning/Guide';
+import NavSeller from './SellerComponent/NavSeller';
+import FooterSeller from "./SellerComponent/FooterSeller";
+import VendorHub from './SellerComponent/VendorHub';
+import Knowledge from './SellerComponent/KnowledgeTraning/Knowledge';
+import Community from './SellerComponent/VendorCommunity/Community';
+import Stories from './SellerComponent/VendorCommunity/Stories';
+import Events from './SellerComponent/VendorCommunity/Events';
+import Stations from './SellerComponent/Stations';
+import BookTraining from './SellerComponent/Training/BookTraining';
+import VendorHelp from './SellerComponent/VendorHelp';
+import JumiaTrain from './SellerComponent/Training/JumiaTrain';
+import ClaimForm from './SellerComponent/ClaimForm';
 
 
 class App extends Component {
@@ -90,6 +109,27 @@ console.log("ddddd",this.state.setters)
                  <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  />  
                  {/* <Route component={JumiaAccount} path="/Account"/>  */}
                  <JumiaAccount path="/Account" />
+                 <Route path="/AboutUs" component={AboutUs} />
+              <Route path="/ContactUs" component={ContactUs} />
+              <Route path="/HelpCenter" component={HelpCenter} />
+              <Route path="/Cart" component={Cart} />
+              <Route path="/Product" component={Product} />
+              <Router>
+                <NavSeller/>
+                <div className="">
+                  <Route component={Knowledge} path="/Knowledge"/>
+                  <Route component={VendorHub} path="/VendorHub"/>
+                  <Route component={Community} path="/Vendor/Community"/>
+                  <Route component={Stories} path="/Vendor/Stories"/>
+                  <Route component={Events} path="/Vendor/Events"/>
+                  <Route component={Stations} path="/Stations"/>
+                  <Route component={BookTraining} path="/BookTraining"/>
+                  <Route component={VendorHelp} path="/VendorHelp"/>
+                  <Route component={JumiaTrain} path="/JumiaTrain"/>
+                  <Route component={ClaimForm} path="/ClaimForm"/>
+                </div>
+                <FooterSeller/>
+              </Router>
                  </Switch>
                 
                 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-class appSeller extends Component {
+import { Link, Route } from 'react-router-dom';
+class Guide extends Component {
     state = {  }
     render() { 
         return ( 
             <React.Fragment>
-                {this.props.chF()}
-                <div className='row col-12 m-0 mt-2' style={{"backgroundColor":"#f68b1e","padding":"70px","height":"700px","fontWeight":"900","fontSize":"20px"}} onLoad={this.props.chF}>
-                    <div className="container text-center text-white font-weight-bolder">
+                {/* Header Welcome */}
+                <div className='row col-12 m-0 mt-2 p-2' style={{"backgroundColor":"#f68b1e","height":"700px","fontWeight":"800","fontSize":"19px"}}>
+                    <div className="container text-center text-white mt-5">
                         <h1>Welcome to Selling on Jumia</h1>
                         <p> 
                         At Jumia, we are convinced that the next level of buying for the customers is now on the Internet. One of our goal is to offer the widest range of products to the customers, and this is what makes sellers essential. As Africa’s number one e-commerce company, we’re always looking for ways to add value for our customers. As a Jumia seller, you take part in offering those customers better selection, better prices, and a top-notch customer experience.
@@ -19,12 +19,12 @@ class appSeller extends Component {
                     <div className="row p-2 m-0">
                         {/* 1 */}
                         {/* Left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <h2>Before you start selling</h2>
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon1.png" alt="conditions" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>1. Make sure you comply with our conditions:</h2>
                             <ul style={{"list-style-type": "circle"}}>
                                 <li>Your products can be sold on jumia.com</li>
@@ -56,11 +56,11 @@ class appSeller extends Component {
                         </div>
                         {/* 2 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon2.png" alt="cost " width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>2. How much does it cost to sell on Jumia?</h2>
                             <p>The registration on Jumia is free for all the vendors.</p>
                             <p>For each sale you make via our platform, you will be charged a fee depending on the delivery method chosen and the category of your products.</p>
@@ -73,11 +73,11 @@ class appSeller extends Component {
                         </div>
                         {/* 3 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon3.png" alt="Discover" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>3. Discover the Seller Center:</h2>
                             <p>When you are registered, all the management of your online store is done via the Seller Center. With this portal you have access to all the information you need to manage your sales, add products, update your product information, have an overview of actual sales, etc.It is a one-stop shop to facilitate the management of your sales account on Jumia.</p>
                             <h5>Below are a just few of the things you can do from Seller Center.</h5>
@@ -91,11 +91,11 @@ class appSeller extends Component {
                         </div>
                         {/* 4 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon4.png" alt="products" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>4. How to list products.</h2>
                             <p>Your first step to make your products available for the customers is to list them on your Seller Center account. There are different methods to use depending on the type and the quantity of products you want to offer to the shoppers.</p>
                             <ul style={{"fontSize":"13px","lineHeight":"25px"}}>
@@ -113,11 +113,11 @@ class appSeller extends Component {
                         </div>
                         {/* 5 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon5.png" alt="process" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>5. How to process an order</h2>
                             <p>As soon as a customer orders one of your product, you have 48 hours to get your item shipped. Here are the steps to do it properly:</p>
                             <ul style={{"fontSize":"13px","lineHeight":"25px"}}>
@@ -128,11 +128,11 @@ class appSeller extends Component {
                         </div>
                         {/* 6 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon6.png" alt="deliver" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>6. How to deliver your order</h2>
                             <p>Jumia offers you two main solutions to deliver your orders:</p>
                             <ul style={{"fontSize":"13px","lineHeight":"25px"}}>
@@ -148,11 +148,11 @@ class appSeller extends Component {
                         </div>
                         {/* 7 */}
                         {/* left */}
-                        <div className="col-3">
+                        <div className="col-md-3 col-12">
                             <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/vendorhubicon7.png" alt="paid" width="200"/>
                         </div>
                         {/* right */}
-                        <div className="col-9">
+                        <div className="col-md-9 col-12">
                             <h2>7. How do you get paid?</h2>
                             <p>We deposit payment into your bank account at regular intervals and notifies you that your payment has been sent.</p>
                             <h5><Link to="#" style={{"color":"#f68b1e","textDecoration":"none"}}>Learn more on how to get paid</Link></h5>
@@ -171,4 +171,4 @@ class appSeller extends Component {
     }
 }
  
-export default appSeller;
+export default Guide;
