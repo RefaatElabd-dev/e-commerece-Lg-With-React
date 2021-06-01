@@ -100,7 +100,7 @@ class AboutUs extends Component {
                         </div>
                         <div className="p-2 mt-5 mb-2">
                             <Link to="/" className="btn text-white" style={{"backgroundColor": "orange","marginRight": "50px"}}>Shop Now</Link>
-                            <Link to="" className="btn text-white" style={{"backgroundColor": "orange","marginRight": "50px"}} >Sell on Jumia</Link>
+                            <Link to="/Knowledge/Guide" className="btn text-white" style={{"backgroundColor": "orange","marginRight": "50px"}} >Sell on Jumia</Link>
                             <Link to="" className="btn text-white" style={{"backgroundColor": "orange"}}>Affiliate Partner</Link>
                         </div>
                     </div>

@@ -113,7 +113,7 @@ class Footer extends Component {
                             <Link to='/ContactUs' className="text-white">Contact us</Link>
                             </li>
                             <li>
-                                <a href="#!" className="text-white">How to buy on jumia</a>
+                            <Link to='/Knowledge/Guide' className="text-white">Sell On Jumia</Link>
                             </li>
                             <li>
                                 <a href="#!" className="text-white">Delivery timelines</a>
