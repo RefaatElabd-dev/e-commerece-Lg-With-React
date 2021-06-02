@@ -6,16 +6,16 @@ class Card extends Component {
         prod: this.props.cardprod
 
     };
-    // rate=(t)=>{
-    //     if(t=1){
-    //         return(<div> <i className="fa fa-star" /></div>)
-    //     }else if(t>1 && t<=2){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /></div>)}
-    //     else if(t>2 && t<=3){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
-    //     else if(t>3 && t<=4){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
-    //     else if(t>4 && t<=5){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
+    rate=(t)=>{
+        if(t==1){
+            return(<div> <i className="fa fa-star" /></div>)
+        }else if(t>1 && t<=2){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /></div>)}
+        else if(t>2 && t<=3){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
+        else if(t>3 && t<=4){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
+        else if(t>4 && t<=5){return(<div> <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /></div>)}
 
-    //     else{return null}
-    // }
+        else{return null}
+    }
     render() {
         console.log("card product data",this.state.cardprod)
         return (
@@ -30,30 +30,22 @@ class Card extends Component {
                                 alt="chips"
                                 className="rounded"
                             />
-                            <h5>Chips</h5>
+                            <h5>{this.state.prod.productName}s</h5>
                             {/* card info */}
                             <div className="mt-3 info">
                                 <span className="text1 d-block">
-                                    Lorem ipsum, dolor sit amet.
+                                  {this.state.prod.description}
                             </span>
                                 <span className="text1">Lorem, ipsum dolor.</span>
                             </div>
                             <div className="cost mt-3 text-dark">
-                                <span className="col-1"> {this.state.prod.price}EGP</span><br />
-                                <span className="col-1">{parseInt(this.state.prod.discount) > 0 && <div className="mt-2 p-0">
+                                <span className="col-3"> {this.state.prod.price}Egp<br />
+                               {parseInt(this.state.prod.discount) > 0 && <div className="mt-2 p-0">
                                     <span className="sp  ">(Egp <span>{parseInt(parseInt(this.state.prod.price) * (1 + (parseInt(this.state.prod.discount) * .01)))}</span>)</span>
                                     <span className="alert text-danger col-1 p-0">-{this.state.prod.discount}%</span>
                                 </div>} </span>
-                                {/* {this.rate(this.state.prod.rating)} */}
-                                <div className="product_rating">
-                                    {Array(this.state.prod.rating).fill().map((_) => (
-                                        <img
-                                            key={Math.floor(Math.random() * 1000000)}
-                                            src={<i className="fa fa-star" />}
-                                            alt=""
-                                        />
-                                    ))}
-                                </div>
+                              <span> {this.rate(this.state.prod.rating)}</span> 
+                           
 
                             </div>
                         </div>

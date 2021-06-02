@@ -23,7 +23,8 @@ componentDidMount(){
         <section>
           
           <div className="container productCont">
-            <h2>Top Selling items</h2>
+            <h2>Top Selling items </h2>
+            <span className="text-right"><a href="#">see all &gt;</a></span>
             <div id="gallery1" className="carousel slide" data-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active">
