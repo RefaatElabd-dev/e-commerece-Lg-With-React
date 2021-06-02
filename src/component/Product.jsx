@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
+import axios from 'axios'
+
 import "../Styles/Product.css"
 class Product extends Component {
-    state = {  }
+    state = {product:{}  }
+    findprod=(_id)=>{
+        axios.get("http://localhost:21231/api/products/"+_id).then(res=>
+         {
+           this.setState({product:res.data})
+           console.log("data",res.data,"prod",this.state.product)
+         }).catch(err=>console.log(err))
+      }
+     
+ componentDidMount(){
+     this.findprod(this.props.match.params.id)
+    console.log(this.state.product)
+    //console.log(this.props.match)
+}
     render() {
         return (
             <React.Fragment>
@@ -57,12 +72,12 @@ class Product extends Component {
                         <hr className="my-2  w-75 d-none d-md-block"/>
                         <div className="row d-none d-md-block text-center">
                             <div className="p-0 text-center">
-                                <h2 className="mb-0 badge badge-pill oranged text-white p-2">EGP <span>69</span></h2>
+                                <h2 className="mb-0 badge badge-pill oranged text-white p-2">EGP <span>{this.state.product.price}</span></h2>
                             </div>
-                            <div className="mt-2 p-0">
-                                <span className="sp  col-3 p-1">(Egp <span>150)</span></span>
-                                <span className="alert text-danger col-3 p-0">-54%</span>
-                            </div>
+                           {parseInt(this.state.product.discount)>0&& <div className="mt-2 p-0">
+                                <span className="sp  col-3 p-1">(Egp <span>{parseInt(parseInt(this.state.product.price)*(1+(parseInt(this.state.product.discount)*.01)))}</span>)</span>
+                                <span className="alert text-danger col-3 p-0">-{this.state.product.discount}%</span>
+                            </div>}
                         </div>
                         <div className="d-none d-md-block">
                             <span className="d-block size-sm font-weight-bold">SELECT VARIATION</span>
@@ -108,10 +123,10 @@ class Product extends Component {
                     <div className="p-0">
                         <h2 className="mb-0 badge badge-pill oranged text-white p-2">EGP <span>69</span></h2>
                     </div>
-                    <div className="mt-2 p-0">
-                        <span className="sp  col-3 p-1">(Egp <span>150)</span></span>
-                        <span className="alert text-danger col-3 p-0">-54%</span>
-                    </div>
+                     {parseInt(this.state.product.discount)>0&& <div className="mt-2 p-0">
+                                <span className="sp  col-3 p-1">(Egp <span>{parseInt(parseInt(this.state.product.price)*(1+(parseInt(this.state.product.discount)*.01)))}</span>)</span>
+                                <span className="alert text-danger col-3 p-0">-{this.state.product.discount}%</span>
+                            </div>}
                 </div>
                 <hr className="d-md-none"/>
                 <div className="d-md-none">
@@ -155,9 +170,7 @@ class Product extends Component {
                     <header className="hs">
                         <h2 className="">Product details</h2>
                     </header>
-                    <div className="markup">This Brand Offers Good Materials & Easy Home Wear For Women. It
-                        is
-                        the best brand anyone could wish to have their products. .</div>
+                    <div className="markup">{this.state.product.description}</div>
                 </div>
 
 
@@ -192,9 +205,9 @@ class Product extends Component {
                                 <h2 className="">Specifications</h2>
                                 <ul className="">
                                     <li className=""><b className="">SKU</b>: KA433MW0NZAV8NAFAMZ</li>
-                                    <li className=""><b className="">Color</b>: Brown</li>
+                                    <li className=""><b className="">Color</b>: {this.state.product.color}</li>
                                     <li className=""><b className="">Main Material</b>: Cotton</li>
-                                    <li className=""><b className="">Model</b>: m5533</li>
+                                    <li className=""><b className="">Model</b>: {this.state.product.model}</li>
                                     <li className=""><b className="">Production Country</b>: Egypt</li>
                                 </ul>
                             </div>
@@ -361,7 +374,7 @@ class Product extends Component {
                         <img className="col-12 col-md-6" src="https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/40/278212/2.jpg?9826" id="basicImage" width="50%"/>
                         <div className="col-12 col-md-6 mt-3 font-weight-bolder">
                             <p>Fabyo Full Sleeve</p>
-                            <p>EGP<span className="ml-1">136</span></p>
+                            <p>EGP<span className="ml-1">{this.state.product.price}</span></p>
                             <p className="text-muted">
                                 EGP <span style={{"text-decoration": "line-through","margin-right":"10px"}}>92</span><span className="bg-warning p-1">29%</span>
                             </p>
@@ -374,65 +387,6 @@ class Product extends Component {
             </div>
         </div>
     </div>
-    {/*shaban */}
-    {/*<div className="container">
-        <div className="row my-2">
-            <div className="col-sm col-md-7 bg-light rounded">
-
-                <div className="card border-0 mt-2" id="details">
-                    <header className="hs">
-                        <h2 className="">Product details</h2>
-                    </header>
-                    <div className="markup">This Brand Offers Good Materials & Easy Home Wear For Women. It
-                        is
-                        the best brand anyone could wish to have their products. .</div>
-                </div>
-
-
-                <section className="card border-0 sec">
-
-                    <div id="specifications" className=""></div>
-                    <div></div>
-                    <header className="card hs">
-                        <h2 className="">Specifications</h2>
-                    </header>
-
-
-                    <div className="row sec1 mt-2 ">
-                        <article className="col-6  art">
-                            <div className="card art1 ">
-                                <h2 className="">Key Features</h2>
-                                <div className="">
-                                    <ul>
-                                        <li><b>Our Model Is wearing Size L</b></li>
-                                        <li>Cotton Blended Material</li>
-                                        <li>Regular fit</li>
-                                        <li>Short Sleeves</li>
-                                        <li>Heather pattern</li>
-                                        <li>Crew Neck</li>
-                                        <li>Slip On</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-                        <article className="col-6 art ">
-                            <div className="card  art1">
-                                <h2 className="">Specifications</h2>
-                                <ul className="">
-                                    <li className=""><b className="">SKU</b>: KA433MW0NZAV8NAFAMZ</li>
-                                    <li className=""><b className="">Color</b>: Brown</li>
-                                    <li className=""><b className="">Main Material</b>: Cotton</li>
-                                    <li className=""><b className="">Model</b>: m5533</li>
-                                    <li className=""><b className="">Production Country</b>: Egypt</li>
-                                </ul>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </div> */}
 
 
 {/*DELIVERY Details Modal */}
@@ -472,19 +426,7 @@ class Product extends Component {
           </div>
         </div>
       </div>
-      {/* <script>
-    $(".image").click( e =>{
-        console.log(e.target.src);
-        
-        $("#basicImage").attr("src",e.target.src);
-    })
-
-    var love=false;
-    $(".heart").click(e=>{
-        love=!love;
-        love?e.target.className = "far fa-heart fa-1x":e.target.className = "fas fa-heart fa-1x"
-    })
-</script> */}
+     
             </React.Fragment>
          );
     }

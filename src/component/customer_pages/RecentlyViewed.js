@@ -4,8 +4,7 @@ class RecentlyViewed extends Component {
     state = {  }
     render() { 
         return (
-            <>
-             <div className="padding">
+     <div className="padding">
         <div className="row">
             <div className="container-fluid d-flex justify-content-center">
                 <div className="col-sm-8 col-md-6" style={{marginTop:" 50px"}}>
@@ -49,7 +48,7 @@ class RecentlyViewed extends Component {
 </div>
 </div>
 </div>
-            </>
+          
             );
         }
     }

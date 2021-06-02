@@ -9,12 +9,18 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import NavBar from './component/navBar-component/Nav';
-
+import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from 'react-router-dom';
 
+
+
 ReactDOM.render(
- 
-    <App />
+  
+    <BrowserRouter>
+     <App />
+    </BrowserRouter>
+   
+    
 
 
    
@@ -22,3 +28,4 @@ ReactDOM.render(
   ,
   document.getElementById('root')
 );
+serviceWorker.unregister();
