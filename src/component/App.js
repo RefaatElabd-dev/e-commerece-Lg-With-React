@@ -10,9 +10,11 @@ import "../Styles/JumiaAccount.css";
 import "../Styles/Home.css";
 import "../Styles/ChangePassword.css";
 import "../Styles/Product.css";
+import "../Styles/Category.css"
 import Footer from "./navBar-component/Footer"
 
 import JumiaAccount from './CustomerAccount/JumiaAccount';
+import Category from "./category"
 
 import NavBar from './navBar-component/Nav';
 import Card from './Card'
@@ -89,6 +91,7 @@ console.log("ddddd",this.state.setters)
 
                  <Images path="/Images/" exact />
                 <Route render={(props)=><Product {...props}/>} path="/product/:id" />
+                <Route render={(props)=><Category {...props}/>} path="/category/:id" />
                 <Route component={Card} path="/card" />
                  <JumiaAccount path="/Account" />
                  </Switch>
