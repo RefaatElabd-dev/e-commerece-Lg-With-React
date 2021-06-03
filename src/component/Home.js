@@ -13,8 +13,8 @@ class Home extends Component {
       Catogeries:[],
       subcategories:[],
       Products:[],
-      BestSellings:[],
-      NewArrivals:[]
+   
+  
      
      }
      //get category from api with subcategories
@@ -28,7 +28,7 @@ class Home extends Component {
           console.log(res)
       }); }
   getDatasubategoryFromApi = (_id) => {
-    console.log(_id)
+    //console.log(_id)
      
     axios("http://localhost:3000/subcategories").then(res => {
      const subData=res.data.filter(i=>i.Categoryid==_id);
@@ -41,27 +41,13 @@ class Home extends Component {
     
 }
 
-bestselling=async ()=>{
-  await axios.get("http://localhost:21231/highselling").then(res=>{
-    this.setState({Bestsellings:res.data});
- // console.log("best",res.data);
-  
-}
-)
-}
-getnewArrivals=async ()=>{
-  await axios.get("http://localhost:21231/allproduct").then(res=>{
-    this.setState({NewArrivals:res.data});
-  console.log("new arrival",res.data);
-  
-}
-)
-}
+
+
 
  componentDidMount=()=>{
       this.getDataCategoryFromApi();
-      this.bestselling();
-     this.getnewArrivals();
+    
+
      }
     render() { 
       if(this.state.Catogeries.length==0){
@@ -139,7 +125,7 @@ getnewArrivals=async ()=>{
     
     </div>
   </div>
-  <BestSelling  getBestSelling={this.state.Bestsellings}/>
+  <BestSelling />
  
    <NewArrivals  sendnewarrivals={this.state.NewArrivals}/>
  

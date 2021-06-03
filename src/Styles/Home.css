@@ -53,6 +53,8 @@
     background-color: #fff;
     box-shadow: gray 5px 5px 10px;
     transition: transform 0.3s;
+    height: 95%;
+    width: 95%;
 }
 
 .card:hover {

@@ -1,19 +1,30 @@
 import React, { Component } from "react";
-import Card from './Card'
+import axios from 'axios';
+import Card from './Card';
+import AllBestSelling from './allbestselling';
+
+import {Link, Route, Router} from'react-router-dom';
 class BestSelling extends Component {
   state = {
-    TopSellings: this.props.getBestSelling,
+    TopSellings: [],
     firstcards:[],
    // secondCard:this.props.getBestSelling.splice(4,7)
   };
-componentDidMount(){
-  if(this.props.getBestSelling==undefined) return;
+  bestselling=async ()=>{
+    await axios.get("http://localhost:21231/highselling").then(res=>{
+      this.setState({TopSellings:res.data,firstcards:res.data.slice(0,4)});
+    console.log("bestsellings from home",res.data);
+    
+  }
+  )
+  }
+async componentDidMount(){
+ await this.bestselling();
   
-  this.setState({firstcards:this.props.getBestSelling.splice(0,4)})
 }
   render() {
-
-  console.log("first",this.state.firstcards)
+    console.log("bestsellings from component",this.state.TopSellings)
+  console.log("firstbest",this.state.firstcards)
  // console.log("first",this.state.secondCard)
   if( this.state.TopSellings==undefined|| this.state.TopSellings.length==0){
     return (<div>loading.......................</div>)
@@ -21,10 +32,20 @@ componentDidMount(){
     return (
       <React.Fragment>
         <section>
+       {/* <Router>
+       <Route path="/allbestselling" component={(props)=>{<AllBestSelling {...props} allbest={this.state.TopSellings} />}}/>
+       </Router> */}
           
           <div className="container productCont">
             <h2>Top Selling items </h2>
-            <span className="text-right"><a href="#">see all &gt;</a></span>
+            <span className="text-right"> 
+
+            <Link to={{  pathname:`allbestselling`,
+                        
+                            HandlerSaving:this.state.TopSellings
+                            }} className="btn btn-success" >SEE ALL</Link>
+                        
+            </span>
             <div id="gallery1" className="carousel slide" data-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active">

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+
+import { NavLink } from 'react-router-dom';
 
 class Card extends Component {
     state = {
@@ -23,7 +24,8 @@ class Card extends Component {
             <React.Fragment>
                
                 <div className="col-md-3" >
-                    <div className="card mt-3">
+                    <div className="card m-3 ">
+                        <NavLink to={"/Product/"+this.state.prod.productId}>
                         <div className="product-1 align-items-center p-2 text-center">
                             <img
                                 src="https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/14/415781/1.jpg?9408"
@@ -53,6 +55,7 @@ class Card extends Component {
                         <div className="bbtn col-6 offset-3 p-2 bg-warning text-center text-white my-3 cursor rounded">
                             <span className="text-uppercase">Add to cart</span>
                         </div>
+                        </NavLink>
                     </div>
                 </div>
               

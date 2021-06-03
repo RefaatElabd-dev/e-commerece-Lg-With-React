@@ -9,7 +9,7 @@ import "../Styles/NavBar.css";
 import "../Styles/JumiaAccount.css";
 import "../Styles/Home.css";
 import "../Styles/ChangePassword.css";
-
+import "../Styles/Product.css";
 import Footer from "./navBar-component/Footer"
 
 import JumiaAccount from './CustomerAccount/JumiaAccount';
@@ -19,7 +19,7 @@ import Card from './Card'
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
-
+import AllBestSelling from './allbestselling';
 import Product from './Product';
 import Images from './Images';
 
@@ -85,7 +85,8 @@ console.log("ddddd",this.state.setters)
                <Route component={Home} path="/" exact /> 
                  <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
                  <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  /> 
-                 
+                 <Route component={(props)=><AllBestSelling {...props} />} path="/allbestselling" />
+
                  <Images path="/Images/" exact />
                 <Route render={(props)=><Product {...props}/>} path="/product/:id" />
                 <Route component={Card} path="/card" />

@@ -14,7 +14,7 @@ class Product extends Component {
      
  componentDidMount(){
      this.findprod(this.props.match.params.id)
-    console.log(this.state.product)
+    console.log(this.props)
     //console.log(this.props.match)
 }
     render() {
@@ -202,7 +202,7 @@ class Product extends Component {
                         </article>
                         <article className="col-6 art ">
                             <div className="card  art1">
-                                <h2 className="">Specifications</h2>
+                                <h2 className="art1">Specifications</h2>
                                 <ul className="">
                                     <li className=""><b className="">SKU</b>: KA433MW0NZAV8NAFAMZ</li>
                                     <li className=""><b className="">Color</b>: {this.state.product.color}</li>
