@@ -13,6 +13,7 @@ class Home extends Component {
     Catogeries: [],
     subcategories: [],
     Products: [],
+    brands:[]
 
 
 
@@ -64,7 +65,7 @@ class Home extends Component {
               <div className="bloc1" >
 
                 {this.state.Catogeries.map((cat, i) =>
-
+               <div>
                   <Dropdown as={ButtonGroup}>
                     <Link variant="Warning" className="dropItem ml-2  text-left" to={"/category/"+cat.categoryId} >{cat.categoryName} </Link>
 
@@ -82,7 +83,10 @@ class Home extends Component {
 
                     </Dropdown.Menu>
                   </Dropdown>
-                )}
+                  <img src={cat.image} width="20" height="10"/>
+                  </div>
+                )
+                }
 
 
               </div>

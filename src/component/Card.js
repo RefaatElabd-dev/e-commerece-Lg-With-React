@@ -28,7 +28,7 @@ class Card extends Component {
                         <NavLink to={"/Product/"+this.state.prod.productId}>
                         <div className="product-1 align-items-center p-2 text-center">
                             <img
-                                src="https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/14/415781/1.jpg?9408"
+                                src={this.state.prod.mainImage}
                                 alt="chips"
                                 className="rounded"
                             />
