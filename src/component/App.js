@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
-import { BrowserRouter as Router, Route, Link,Switch } from 'react-router-dom'
-import axios from 'axios'
-//import SavedItems from './SavedItems';
+import { BrowserRouter as Router, Route, Link,Switch } from 'react-router-dom';
+import axios from 'axios';
+
+
 import "../Styles/Footer.css";
 import "../Styles/NavBar.css";
 import "../Styles/JumiaAccount.css";
-import "../Styles/ChangePassword.css";
 import "../Styles/Home.css";
+import "../Styles/ChangePassword.css";
+import "../Styles/Product.css";
+import "../Styles/Category.css"
 import Footer from "./navBar-component/Footer"
 
-//import Register from "./Register"
-//import PedingView from "./PedingView"
-//import RecentlyViewed from "./RecentlyViewed";
-//import Register from "./Sign In/Register";
 import JumiaAccount from './CustomerAccount/JumiaAccount';
-import Test from './test';
+import Category from "./Category data/category"
+
 import NavBar from './navBar-component/Nav';
-//import Orders from './Orders';
+import Card from './Card'
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
+<<<<<<< HEAD
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import HelpCenter from "./HelpCenter";
@@ -40,10 +41,18 @@ import BookTraining from './SellerComponent/Training/BookTraining';
 import VendorHelp from './SellerComponent/VendorHelp';
 import JumiaTrain from './SellerComponent/Training/JumiaTrain';
 import ClaimForm from './SellerComponent/ClaimForm';
+=======
+import AllBestSelling from './allbestselling';
+import Product from './Product';
+import SubcatProd from './Category data/subcatprod';
+import Images from './Images';
+import Subcategory from './subcategory data/subcategory'
+>>>>>>> 4dbaa471a27e58214ae1ea00468f6b2e69945a33
 
 
 class App extends Component {
-  state = { products:[
+  state = {
+     products:[
     { Id:1, Name: "chips", Price: 19, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/54/99402/1.jpg?7587", Count: 0, Description: "chips made of potatios", IsInCart: false },
     { Id:2, Name: "Oil", Price: 10, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/33/114581/1.jpg?0490", Count: 0, Description: "Oil for food", IsInCart: false },
     { Id:3, Name: "Choklate", Price: 11, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/95/833091/1.jpg?4297", Count: 0, Description: "Galaxi for you", IsInCart: false },
@@ -55,7 +64,6 @@ class App extends Component {
     { Id:9, Name: "Persil", Price: 17, PhotoUrl: "https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/91/824991/1.jpg?8988", Count: 0, Description: "persil for clothes", IsInCart: false },
   ],
 Customers:[]
-
 
 }
 
@@ -86,9 +94,6 @@ console.log("ddddd",this.state.setters)
 
 
  }
- 
-
-
 
   render() { 
 
@@ -99,17 +104,23 @@ console.log("ddddd",this.state.setters)
         </Helmet>
         
         
-               
                <Router>
                <NavBar/>
-             
+           
              <Switch>
                <Route component={Home} path="/" exact /> 
                <Route component={Home} path="/Home" exact /> 
 
                  <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
-                 <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  />  
-                 {/* <Route component={JumiaAccount} path="/Account"/>  */}
+                 <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  /> 
+                 <Route component={(props)=><AllBestSelling {...props} />} path="/allbestselling" />
+
+                 <Images path="/Images/" exact />
+                <Route render={(props)=><Product {...props}/>} path="/product/:id" />
+                <Route render={(props)=><SubcatProd {...props}/>} path="/subcatprod" />
+                <Route render={(props)=><Category {...props}/>} path="/category/:id" />
+                <Route component={Card} path="/card" />
+                <Route render={(props)=><Subcategory  {...props}/>}  path="/subcategory/:id"/>
                  <JumiaAccount path="/Account" />
                  <Route path="/AboutUs" component={AboutUs} />
               <Route path="/ContactUs" component={ContactUs} />
@@ -134,12 +145,12 @@ console.log("ddddd",this.state.setters)
               </Router>
                  </Switch>
                 
-                
+               
                <Footer/>
                  
             </Router>
       
-         <Test/>
+       
            
       </React.Fragment>
     );
