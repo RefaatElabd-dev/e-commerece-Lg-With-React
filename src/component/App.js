@@ -63,7 +63,7 @@ Customers:[]
     console.log("AddnewCustomer");
     console.log(newObj);
     
-    axios.post("http://localhost:3000/Customers",newObj).then(res=>{
+    axios.post("http://localhost:21231/api/Customers",newObj).then(res=>{
         this.setState({
             Customers:res.Customers
         })
@@ -105,6 +105,8 @@ console.log("ddddd",this.state.setters)
              
              <Switch>
                <Route component={Home} path="/" exact /> 
+               <Route component={Home} path="/Home" exact /> 
+
                  <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
                  <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  />  
                  {/* <Route component={JumiaAccount} path="/Account"/>  */}

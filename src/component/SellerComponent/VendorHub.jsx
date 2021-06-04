@@ -2,20 +2,42 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import axios from "axios";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage,
+  MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
+  
 class VendorHub extends Component {
-  state = {};
+  state = {
+    Products:[]
+  };
+  getDataProductFromApi = () => {
+    axios("http://localhost:21231/api/products").then(res => {
+        
+        this.setState({
+            Products: res.data
+        })
+        console.log(res)
+    });
+  }
+      componentDidMount(){
+      this.getDataProductFromApi();
+     
+
+     }
   render() {
     return (
       <React.Fragment>
         {/* Header Slider */}
-        <div className="row col-12 m-0 mt-2 p-2">
-          <div className="container bg-dark text-center m-2">
+        <div className="container">
+        <div className="row m-0 mt-2 p-0 text-center">
+          <div className="text-center m-2  col-12" >
             {/* <h1>Slider Here ....</h1> */}
             <Carousel
-              className="row p-0"
+              className="p-0"
               autoPlay="true"
               infiniteLoop="true"
-              dynamicHeight
+              dynamicHeight="true"
+              width="100% "
             >
               <div>
                 <img src="https://3cv9ak2ajf5r17hu9d2d3jsa-wpengine.netdna-ssl.com/wp-content/uploads/2019/12/Untitled-11.jpg" />
@@ -38,7 +60,7 @@ class VendorHub extends Component {
               className="col-md-6 col-12  p-5"
               style={{
                 border: "1px solid black",
-                "box-shadow": "7px 10px 5px gray, -1px -1px 5px gray",
+                "boxShadow": "7px 10px 5px gray, -1px -1px 5px gray",
               }}
             >
               <Link style={{ textDecoration: "none" }} to="/Guide">
@@ -55,7 +77,7 @@ class VendorHub extends Component {
                   backgroundColor: "#f68b1e",
                   color: "white",
                   fontWeight: "700",
-                  "box-shadow": "0px 7px 5px gray",
+                  "boxShadow": "0px 7px 5px gray",
                 }}
               >
                 Click here
@@ -65,7 +87,7 @@ class VendorHub extends Component {
               className="col-md-6 col-12 p-5"
               style={{
                 border: "1px solid black",
-                "box-shadow": "7px 10px 5px gray, -1px -1px 5px gray",
+                "boxShadow": "7px 10px 5px gray, -1px -1px 5px gray",
               }}
             >
               <Link>
@@ -84,7 +106,7 @@ class VendorHub extends Component {
                   backgroundColor: "#f68b1e",
                   color: "white",
                   fontWeight: "700",
-                  "box-shadow": "0px 7px 5px gray",
+                  "boxShadow": "0px 7px 5px gray",
                 }}
               >
                 Click here
@@ -92,7 +114,8 @@ class VendorHub extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+        </div>
+        </React.Fragment>
     );
   }
 }
