@@ -5,15 +5,18 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import BestSelling from './BestSelling.jsx';
-import NewArrivals from './NewArrivals'
-import { data } from 'jquery';
+import NewArrivals from './NewArrivals';
+import Brand from './Brand data/brandimgs.jsx';
+import Categoriesimages from './Category data/Categoriesimags';
+
 
 class Home extends Component {
   state = {
     Catogeries: [],
     subcategories: [],
+    categimages:[],
     Products: [],
-    brands:[]
+    Brands:[]
 
 
 
@@ -24,9 +27,11 @@ class Home extends Component {
     axios("http://localhost:21231/api/Categories").then(res => {
 
       this.setState({
-        Catogeries: res.data
+        Catogeries: res.data,
+        categimages:res.data.slice(0,8)
+
       })
-      console.log("cat", res.data)
+      //console.log("cat",this.state.categimages)
     });
   }
   getDatasubategoryFromApi = (_id) => {
@@ -43,12 +48,22 @@ class Home extends Component {
 
   }
 
+  getBrands = () => {
+    axios("http://localhost:21231/api/Brands").then((res) => {
+
+      this.setState({
+        Brands: res.data.slice(0,8)
+      });
+     // console.log("Brand", this.state.Brands);
+    });
+  };
+
 
 
 
   componentDidMount = () => {
     this.getDataCategoryFromApi();
-
+    this.getBrands();
 
   }
   render() {
@@ -74,7 +89,7 @@ class Home extends Component {
                     <Dropdown.Menu >
                       {
                         cat.subCategories.map((s, j) =>
-                          <Dropdown.Item href="#/action-1" key={j}>{s.subcategoryName}</Dropdown.Item>
+                          <Dropdown.Item href={"/subcategory/"+s.subcategoryId} key={j}>{s.subcategoryName}</Dropdown.Item>
                         )
 
 
@@ -130,9 +145,11 @@ class Home extends Component {
 
           </div>
         </div>
+        <Categoriesimages sendCategories={this.state.categimages}/>
+        <Brand  sendBrands={this.state.Brands}/>
         <BestSelling />
 
-        <NewArrivals sendnewarrivals={this.state.NewArrivals} />
+        <NewArrivals  />
 
 
       </>);

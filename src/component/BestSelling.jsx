@@ -8,7 +8,7 @@ class BestSelling extends Component {
   state = {
     TopSellings: [],
     firstcards:[],
-   // secondCard:this.props.getBestSelling.splice(4,7)
+   // secondCard:this.props.getBestSelling.slice(4,7)
   };
   bestselling=async ()=>{
     await axios.get("http://localhost:21231/highselling").then(res=>{

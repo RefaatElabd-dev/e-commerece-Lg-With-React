@@ -14,7 +14,7 @@ import "../Styles/Category.css"
 import Footer from "./navBar-component/Footer"
 
 import JumiaAccount from './CustomerAccount/JumiaAccount';
-import Category from "./category"
+import Category from "./Category data/category"
 
 import NavBar from './navBar-component/Nav';
 import Card from './Card'
@@ -23,7 +23,9 @@ import Register from './Sign In/Register';
 import Home from './Home';
 import AllBestSelling from './allbestselling';
 import Product from './Product';
+import SubcatProd from './Category data/subcatprod';
 import Images from './Images';
+import Subcategory from './subcategory data/subcategory'
 
 
 class App extends Component {
@@ -91,8 +93,10 @@ console.log("ddddd",this.state.setters)
 
                  <Images path="/Images/" exact />
                 <Route render={(props)=><Product {...props}/>} path="/product/:id" />
+                <Route render={(props)=><SubcatProd {...props}/>} path="/subcatprod" />
                 <Route render={(props)=><Category {...props}/>} path="/category/:id" />
                 <Route component={Card} path="/card" />
+                <Route render={(props)=><Subcategory  {...props}/>}  path="/subcategory/:id"/>
                  <JumiaAccount path="/Account" />
                  </Switch>
                 

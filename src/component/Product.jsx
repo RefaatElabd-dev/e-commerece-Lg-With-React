@@ -24,7 +24,7 @@ class Product extends Component {
 }
     render() {
     
-      console.log("img",this.state.prodimgs)
+     // console.log("img",this.state.prodimgs)
         return (
             <React.Fragment>
     <div className="container mt-2">
@@ -35,7 +35,7 @@ class Product extends Component {
                     <div className="col col-lg-5 p-0">
                         {/*image box */}
                         <div className="d-none d-sm-block col rounded p-0">
-                           <img src={this.state.mainimg}  id="basicImage" width="100%" />
+                           <img src={this.state.product.mimg}  id="basicImage" width="100%" />
                         </div>
                         <div className="m-0 row">
                             <div className="image p-2 col-sm col-md-6 col-lg-3">
