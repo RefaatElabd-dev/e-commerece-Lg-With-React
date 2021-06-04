@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -107,13 +108,12 @@ class Footer extends Component {
                 
                             <ul className="list-unstyled mb-0 " >
                             <li>
-                                <a href="#!" className="text-white" >Help center</a>
+                            <Link to='/HelpCenter' className="text-white" >Help center</Link>                            </li>
+                            <li>
+                            <Link to='/ContactUs' className="text-white">Contact us</Link>
                             </li>
                             <li>
-                                <a href="#!" className="text-white">Contact us</a>
-                            </li>
-                            <li>
-                                <a href="#!" className="text-white">How to buy on jumia</a>
+                            <Link to='/Knowledge/Guide' className="text-white">Sell On Jumia</Link>
                             </li>
                             <li>
                                 <a href="#!" className="text-white">Delivery timelines</a>
@@ -137,7 +137,7 @@ class Footer extends Component {
                 
                             <ul className="list-unstyled mb-0">
                             <li>
-                                <a href="#!" className="text-white">About Us</a>
+                            <Link to="/AboutUS" className="text-white">About Us</Link>
                             </li>
                             <li>
                                 <a href="#!" className="text-white">JUMIA Careers</a>
