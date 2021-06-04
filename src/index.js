@@ -12,6 +12,8 @@ import NavBar from './component/navBar-component/Nav';
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from 'react-router-dom';
 
+import "./Styles/Footer.css";
+import "./Styles/Category.css";
 
 
 ReactDOM.render(

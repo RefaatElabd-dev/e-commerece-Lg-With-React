@@ -9,16 +9,19 @@ import "../Styles/NavBar.css";
 import "../Styles/JumiaAccount.css";
 import "../Styles/Home.css";
 import "../Styles/ChangePassword.css";
-
+import "../Styles/Product.css";
+import "../Styles/Category.css"
 import Footer from "./navBar-component/Footer"
 
 import JumiaAccount from './CustomerAccount/JumiaAccount';
+import Category from "./Category data/category"
 
 import NavBar from './navBar-component/Nav';
 import Card from './Card'
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
+<<<<<<< HEAD
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import HelpCenter from "./HelpCenter";
@@ -39,8 +42,13 @@ import VendorHelp from './SellerComponent/VendorHelp';
 import JumiaTrain from './SellerComponent/Training/JumiaTrain';
 import ClaimForm from './SellerComponent/ClaimForm';
 
+=======
+import AllBestSelling from './allbestselling';
+>>>>>>> 4dbaa471a27e58214ae1ea00468f6b2e69945a33
 import Product from './Product';
+import SubcatProd from './Category data/subcatprod';
 import Images from './Images';
+import Subcategory from './subcategory data/subcategory'
 
 
 class App extends Component {
@@ -106,10 +114,14 @@ console.log("ddddd",this.state.setters)
 
                  <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
                  <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  /> 
-                 
+                 <Route component={(props)=><AllBestSelling {...props} />} path="/allbestselling" />
+
                  <Images path="/Images/" exact />
                 <Route render={(props)=><Product {...props}/>} path="/product/:id" />
+                <Route render={(props)=><SubcatProd {...props}/>} path="/subcatprod" />
+                <Route render={(props)=><Category {...props}/>} path="/category/:id" />
                 <Route component={Card} path="/card" />
+                <Route render={(props)=><Subcategory  {...props}/>}  path="/subcategory/:id"/>
                  <JumiaAccount path="/Account" />
                  <Route path="/AboutUs" component={AboutUs} />
               <Route path="/ContactUs" component={ContactUs} />

@@ -3,21 +3,28 @@ import axios from 'axios'
 
 import "../Styles/Product.css"
 class Product extends Component {
-    state = {product:{}  }
+    state = {
+      product:{},
+      prodimgs:"",
+      mainimg:""
+  
+  }
     findprod=(_id)=>{
         axios.get("http://localhost:21231/api/products/"+_id).then(res=>
          {
-           this.setState({product:res.data})
-           console.log("data",res.data,"prod",this.state.product)
+           this.setState({product:res.data,prodimgs:res.data.productImages[0].image})
+         // console.log("data",res.data,"prod",res.data.productImages)
          }).catch(err=>console.log(err))
       }
      
  componentDidMount(){
      this.findprod(this.props.match.params.id)
-    console.log(this.state.product)
+    //console.log(this.props)
     //console.log(this.props.match)
 }
     render() {
+    
+     // console.log("img",this.state.prodimgs)
         return (
             <React.Fragment>
     <div className="container mt-2">
@@ -28,7 +35,7 @@ class Product extends Component {
                     <div className="col col-lg-5 p-0">
                         {/*image box */}
                         <div className="d-none d-sm-block col rounded p-0">
-                            <img src="https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/40/278212/2.jpg?9826" id="basicImage" width="100%" />
+                           <img src={this.state.product.mimg}  id="basicImage" width="100%" />
                         </div>
                         <div className="m-0 row">
                             <div className="image p-2 col-sm col-md-6 col-lg-3">
@@ -202,7 +209,7 @@ class Product extends Component {
                         </article>
                         <article className="col-6 art ">
                             <div className="card  art1">
-                                <h2 className="">Specifications</h2>
+                                <h2 className="art1">Specifications</h2>
                                 <ul className="">
                                     <li className=""><b className="">SKU</b>: KA433MW0NZAV8NAFAMZ</li>
                                     <li className=""><b className="">Color</b>: {this.state.product.color}</li>
