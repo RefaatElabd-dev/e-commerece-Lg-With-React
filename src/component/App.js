@@ -21,7 +21,6 @@ import Card from './Card'
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
-<<<<<<< HEAD
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import HelpCenter from "./HelpCenter";
@@ -41,13 +40,6 @@ import BookTraining from './SellerComponent/Training/BookTraining';
 import VendorHelp from './SellerComponent/VendorHelp';
 import JumiaTrain from './SellerComponent/Training/JumiaTrain';
 import ClaimForm from './SellerComponent/ClaimForm';
-=======
-import AllBestSelling from './allbestselling';
-import Product from './Product';
-import SubcatProd from './Category data/subcatprod';
-import Images from './Images';
-import Subcategory from './subcategory data/subcategory'
->>>>>>> 4dbaa471a27e58214ae1ea00468f6b2e69945a33
 
 
 class App extends Component {
