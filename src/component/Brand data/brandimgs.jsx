@@ -5,28 +5,17 @@ class Brand extends Component {
   
   
   render() {
-    //console.log(this.props.sendBrands)
+    console.log(this.props.sendBrands)
     return (
       <React.Fragment>
-        <span className="text-left">
-          <Link
-            to={{
-              pathname: `allBrands`,
-
-              HandlerSaving: this.props.Brands,
-            }}
-            className="btn btn-success  "style={{ marginLeft: "1200px" }}
-          >
-            SEE ALL
-          </Link>
-        </span>
+        
         <div className="text-center">
         <h2 className="mt-5" >
           Shop By Brand
         </h2>
 
-        {this.props.sendBrands.map((b) => 
-          <div
+        {this.props.sendBrands.map((b,i) => 
+          <div key={i}
             className="container col-2  mt-5  w-300 "
             style={{
               display: "inline-block",
@@ -35,10 +24,11 @@ class Brand extends Component {
             }}
           >
             <div className="  " style={{ display: "inline-block" }}>
+            <Link to={"/brand/"+b.brandId}>
               <div className="card w-100">
                 <div className="card-img-top-wrapper">
                   <div className="card-overlay" />
-                  <Link >
+                 
                   <img
                     className="card-img-top"
                     src={b.image}
@@ -46,13 +36,14 @@ class Brand extends Component {
                     width="200px"
                     height="150px"
                   />
-                  </Link>
+                 
                  
                 </div>
                 <div className="card-body">
                   <p className="card-text">{b.brandName}</p>
                 </div>
               </div>
+              </Link>
             </div>
           </div>
         )}

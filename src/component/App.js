@@ -15,23 +15,24 @@ import Footer from "./navBar-component/Footer"
 
 import JumiaAccount from './CustomerAccount/JumiaAccount';
 import Category from "./Category data/category"
-
+import AuthService from './Services/auth.service';
 import NavBar from './navBar-component/Nav';
 import Card from './Card'
 import Login from './Sign In/Login';
 import Register from './Sign In/Register';
 import Home from './Home';
-<<<<<<< HEAD
+import Brand from './Brand data/brand'
+
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import HelpCenter from "./HelpCenter";
 import Cart from "./Cart";
-import Product from "./Product";
+
 import {BiStar} from 'react-icons/bi'
 import Guide from './SellerComponent/KnowledgeTraning/Guide';
 import NavSeller from './SellerComponent/NavSeller';
 import FooterSeller from "./SellerComponent/FooterSeller";
-import VendorHub from './SellerComponent/VendorHub';
+//import VendorHub from './SellerComponent/VendorHub';
 import Knowledge from './SellerComponent/KnowledgeTraning/Knowledge';
 import Community from './SellerComponent/VendorCommunity/Community';
 import Stories from './SellerComponent/VendorCommunity/Stories';
@@ -42,9 +43,8 @@ import VendorHelp from './SellerComponent/VendorHelp';
 import JumiaTrain from './SellerComponent/Training/JumiaTrain';
 import ClaimForm from './SellerComponent/ClaimForm';
 
-=======
+
 import AllBestSelling from './allbestselling';
->>>>>>> 4dbaa471a27e58214ae1ea00468f6b2e69945a33
 import Product from './Product';
 import SubcatProd from './Category data/subcatprod';
 import Images from './Images';
@@ -82,19 +82,17 @@ Customers:[]
     
 }
 
- login=(obj)=>{
  
-  this.state.setters.push(obj);
-  
-  this.setState({
-   
-    setters:this.state.setters
 
-})
-console.log("ddddd",this.state.setters)
-
-
- }
+//  componentDidMount=()=>{
+//   const config={
+//     header:{Authorization:"Bearer "+localStorage.getItem('token')}
+//   };
+//   axios.get("http://localhost:21231/api/account/user",config)
+//   .then(res=>{this.setState({user:res.data})})
+//   // .then(res=>{console.log(res)})
+//   .catch(err=>{console.log(err)});
+// }
 
   render() { 
 
@@ -106,22 +104,23 @@ console.log("ddddd",this.state.setters)
         
         
                <Router>
-               <NavBar/>
+               <NavBar user={this.state.user}/>
            
              <Switch>
                <Route component={Home} path="/" exact /> 
                <Route component={Home} path="/Home" exact /> 
 
-                 <Route component={() => <Register SendRegisterRef={this.addnewcustomer} />} path="/Register"  /> 
-                 <Route component={() => <Login SendLoginRef={()=>this.login()} />} path="/Login"  /> 
+                 <Route component={(props) => <Register {...props}/>} path="/Register"  /> 
+                 <Route component={(props) => <Login  {...props} />} path="/Login"  /> 
                  <Route component={(props)=><AllBestSelling {...props} />} path="/allbestselling" />
-
+                 {/* <Route render={()=>AuthService.logout()}  path="/logout"/> */}
                  <Images path="/Images/" exact />
                 <Route render={(props)=><Product {...props}/>} path="/product/:id" />
                 <Route render={(props)=><SubcatProd {...props}/>} path="/subcatprod" />
                 <Route render={(props)=><Category {...props}/>} path="/category/:id" />
                 <Route component={Card} path="/card" />
                 <Route render={(props)=><Subcategory  {...props}/>}  path="/subcategory/:id"/>
+                <Route render={(props)=><Brand  {...props}/>}  path="/brand/:id"/>
                  <JumiaAccount path="/Account" />
                  <Route path="/AboutUs" component={AboutUs} />
               <Route path="/ContactUs" component={ContactUs} />
@@ -132,7 +131,7 @@ console.log("ddddd",this.state.setters)
                 <NavSeller/>
                 <div className="">
                   <Route component={Knowledge} path="/Knowledge"/>
-                  <Route component={VendorHub} path="/VendorHub"/>
+                  {/* <Route component={VendorHub} path="/VendorHub"/> */}
                   <Route component={Community} path="/Vendor/Community"/>
                   <Route component={Stories} path="/Vendor/Stories"/>
                   <Route component={Events} path="/Vendor/Events"/>

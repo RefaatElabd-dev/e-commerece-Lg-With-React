@@ -8,7 +8,7 @@ class NewArrivals extends Component {
     firstfournew:[],
   };
   getnewArrivals=async ()=>{
-    await axios.get("http://localhost:21231/allproduct").then(res=>{
+    await axios.get("https://localhost:44340/allproduct").then(res=>{
       this.setState({NewArrivals:res.data,firstfournew:res.data.slice(0,4)});
     console.log("new arrival ",res.data);
     
@@ -20,7 +20,7 @@ class NewArrivals extends Component {
   }
   
   render() {
-console.log("new arrivals from component",this.state.newproducts)
+//console.log("new arrivals from component",this.state.newproducts)
 if(this.state.NewArrivals==undefined ||this.state.NewArrivals.length==0){
   return (<div>loading............................</div>)
 }else{

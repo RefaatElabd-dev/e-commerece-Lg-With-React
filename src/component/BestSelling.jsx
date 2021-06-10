@@ -13,7 +13,7 @@ class BestSelling extends Component {
   bestselling=async ()=>{
     await axios.get("http://localhost:21231/highselling").then(res=>{
       this.setState({TopSellings:res.data,firstcards:res.data.slice(0,4)});
-    console.log("bestsellings from home",res.data);
+    //console.log("bestsellings from home",res.data);
     
   }
   )
@@ -23,8 +23,8 @@ async componentDidMount(){
   
 }
   render() {
-    console.log("bestsellings from component",this.state.TopSellings)
-  console.log("firstbest",this.state.firstcards)
+    //console.log("bestsellings from component",this.state.TopSellings)
+  //console.log("firstbest",this.state.firstcards)
  // console.log("first",this.state.secondCard)
   if( this.state.TopSellings==undefined|| this.state.TopSellings.length==0){
     return (<div>loading.......................</div>)

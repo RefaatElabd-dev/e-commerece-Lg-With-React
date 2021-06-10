@@ -1,45 +1,49 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
+import AuthService from "../Services/auth.service";
 class Register extends Component {
   state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phone: "",
-    checkTerms: false,
+    UserName: "",
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    Password: "",
+    PhoneNumber: "",
+    //CheckTerms: false,
     errors: {},
   };
 
-  CustomRegister = () => {
-    let newobj = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      phone: this.state.phone,
-      checkTerms: this.state.checkTerms,
-    };
-  //   if (newobj.checkTerms == true) {
-  //     this.props.SendRegisterRef(newobj);
-  //   } else {
-  //     //console.log(newobj)
-  //     alert("you must accept terms");
-  //     console.log(this.props.history);
-  //   }
-  // };
-  // handleChangeCheck = (e) => {
-  //   this.setState({
-  //     checkTerms: e.target.checked,
-  //   });
-  //   console.log(e.target.checked);
-   };
+  // CustomRegister = () => {
+  //   let newobj = {
+  //     UserName: this.state.UserName,
+  //     FirstName: this.state.FirstName,
+  //     LastName: this.state.LastName,
+  //     Email: this.state.Email,
+  //     Password: this.state.Password,
+  //     PhoneNumber: this.state.PhoneNumber,
+  //     //CheckTerms: this.state.CheckTerms,
+  //   };
+    //   if (newobj.checkTerms == true) {
+    //     this.props.SendRegisterRef(newobj);
+    //   } else {
+    //     //console.log(newobj)
+    //     alert("you must accept terms");
+    //     console.log(this.props.history);
+    //   }
+    // };
+    // handleChangeCheck = (e) => {
+    //   this.setState({
+    //     checkTerms: e.target.checked,
+    //   });
+    //   console.log(e.target.checked);
+  //};
   schema = {
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-    phone: Joi.string().min(6).required(),
+    UserName: Joi.string().required(),
+    FirstName: Joi.string().required(),
+    LastName: Joi.string().required(),
+    Email: Joi.string().email().required(),
+    Password: Joi.string().min(6).required(),
+    PhoneNumber: Joi.string().min(7).required(),
     //acceptTerms: Joi.boolean().valid(true).required()
   };
 
@@ -67,9 +71,32 @@ class Register extends Component {
     const errors = this.validate();
 
     if (errors) return;
+    else {
+      AuthService.register(
+        this.state.UserName,
+        this.state.FirstName,
+        this.state.LastName,
+        this.state.Email,
+        this.state.Password,
+        this.state.PhoneNumber
+      ).then(
+        () => {
+          this.props.history.push("/Home");
+          window.location.reload();
+        },
+        (error) => {
+          // const resMessage =
+          //   (error.response &&
+          //     error.response.data &&
+          //     error.response.data.message) ||
+          //   error.message ||
+          //   error.toString();
 
-    //Call Backend
-    console.log("submit");
+          console.log(error.response.data);
+          alert(error.response.data);
+        }
+      );
+    }
   };
   handleChange = (e) => {
     //Clone
@@ -80,8 +107,7 @@ class Register extends Component {
     this.setState(state);
   };
 
-  render() 
-  {
+  render() {
     return (
       <>
         <header className="header">
@@ -105,18 +131,30 @@ class Register extends Component {
             </div>
             {/* Registeration Form */}
             <div className="col-md-7 col-lg-6 ml-auto">
-              <form onSubmit={this.handleSubmit}>
+              <form>
                 <div className="row">
-                  {/* id */}
-                  {/* <div className="input-group col-lg-6 mb-4">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text bg-white px-4 border-md border-right-0">
-                            <i className="fa fa-user text-muted" />
-                          </span>
-                        </div>
-                        <input id="id" type="text" name="id" placeholder="id" className="form-control bg-white border-left-0 border-md" value={this.state.id}
-                         onChange={(e)=>this.setState({id:e.target.value})}/>
-                      </div> */}
+                  {/* UserName */}
+                  <div className="input-group col-lg-6 mb-4">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-white px-4 border-md border-right-0">
+                        <i className="fa fa-user text-muted" />
+                      </span>
+                    </div>
+                    <input
+                      id="UserName"
+                      type="text"
+                      name="UserName"
+                      placeholder="UserName"
+                      className="form-control bg-white border-left-0 border-md"
+                      value={this.state.UserName}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  {this.state.errors.UserName && (
+                    <div className="alert alert-danger">
+                      {this.state.errors.UserName}
+                    </div>
+                  )}
                   {/* First Name */}
                   <div className="input-group col-lg-6 mb-4">
                     <div className="input-group-prepend">
@@ -125,19 +163,17 @@ class Register extends Component {
                       </span>
                     </div>
                     <input
-                      id="firstName"
+                      id="FirstName"
                       type="text"
-                      name="firstname"
+                      name="FirstName"
                       placeholder="First Name"
                       className="form-control bg-white border-left-0 border-md"
-                      value={this.state.firstName}
-                      onChange={(e) =>
-                        this.setState({ firstName: e.target.value })
-                      }
+                      value={this.state.FirstName}
+                      onChange={this.handleChange}
                     />
-                    {this.state.errors.firstName && (
+                    {this.state.errors.FirstName && (
                       <div className="alert alert-danger">
-                        {this.state.errors.firstName}
+                        {this.state.errors.FirstName}
                       </div>
                     )}
                   </div>
@@ -149,19 +185,17 @@ class Register extends Component {
                       </span>
                     </div>
                     <input
-                      id="lastName"
+                      id="LastName"
                       type="text"
-                      name="lastname"
+                      name="LastName"
                       placeholder="Last Name"
                       className="form-control bg-white border-left-0 border-md"
-                      value={this.state.lastName}
-                      onChange={(e) =>
-                        this.setState({ lastName: e.target.value })
-                      }
+                      value={this.state.LastName}
+                      onChange={this.handleChange}
                     />
-                    {this.state.errors.lastName && (
+                    {this.state.errors.LastName && (
                       <div className="alert alert-danger">
-                        {this.state.errors.lastName}
+                        {this.state.errors.LastName}
                       </div>
                     )}
                   </div>
@@ -175,20 +209,22 @@ class Register extends Component {
 
                     <input
                       type="text"
-                      name="email"
-                      id="email"
+                      name="Email"
+                      id="Email"
                       className="form-control"
                       placeholder="Email address"
-                      value={this.state.email}
-                      onChange={(e) => this.setState({ email: e.target.value })}
+                      value={this.state.Email}
+                      onChange={this.handleChange}
                     />
+                  </div>
+                  {this.state.errors.Email && (
+                    <div
+                      className="alert alert-danger form-control"
+                      style={{ marginLeft: "15px", marginTop: "0px" }}
+                    >
+                      {this.state.errors.Email}
                     </div>
-                    {this.state.errors.email && (
-                      <div className="alert alert-danger form-control" style={{marginLeft:"15px",marginTop:"0px"}}>
-                        {this.state.errors.email}
-                      </div>
-                    )}
-                  
+                  )}
                   {/* Phone Number */}
                   <div className="input-group col-lg-12 mb-4">
                     <div className="input-group-prepend">
@@ -208,21 +244,23 @@ class Register extends Component {
                       <option value>+18</option>
                     </select>
                     <input
-                      id="phone"
+                      id="PhoneNumber"
                       type="tel"
-                      name="phone"
-                      placeholder="Phone Number"
+                      name="PhoneNumber"
+                      placeholder="PhoneNumber "
                       className="form-control bg-white border-md border-left-0 mb-0 "
-                      value={this.state.phone}
-                      onChange={(e) => this.setState({ phone: e.target.value })}
+                      value={this.state.PhoneNumber}
+                      onChange={this.handleChange}
                     />
-                     </div>
-                    {this.state.errors.phone && (
-                      <div className="alert alert-danger" style={{marginLeft:"15px",marginTop:"0px"}}>
-                        {this.state.errors.phone}
-                      </div>
-                    )}
-                  
+                  </div>
+                  {this.state.errors.PhoneNumber && (
+                    <div
+                      className="alert alert-danger"
+                      style={{ marginLeft: "15px", marginTop: "0px" }}
+                    >
+                      {this.state.errors.PhoneNumber}
+                    </div>
+                  )}
                   .{/* Password */}
                   <div className="input-group col-lg-12 mb-4">
                     <div className="input-group-prepend">
@@ -231,32 +269,32 @@ class Register extends Component {
                       </span>
                     </div>
                     <input
-                      id="password"
-                      type="password"
-                      name="password"
+                      id="Password"
+                      type="Password"
+                      name="Password"
                       placeholder="Password"
                       className="form-control bg-white border-left-0 border-md"
-                      value={this.state.password}
-                      onChange={(e) =>
-                        this.setState({ password: e.target.value })
-                      }
+                      value={this.state.Password}
+                      onChange={this.handleChange}
                     />
-                    </div>
-                    {this.state.errors.password && (
-                      <span className="alert alert-danger " style={{marginLeft:"15px",marginBottom:"0px"}}>
-                        {this.state.errors.password}
-                      </span>
-                    )}
-                  
+                  </div>
+                  {this.state.errors.Password && (
+                    <span
+                      className="alert alert-danger "
+                      style={{ marginLeft: "15px", marginBottom: "0px" }}
+                    >
+                      {this.state.errors.Password}
+                    </span>
+                  )}
                   {/* checkbox */}
                   <div className="custom-control ">
-                    <input
+                    {/* <input
                       type="checkbox"
                       id="checkTerms"
                       name="checkTerms"
                       value={this.state.checkTerms}
                       onChange={this.handleChangeCheck}
-                    />
+                    /> */}
                     <label htmlFor="customCheck1"> &nbsp; I accept the</label>
                     <a
                       href="#!"
@@ -264,8 +302,6 @@ class Register extends Component {
                     >
                       Terms &amp; Conditions
                     </a>
-                  
-          
                   </div>
                   {/* Submit Button */}
                   <div className="form-group col-lg-12 mx-auto mb-0">
@@ -273,7 +309,7 @@ class Register extends Component {
                       href="#"
                       type="submit"
                       className="btn btn-primary btn-block py-2"
-                      onClick={this.CustomRegister}
+                      onClick={this.handleSubmit}
                     >
                       <span className="font-weight-bold">
                         Create your account
@@ -325,7 +361,7 @@ class Register extends Component {
         </div>
       </>
     );
-  }
-}
+  }}
+
 
 export default Register;

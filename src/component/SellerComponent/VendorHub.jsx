@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage,
-  MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
+//import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage,
+ // MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
   
 class VendorHub extends Component {
   state = {
