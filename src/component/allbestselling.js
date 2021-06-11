@@ -1,29 +1,3 @@
-// import React, { Component } from "react";
-// import Card from "./Card";
-
-
-// class AllBestSelling extends Component {
-//     state={
-//         alldata:this.props.location.HandlerSaving,
-//     }
-  
-//     render() {
-//         console.log("card product data",this.props)
-//         if(this.state.alldata==undefined||this.state.alldata.length==0) return null;
-//         return (
-
-//             <React.Fragment>
-               
-                
-//               <div className="container row  ml-3">
-//                   {this.state.alldata.map((c,i)=><Card cardprod={c}  key={i}/> )}
-
-//               </div>
-//             </React.Fragment>)
-
-//     }
-// }
-// export default AllBestSelling;
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -39,22 +13,28 @@ export class AllBestSelling extends Component {
     currentPage: 1,
     productsPerPage: 4
   };
+   getproducts = async () => {
+    this.setState({ loading: true });
+   
+   // const results = await axios.get('https://localhost:44340/api/ProductsAPi');
+
+    this.setState({ products: this.props.location.HandlerSaving });
+    this.setState({ loading: false });
+   // console.log("ss:"+results.data);
+  };
 
   componentDidMount() {
-    const getproducts = async () => {
-      this.setState({ loading: true });
-      // const results = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      const results = await axios.get('http://localhost:21231/api/products');
+    
 
-      this.setState({ products: results.data });
-      this.setState({ loading: false });
-      console.log("ss:"+results.data);
-    };
-
-    getproducts();
+    this.getproducts();
   }
 
   render() {
+    //console.log("location",this.props.location)
+    if(this.state.products==undefined){
+      return (<div>Loading.............................</div>)
+    }
+    else{
     const { currentPage, productsPerPage, products, loading } = this.state;
 
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -73,7 +53,7 @@ export class AllBestSelling extends Component {
         <Pagination productsPerPage={productsPerPage} totalproducts={products.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage} />
       </div>
     )
-  }
+  }}
 }
 
 export default  AllBestSelling;

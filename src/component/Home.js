@@ -4,21 +4,42 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
-import BestSelling from './BestSelling.jsx';
-import NewArrivals from './NewArrivals';
+
+
 import Brand from './Brand data/brandimgs.jsx';
 import Categoriesimages from './Category data/Categoriesimags';
-import { data } from 'jquery';
+import CarouselData from './carouselData';
 
 class Home extends Component {
   state = {
     Catogeries: [],
     subcategories: [],
     Products: [],
-    Brands:[]
+    Brands:[],
+    NewArrivals:[],
+    TopSellings: [],
+    user:JSON.parse(localStorage.getItem("user")),
+    Recommended:[],
+    TopPicks:[]
 
 
 
+  }
+  getnewArrivals=async ()=>{
+    await axios.get("https://localhost:44340/allproduct").then(res=>{
+      this.setState({NewArrivals:res.data});
+    console.log("new arrival ",res.data);
+    
+  }
+  )
+  }
+  getbestselling=async ()=>{
+    await axios.get("http://localhost:44340/highselling").then(res=>{
+      this.setState({TopSellings:res.data,firstcards:res.data.slice(0,4)});
+    //console.log("bestsellings from home",res.data);
+    
+  }
+  )
   }
 
   getDataCategoryFromApi = () => {
@@ -41,17 +62,47 @@ class Home extends Component {
     });
   };
 
+getrecommended=()=>{
+  if(this.state.user)
+  axios("https://localhost:44340/api/ProductsAPi/GetRecomendedProducts/"+this.state.user.id).then(res=> {
 
+    this.setState({
+      Recommended:res.data
+    });
+   //console.log("recommended", res.data);
+  }).catch(err=>console.log(err))
+
+};
+getTopPicks=()=>{
+  
+  axios("https://localhost:44340/api/ProductsAPi/GetRandomProducts/").then(res=> {
+
+    this.setState({
+      TopPicks:res.data
+    });
+   console.log("top picks", res.data);
+  }).catch(err=>console.log(err))
+
+};
 
 
   
  componentDidMount=()=>{
+  // if(localStorage.getItem("user")){
+  //   let user=JSON.parse(localStorage.getItem("user"));
+  //    this.setState({user})
+  //     }
   this.getDataCategoryFromApi();
+  this.getnewArrivals();
+  this.getbestselling();
+  this.getBrands();
+  this.getrecommended();
+  this.getTopPicks();
 
- 
- this.getBrands();
+     
  }
   render() {
+   //console.log("id",this.state.user)
     if (this.state.Catogeries.length == 0) {
       return (
         <div>Loading......................</div>)
@@ -131,9 +182,15 @@ class Home extends Component {
           </div>
         </div>
         <div className="container m-3"><Brand sendBrands={this.state.Brands}/></div>
+        
         <Categoriesimages sendCategories={this.state.Catogeries}/>
-        <NewArrivals  />
-        <BestSelling/>
+       {(this.state.Recommended && this.state.user)&&<CarouselData prods={this.state.Recommended} heading="Recommened for you" />}
+       <CarouselData prods={this.state.TopPicks} heading="Top Picks for you" />
+       
+     
+        <CarouselData prods={this.state.NewArrivals} heading="New Arrivals"/>
+        <CarouselData prods={this.state.TopSellings} heading="Top Selling"/>
+   
 
 
       </>);

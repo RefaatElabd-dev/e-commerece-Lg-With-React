@@ -5,7 +5,7 @@ class Brand extends Component {
   
   
   render() {
-    console.log(this.props.sendBrands)
+    //console.log(this.props.sendBrands)
     return (
       <React.Fragment>
         

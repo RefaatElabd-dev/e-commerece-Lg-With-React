@@ -69,7 +69,7 @@ class Product extends Component {
  componentDidMount(){
      this.findprod(this.props.match.params.id)
     //console.log(this.props)
-    console.log(this.props.match)
+    //console.log(this.props.match)
 }
     render() {
     
