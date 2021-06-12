@@ -2,26 +2,14 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Card from './Card';
 import {Link, Route, Router} from'react-router-dom';
-class NewArrivals extends Component {
-  state = {
-    NewArrivals:[],
-    firstfournew:[],
-  };
-  getnewArrivals=async ()=>{
-    await axios.get("http://localhost:21231/allproduct").then(res=>{
-      this.setState({NewArrivals:res.data,firstfournew:res.data.slice(0,4)});
-    console.log("new arrival ",res.data);
-    
-  }
-  )
-  }
- async componentDidMount(){
-  await  this.getnewArrivals();
-  }
+
+class CarouselData extends Component {
+
   
   render() {
-console.log("new arrivals from component",this.state.newproducts)
-if(this.state.NewArrivals==undefined ||this.state.NewArrivals.length==0){
+//console.log("new arrivals from component",this.props.prods)
+
+if(this.props.prods==undefined ||this.props.prods.length==0){
   return (<div>loading............................</div>)
 }else{
     return (
@@ -30,18 +18,25 @@ if(this.state.NewArrivals==undefined ||this.state.NewArrivals.length==0){
         
            
         <div className="container productCont">
-            <h2>NewArrivals </h2>
+            <h2>{this.props.heading}</h2>
             <span className="text-right">
-            <Link to={{  pathname:`allbestselling`,
-                        
-                        HandlerSaving:this.state.NewArrivals
+            <Link to={{ pathname:`/allbestselling`,
+            HandlerSaving:this.props.prods
+        
                         }} className="btn btn-success" >SEE ALL</Link>
             </span>
             <div id="gallery1" className="carousel slide" data-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <div className="row rbg rounded py-3">
-                   {this.state.firstfournew.map((c,i)=>
+                   {this.props.prods.slice(0,4).map((c,i)=>
+                   <Card cardprod={c} key={i}/>
+                   )}
+                    </div>
+                    </div>
+                    <div className="carousel-item ">
+                  <div className="row rbg rounded py-3">
+                   {this.props.prods.slice(4,8).map((c,i)=>
                    <Card cardprod={c} key={i}/>
                    )}
                     </div>
@@ -80,4 +75,4 @@ if(this.state.NewArrivals==undefined ||this.state.NewArrivals.length==0){
     );
   }}
 }
-export default NewArrivals;
+export default CarouselData;

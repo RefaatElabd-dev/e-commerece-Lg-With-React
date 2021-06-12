@@ -1,10 +1,13 @@
+import axios from "axios";
 import React, { Component } from "react";
 
 import { NavLink } from 'react-router-dom';
 
 class Card extends Component {
     state = {
-        prod: this.props.cardprod
+        prod: this.props.cardprod,
+        user:{}
+     
 
     };
     rate=(t)=>{
@@ -17,15 +20,32 @@ class Card extends Component {
 
         else{return null}
     }
+    SaveinViews=()=>{
+        axios.post("https://localhost:44340/api/ProductsAPi/SetView?UserId="+this.state.user.id+"&&ProductId="+this.props.cardprod.productId).then(console.log("ok"))
+    }
+    componentDidMount(){
+        if(localStorage.getItem("user")){
+            let user=JSON.parse(localStorage.getItem("user"));
+              //console.log(localStorage.getItem('user')
+              
+              this.setState({user})
+
+      
+             }
+
+    }
+    
     render() {
-        console.log("card product data",this.state.cardprod)
+       //console.log("userid",this.state.user.id)
+      
+      
         return (
 
             <React.Fragment>
                
                 <div className="col-md-3" >
                     <div className="card m-3 ">
-                        <NavLink to={"/Product/"+this.state.prod.productId}>
+                        <NavLink to={"/Product/"+this.state.prod.productId} onClick={this.SaveinViews}>
                         <div className="product-1 align-items-center p-2 text-center">
                             <img
                                 src={this.state.prod.mimg}

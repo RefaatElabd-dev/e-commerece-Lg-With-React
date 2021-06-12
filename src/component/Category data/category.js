@@ -6,7 +6,12 @@ import Brand from '../Brand data/brandimgs';
 class Category extends Component {
     state = {
         categorydata:[],
-        Catbrands:[]
+        Catbrands:[],
+        allcatbrands:[],
+        colors:[],
+        categoryprods:[],
+        catbrandprods:[],
+        catcolorprods:[]
       }
 
       getcategdata=(_id)=>{
@@ -19,19 +24,62 @@ class Category extends Component {
         //console.log("cat", res.data)
       });
       }
+      getcategprods=(_id)=>{
+          
+        axios(" api/Categories/allproductonlyIncategory/1/"+_id).then(res => {
+    
+            this.setState({
+            categoryprods: res.data
+            })
+            //console.log("cat", res.data)
+          });
+          }
       getcategorybrands=(_id)=>{
         axios("http://localhost:21231/api/Categories/allBrandIncategory/"+_id).then(res => {
 
         this.setState({
-          Catbrands: res.data
+          Catbrands: res.data.slice(0,5),
+          allcatbrands:res.data
         })
         //console.log("cat", res.data)
       });
 
       }
+      getcategorycolors=(_id)=>{
+        axios("http://localhost:21231/api/Categories/allcategorycolor/"+_id).then(res=>{
+          this.setState({colors:res.data})
+
+        }).catch(err=>console.log(err))
+
+      }
+      getcatbrandprods=async(_barnd)=>{
+        axios("http://localhost:21231/api/Categories/brand/").then(res=>{
+          console.log(res.data);
+          this.setState({catbrandprods:res.data})
+          console.log("filter brands",this.state.getcatbrandprods)
+
+        }).catch(err=>console.log(err))
+
+      }
+      getcatcolorprods=async(e)=>{
+   // let col=JSON.parse(e.target.name);
+       //const _id=this.props.match.params.id;
+       // await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}`,JSON.stringify({col})).then(res=>{
+      // await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}`,JSON.stringify({col})).then(res=>{
+       await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}?color=red`).then(res=>{
+          console.log(e.target.name);
+          this.setState({catcolorprods:res.data})
+          console.log("filter colors",this.state.catcolorprods)
+
+        }).catch(err=>console.log(err))
+
+      }
       componentDidMount(){
         this.getcategdata(this.props.match.params.id);
         this.getcategorybrands(this.props.match.params.id);
+        this.getcategorycolors(this.props.match.params.id);
+        this.getcategprods(this.props.match.params.id);
+        
       }
     render() { 
         return (
@@ -90,21 +138,7 @@ class Category extends Component {
               
          
             </li>
-            <div className="dropdown-divider" />
-            <li className="nav-item mt-2  mb-2">
-              Gender
-            </li>
-            <li className="nav-item ml-3 ni">
-              <a className="nav-link" href="#"><input type="checkbox" />  Femal</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Girls</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Kids</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Male</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Men</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Unisex</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Women</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Unisexe</a>
-            </li>
-            <div className="dropdown-divider" />
+          
             <li className="nav-item  mt-2  mb-2 ">
               Product Rating
             </li>
@@ -119,30 +153,32 @@ class Category extends Component {
               Brand
             </li>
             <li className="nav-item ml-3 ni">
-              <input type="text" style={{borderRadius: 20}} placeholder="search" />
-              <a className="nav-link" href="#"><input type="checkbox" />   3M</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Abou Yousef</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> Ajmal</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  AlRehab</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> Amanda</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  AMC Group</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  As Seen On Tv </a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Babyliss</a>
+            
+              {this.state.allcatbrands.map((c,i)=> <div key={i}><input type="checkbox" /> {c.brandName}</div>)}
+              
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item mt-2  mb-2">
               PRICE(EGP)
             </li>
             <li className="nav-item ml-3">
-              <input type="range" min={1} max={100} defaultValue={50} className="slider nav-item" id="myRange" />
-              <div><input type="number" /></div>
+            <input
+          className="w-100 appearance-none bg-transparent range-slider-thumb-custom"
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+         
+          
+        />
+          
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item mt-2  mb-2">
               SIZE
             </li>
             <li className="nav-item ml-3 ni">
-              <input type="text" style={{borderRadius: 20}} placeholder="search" />
+              {/* <input type="text" style={{borderRadius: 20}} placeholder="search" /> */}
               <a className="nav-link" href="#"><input type="checkbox" />   XXS</a>
               <a className="nav-link" href="#"><input type="checkbox" />  XS</a>
               <a className="nav-link" href="#"><input type="checkbox" /> M</a>
@@ -157,25 +193,12 @@ class Category extends Component {
               Color
             </li>
             <li className="nav-item ml-3 ni">
-              <a className="nav-link" href="#"><input type="checkbox" /> black</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  red</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> white</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  yellow</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> green</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  gray</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  brown </a>
-              <a className="nav-link" href="#"><input type="checkbox" />  blue</a>
+              {this.state.colors.map((c,i)=> <div><input type="checkbox" name={c} onClick={this.getcatcolorprods}/> {c}</div>)}
+             
             </li>
-            <div className="dropdown-divider" />
-            <li className="nav-item mt-2  mb-2">
-              Product Type
-            </li>
-            <li className="nav-item ml-3 ni">
-              <a className="nav-link" href="#"><input type="checkbox" />   Dare</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  Eau De Parfum</a>
-              <a className="nav-link" href="#"><input type="checkbox" />Eau De Toilette</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  IPX7 full body waterproof</a>
-            </li>
+          
+          
+          
             <div className="dropdown-divider" />
             <li className="nav-item mt-2  mb-2">
               Shipped from
@@ -211,37 +234,7 @@ class Category extends Component {
      
     </div>
   </div>
-  {/*----------------recently viwed------------------*/}
-  
-  {/*--------------------------block-------------------------------------------------*/}
-  <div className="container mt-5  row  " style={{display: 'inline-block', backgroundColor: 'white'}}>
-    <div className=" col-md-12 m-3 " style={{display: 'inline-block'}}>
-      <p> Shop for All Health &amp; Beauty Products on Jumia Egypt </p>
-      <p> Health &amp; Beauty Products for a Healthier &amp; Younger You with Jumia Egypt</p>
-      <p style={{fontSize: 'small'}}><b> Health and beauty</b> are two very important matters in our everyday lives.
-        We need to maintain our health as much as possible to be able to live every day to the fullest and with beauty,
-        you can possess the most confidence making you that much more attractive.
-        Many brands strive to help us achieve these two assets by providing medicine and
-        care products for health or makeup and cosmetics for beauty. 
-        At Jumia Egypt, you are promised to find the biggest brands for</p> 
-      <p style={{fontSize: 'small'}}><b>health and beauty</b>
-        products with the fastest results guaranteed. If you’re a woman looking for quality makeup brands,
-        perfume for women along with skin care products, you can find many choices with Jumia Egypt such as aging creams,
-        lipsticks and dermaroller, for example. For men,
-        we also offer skin care products and best perfume for men along that best suit you. 
-        Along with toiletries and cosmetics that work both ways and help satisfy all needs for everyone. 
-        Jumia Egypt brings you the best and most affordable prices in the online market to ensure you the 
-        best experience while you lift your worries away by staying healthy and beautiful.</p>
-      <p>Live Young &amp; Long with All Health &amp; Beauty Products on Jumia Egypt</p>
-      <p style={{fontSize: 'small'}}>
-        <b> Jumia Egypt</b>makes sure to take care of you and your happiness and that’s why we only 
-        seek to provide you with the best brands only. Whether it’s beauty makeup or perfume for men,
-        whether it’s for him or for her, we offer you the biggest category and widest variety online. 
-        Shopping for the best products for every skin and body type for a happier you, such as Jojoba oil, for example. 
-        Shop now with just a few clicks and get all your favorite products with secure payments and fast delivery only at Jumia Egypt!
-      </p>
-    </div>  
-  </div>
+ 
 </div>
 
         )}}
