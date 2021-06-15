@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import AuthService from "../Services/auth.service";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 class Register extends Component {
   state = {
     UserName: "",
@@ -23,22 +25,22 @@ class Register extends Component {
   //     PhoneNumber: this.state.PhoneNumber,
   //     //CheckTerms: this.state.CheckTerms,
   //   };
-    //   if (newobj.checkTerms == true) {
-    //     this.props.SendRegisterRef(newobj);
-    //   } else {
-    //     //console.log(newobj)
-    //     alert("you must accept terms");
-    //     console.log(this.props.history);
-    //   }
-    // };
-    // handleChangeCheck = (e) => {
-    //   this.setState({
-    //     checkTerms: e.target.checked,
-    //   });
-    //   console.log(e.target.checked);
+  //   if (newobj.checkTerms == true) {
+  //     this.props.SendRegisterRef(newobj);
+  //   } else {
+  //     //console.log(newobj)
+  //     alert("you must accept terms");
+  //     console.log(this.props.history);
+  //   }
+  // };
+  // handleChangeCheck = (e) => {
+  //   this.setState({
+  //     checkTerms: e.target.checked,
+  //   });
+  //   console.log(e.target.checked);
   //};
   schema = {
-    UserName: Joi.string().required(),
+    UserName: Joi.string().min(5).max(255).required(),
     FirstName: Joi.string().required(),
     LastName: Joi.string().required(),
     Email: Joi.string().email().required(),
@@ -110,6 +112,8 @@ class Register extends Component {
   render() {
     return (
       <>
+        {/* Toast just for notification  */}
+        <ToastContainer />
         <header className="header">
           <nav className="navbar navbar-expand-lg navbar-light py-3">
             <div className="container">{/* Navbar Brand */}</div>
@@ -130,33 +134,11 @@ class Register extends Component {
               <p />
             </div>
             {/* Registeration Form */}
-            <div className="col-md-7 col-lg-6 ml-auto">
+            <div className="col-md-7 col-md-6 ml-auto">
               <form>
                 <div className="row">
-                  {/* UserName */}
-                  <div className="input-group col-lg-6 mb-4">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text bg-white px-4 border-md border-right-0">
-                        <i className="fa fa-user text-muted" />
-                      </span>
-                    </div>
-                    <input
-                      id="UserName"
-                      type="text"
-                      name="UserName"
-                      placeholder="UserName"
-                      className="form-control bg-white border-left-0 border-md"
-                      value={this.state.UserName}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  {this.state.errors.UserName && (
-                    <div className="alert alert-danger">
-                      {this.state.errors.UserName}
-                    </div>
-                  )}
                   {/* First Name */}
-                  <div className="input-group col-lg-6 mb-4">
+                  <div className="input-group col-md-6 mb-4">
                     <div className="input-group-prepend">
                       <span className="input-group-text bg-white px-4 border-md border-right-0">
                         <i className="fa fa-user text-muted" />
@@ -178,7 +160,7 @@ class Register extends Component {
                     )}
                   </div>
                   {/* Last Name */}
-                  <div className="input-group col-lg-6 mb-4">
+                  <div className="input-group col-md-6 mb-4">
                     <div className="input-group-prepend">
                       <span className="input-group-text bg-white px-4 border-md border-right-0">
                         <i className="fa fa-user text-muted" />
@@ -199,34 +181,8 @@ class Register extends Component {
                       </div>
                     )}
                   </div>
-                  {/* Email Address */}
-                  <div className="input-group col-lg-12 mb-4">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text bg-white px-4 border-md border-right-0">
-                        <i className="fa fa-envelope text-muted" />
-                      </span>
-                    </div>
-
-                    <input
-                      type="text"
-                      name="Email"
-                      id="Email"
-                      className="form-control"
-                      placeholder="Email address"
-                      value={this.state.Email}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  {this.state.errors.Email && (
-                    <div
-                      className="alert alert-danger form-control"
-                      style={{ marginLeft: "15px", marginTop: "0px" }}
-                    >
-                      {this.state.errors.Email}
-                    </div>
-                  )}
                   {/* Phone Number */}
-                  <div className="input-group col-lg-12 mb-4">
+                  <div className="input-group col-md-12 mb-4">
                     <div className="input-group-prepend">
                       <span className="input-group-text bg-white px-4 border-md border-right-0">
                         <i className="fa fa-phone-square text-muted" />
@@ -261,8 +217,56 @@ class Register extends Component {
                       {this.state.errors.PhoneNumber}
                     </div>
                   )}
-                  .{/* Password */}
-                  <div className="input-group col-lg-12 mb-4">
+                  {/* Email Address */}
+                  <div className="input-group col-md-12 mb-4">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-white px-4 border-md border-right-0">
+                        <i className="fa fa-envelope text-muted" />
+                      </span>
+                    </div>
+
+                    <input
+                      type="text"
+                      name="Email"
+                      id="Email"
+                      className="form-control"
+                      placeholder="Email address"
+                      value={this.state.Email}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  {this.state.errors.Email && (
+                    <div
+                      className="alert alert-danger form-control"
+                      style={{ marginLeft: "15px", marginTop: "0px" }}
+                    >
+                      {this.state.errors.Email}
+                    </div>
+                  )}
+                  {/* UserName */}
+                  <div className="input-group col-md-12 mb-4">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-white px-4 border-md border-right-0">
+                        <i className="fa fa-user text-muted" />
+                      </span>
+                    </div>
+                    <input
+                      id="UserName"
+                      type="text"
+                      name="UserName"
+                      placeholder="UserName"
+                      className="form-control bg-white border-left-0 border-md"
+                      value={this.state.UserName}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                    {this.state.errors.UserName && (
+                    <div className="alert alert-danger">
+                      {this.state.errors.UserName}
+                    </div>
+                  )}
+                  {/* Password */}
+                  <div className="input-group col-md-12 mb-4">
                     <div className="input-group-prepend">
                       <span className="input-group-text bg-white px-4 border-md border-right-0">
                         <i className="fa fa-lock text-muted" />
@@ -287,7 +291,7 @@ class Register extends Component {
                     </span>
                   )}
                   {/* checkbox */}
-                  <div className="custom-control ">
+                  {/* <div className="custom-control "> */}
                     {/* <input
                       type="checkbox"
                       id="checkTerms"
@@ -295,14 +299,14 @@ class Register extends Component {
                       value={this.state.checkTerms}
                       onChange={this.handleChangeCheck}
                     /> */}
-                    <label htmlFor="customCheck1"> &nbsp; I accept the</label>
+                    {/* <label htmlFor="customCheck1"> &nbsp; I accept the</label>
                     <a
                       href="#!"
                       className="forgot-password-link m-3 d-inline-block font-weight-bold text-warning"
                     >
                       Terms &amp; Conditions
                     </a>
-                  </div>
+                  </div> */}
                   {/* Submit Button */}
                   <div className="form-group col-lg-12 mx-auto mb-0">
                     <button
@@ -349,9 +353,9 @@ class Register extends Component {
                   <div className="text-center w-100">
                     <p className="text-muted font-weight-bold">
                       Already Registered?{" "}
-                      <a href="login.html" className="text-primary ml-2">
+                      <Link to="/Login" className="text-reset">
                         Login
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </div>
@@ -361,7 +365,7 @@ class Register extends Component {
         </div>
       </>
     );
-  }}
-
+  }
+}
 
 export default Register;

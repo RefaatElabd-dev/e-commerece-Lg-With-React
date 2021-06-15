@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Brand from '../Brand data/brandimgs'
 import { Link } from 'react-router-dom';
+import DisplayedProducts from '../displyedproducts';
 
 
 class  Subcategory extends Component {
@@ -12,7 +13,7 @@ class  Subcategory extends Component {
 
       getsubcategdata=(_id)=>{
           
-    axios("http://localhost:21231/api/Categories/categoryproduct/"+_id).then(res => {
+    axios("https://localhost:44340/api/SubCategoriesAPI/categoryproduct/"+_id).then(res => {
 
         this.setState({
         subcategoryprods: res.data
@@ -31,16 +32,13 @@ class  Subcategory extends Component {
 
       }
       componentDidMount(){
-        this.getsubcategorybrands(this.props.match.params.id);
-        console.log(this.props.match.params.id)
+        this.getsubcategdata(this.props.match.params.id);
+        //console.log(this.props.match.params.id)
       }
     render() { 
         return (
             <div className="container my-3 ">
-              {this.state.subcatatbrands.length>0 && <div className="container-fluid mt-5">
-                   <Brand sendBrands={this.state.subcatatbrands}/>
-                 </div>}
-                 
+             <DisplayedProducts prods={this.state.subcategoryprods}/>
             </div>
 
         )}}

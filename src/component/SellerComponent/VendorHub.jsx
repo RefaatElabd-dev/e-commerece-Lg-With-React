@@ -2,28 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import axios from "axios";
-//import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage,
- // MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
-  
 class VendorHub extends Component {
-  state = {
-    Products:[]
-  };
-  getDataProductFromApi = () => {
-    axios("http://localhost:21231/api/products").then(res => {
-        
-        this.setState({
-            Products: res.data
-        })
-        console.log(res)
-    });
-  }
-      componentDidMount(){
-      this.getDataProductFromApi();
-     
-
-     }
+  state = {}
   render() {
     return (
       <React.Fragment>
@@ -54,6 +34,7 @@ class VendorHub extends Component {
             </Carousel>
           </div>
         </div>
+        {/* Footer Sections */}
         <div className="container mt-3 mb-3">
           <div className="row mt-3 mb-3 p-0 m-5 text-center">
             <div

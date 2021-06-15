@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Link, Route, Router } from "react-router-dom";
 class DisplayProds extends Component {
   
   

@@ -38,7 +38,7 @@ class SubcatProd extends Component {
       }
 
     render() {
-        if(this.state.prods==undefined||this.state.prods.length==0){
+        if(this.state.prods===undefined||this.state.prods.length===0){
             return null;
         }
         else if(this.state.prods.length<=5){

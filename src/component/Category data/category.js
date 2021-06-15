@@ -3,50 +3,48 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Categoriesimages from './Categoriesimags';
 import Brand from '../Brand data/brandimgs';
+import DisplayedProducts from '../displyedproducts';
 class Category extends Component {
     state = {
-        categorydata:[],
+      
         Catbrands:[],
-        allcatbrands:[],
+       
         colors:[],
         categoryprods:[],
-        catbrandprods:[],
-        catcolorprods:[]
-      }
+        filterbrand:[],
+        filtercolor:[],
+        filteredprods:[],
+        fcolor:[],
+        fbrand:"",
+        filteredArray:[]
 
-      getcategdata=(_id)=>{
-          
-    axios("http://localhost:21231/api/Categories/categoryproduct/"+_id).then(res => {
-
-        this.setState({
-        categorydata: res.data
-        })
-        //console.log("cat", res.data)
-      });
       }
+      
+
+   
       getcategprods=(_id)=>{
           
-        axios(" api/Categories/allproductonlyIncategory/1/"+_id).then(res => {
+        axios("https://localhost:44340/api/CategoriesAPi/allproductonlyIncategory/"+_id).then(res => {
     
             this.setState({
             categoryprods: res.data
             })
-            //console.log("cat", res.data)
+           // console.log("catbrands", res.data)
           });
           }
       getcategorybrands=(_id)=>{
-        axios("http://localhost:21231/api/Categories/allBrandIncategory/"+_id).then(res => {
+        axios("https://localhost:44340/api/CategoriesAPi/allBrandIncategory/"+_id).then(res => {
 
         this.setState({
-          Catbrands: res.data.slice(0,5),
-          allcatbrands:res.data
+          Catbrands: res.data
+         
         })
         //console.log("cat", res.data)
       });
 
       }
       getcategorycolors=(_id)=>{
-        axios("http://localhost:21231/api/Categories/allcategorycolor/"+_id).then(res=>{
+        axios("https://localhost:44340/api/CategoriesAPi/allcategorycolor/"+_id).then(res=>{
           this.setState({colors:res.data})
 
         }).catch(err=>console.log(err))
@@ -56,32 +54,106 @@ class Category extends Component {
         axios("http://localhost:21231/api/Categories/brand/").then(res=>{
           console.log(res.data);
           this.setState({catbrandprods:res.data})
-          console.log("filter brands",this.state.getcatbrandprods)
+         // console.log("filter brands",this.state.getcatbrandprods)
 
         }).catch(err=>console.log(err))
 
       }
-      getcatcolorprods=async(e)=>{
-   // let col=JSON.parse(e.target.name);
-       //const _id=this.props.match.params.id;
-       // await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}`,JSON.stringify({col})).then(res=>{
-      // await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}`,JSON.stringify({col})).then(res=>{
-       await axios(`http://localhost:21231/api/Categories/color/${this.props.match.params.id}?color=red`).then(res=>{
-          console.log(e.target.name);
-          this.setState({catcolorprods:res.data})
-          console.log("filter colors",this.state.catcolorprods)
 
-        }).catch(err=>console.log(err))
+      OnFilterClick=async(e)=>{
+        if(e.target.checked){
+         
+      
+       await this.setState({filteredArray:this.state.categoryprods.filter(item=>{
+          let x=true;
+          if(e.target.name=="color"){
+            x=item.color==e.target.value;
+            // for(let elem in this.state.fcolor){
+            //  x=item.color==elem;
+            //  cons
+            // }
+          }
+          if(e.target.name=="brand"){
+            x=item.brandId==e.target.value;
+          }
+         
+         
+          return x;
+
+
+        })})
+        console.log("categoryprods",this.state.categoryprods,"filteredArray",this.state.filteredArray)
+
+      }}
+      handlecheckedcolor=(e)=>{
+        if(e.target && e.target.checked ){
+       // let color=e.target.value;
+         let ncolors=this.state.fcolor;
+         ncolors.push(e.target.value)
+
+         this.setState({fcolor:ncolors})
+        console.log(this.state.fcolor)
+         // console.log(e.target.value)
+
+        }
 
       }
+      // OnFilterClick=(e)=>{
+      //   if(e.target.checked){
+      // console.log(e.target.value)
+      // this.state.filteredArray=this.state.categoryprods.filter(item=>
+      //   {let x=true;
+      //     if(e.target.name=="color"){
+         
+      //     x=item.color==e.target.value;
+      //   }
+      //     if(e.target.name=="brand"){
+      //       x=item.brandId==e.target.value;
+
+      //     }
+      //     return x;
+
+      //   }
+       
+      //   )
+      
+      //   console.log("categoryprods",this.state.categoryprods,"filteredArray",this.state.filteredArray)
+      
+      // }}
+      // getcatcolorprods=async(e)=>{
+
+      //  await axios(`https://localhost:44340/api/CategoriesAPi/color/${this.props.match.params.id}?color=${e.target.value}`).then(res=>{
+      //     console.log(e.target.name);
+      //     this.setState({filtercolor:res.data})
+      //    // console.log("filter colors",this.state.catcolorprods)
+
+      //   }).catch(err=>console.log(err))
+
+      // }
+      // getcatbrandprods=async(e)=>{
+
+      //   await axios(`https://localhost:44340/api/CategoriesAPi/brand/${this.props.match.params.id}?brand=${e.target.value}`).then(res=>{
+           
+      //      this.setState({filterbrand:res.data})
+      //      console.log("filter brand",this.state.filterbrand)
+ 
+      //    }).catch(err=>console.log(err))
+ 
+      //  }
+
+    
+
       componentDidMount(){
-        this.getcategdata(this.props.match.params.id);
+  
         this.getcategorybrands(this.props.match.params.id);
         this.getcategorycolors(this.props.match.params.id);
         this.getcategprods(this.props.match.params.id);
         
       }
     render() { 
+     // console.log("brands",this.props.location)
+     let ncolors=[];
+
         return (
             <div className="container my-3 ">
   {/* causal */}
@@ -129,15 +201,16 @@ class Category extends Component {
           <ul className="navbar-nav  w-100 ">
             <li className="nav-item  ">
              <b> CATEGORY</b>
+             {/* <b> {CATEGORY}</b> */}
             </li>
             <li className="nav-item mt-2">
               <a>{}</a>
             </li>
-            <li className="nav-item ml-3">
-              {this.state.categorydata.map((c,i)=><li><Link key={i} to={"/subcategory/"+c.subcategoryId}>{c.subcategoryName}</Link></li>)}
+          {this.props.location.HandlerSaving &&  <li className="nav-item ml-3">
+              {this.props.location.HandlerSaving.map((c,i)=><li><Link key={i} to={"/subcategory/"+c.subcategoryId}>{c.subcategoryName}</Link></li>)}
               
          
-            </li>
+            </li>}
           
             <li className="nav-item  mt-2  mb-2 ">
               Product Rating
@@ -154,7 +227,7 @@ class Category extends Component {
             </li>
             <li className="nav-item ml-3 ni">
             
-              {this.state.allcatbrands.map((c,i)=> <div key={i}><input type="checkbox" /> {c.brandName}</div>)}
+              {this.state.Catbrands.map((c,i)=> <div key={i}><input value={c.brandId} name="brand" type="checkbox" onClick={this.getcatbrandprods} onClick={this.OnFilterClick} /> {c.brandName}</div>)}
               
             </li>
             <div className="dropdown-divider" />
@@ -171,29 +244,23 @@ class Category extends Component {
          
           
         />
-          
+           
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item mt-2  mb-2">
               SIZE
             </li>
             <li className="nav-item ml-3 ni">
-              {/* <input type="text" style={{borderRadius: 20}} placeholder="search" /> */}
+          
               <a className="nav-link" href="#"><input type="checkbox" />   XXS</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  XS</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> M</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> S</a>
-              <a className="nav-link" href="#"><input type="checkbox" /> M/L</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  XL</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  XXL</a>
-              <a className="nav-link" href="#"><input type="checkbox" />  XXXL</a>
+        
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item mt-2  mb-2">
               Color
             </li>
             <li className="nav-item ml-3 ni">
-              {this.state.colors.map((c,i)=> <div><input type="checkbox" name={c} onClick={this.getcatcolorprods}/> {c}</div>)}
+              {this.state.colors.map((c,i)=> <div key={i}><input type="checkbox" value={c} name="color" onClick={this.OnFilterClick} onChange={this.handlecheckedcolor}/> {c}</div>)}
              
             </li>
           
@@ -231,7 +298,7 @@ class Category extends Component {
           </ul>
         </nav>
       </div>
-     
+     <DisplayedProducts prods={this.state.categoryprods} name={this.props.location.name}/>
     </div>
   </div>
  

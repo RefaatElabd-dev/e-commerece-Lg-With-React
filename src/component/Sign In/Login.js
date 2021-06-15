@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import Joi from 'joi-browser';
-import axios from 'axios';
-import AuthService from '../Services/auth.service';
+import React, { Component } from "react";
+import Joi from "joi-browser";
+import { toast } from "react-toastify";
+import AuthService from "../Services/auth.service";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 class Login extends Component {
   state = {
-    UserName: '',
-    Password: '',
-    errors: {}
-
-
+    UserName: "",
+    Password: "",
+    errors: {},
   };
 
   schema = {
     UserName: Joi.string().min(5).max(255).required(),
-    Password: Joi.string().min(3).max(255).required()
-
+    Password: Joi.string().min(6).max(255).required(),
   };
 
   validate = () => {
@@ -27,7 +26,6 @@ class Login extends Component {
       return null;
     }
 
-
     for (const error of res.error.details) {
       errors[error.path] = error.message;
       //console.log(error )
@@ -37,25 +35,25 @@ class Login extends Component {
   };
 
   //------------------
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const errors = this.validate();
 
     if (errors) return;
     else {
-    //  let _userN=this.state.UserName;
-    //  let _pass=this.state.Password;
-    //   axios.post("http://localhost:21231/api/Account/Login",{_userN,_pass}).then(res=>console.log(res.data)
+      //  let _userN=this.state.UserName;
+      //  let _pass=this.state.Password;
+      //   axios.post("http://localhost:21231/api/Account/Login",{_userN,_pass}).then(res=>console.log(res.data)
 
-
-    //   ).catch(err=>console.log(err))
+      //   ).catch(err=>console.log(err))
       AuthService.login(this.state.UserName, this.state.Password).then(
         () => {
           this.props.history.push("/Home");
+          toast.success(this.state.UserName+" Is Login Successfully");
           window.location.reload();
         },
-        error => {
+        (error) => {
           // const resMessage =
           //   (error.response &&
           //     error.response.data &&
@@ -63,15 +61,14 @@ class Login extends Component {
           //   error.message ||
           //   error.toString();
 
-         console.log(error.response)
-         alert(error.response)
+          //  console.log(error.response)
+          //  alert(error.response)
+          toast.success("Enter Valid UserName , Password");
         }
       );
-
-      
-    };
-  }
-  handleChange = e => {
+    }
+  };
+  handleChange = (e) => {
     //Clone
     let state = { ...this.state };
     //Edit
@@ -91,23 +88,38 @@ class Login extends Component {
   render() {
     return (
       <>
+        {/* Toast just for notification  */}
+        <ToastContainer />
         <main className="d-flex align-items-center min-vh-100 py-3 py-md-0">
           <div className="container">
             <div className="card login-card">
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  <img src="./img/login.jpg" height="600px" alt="login" className="login-card-img w-100" />
+                  <img
+                    src="./img/login.jpg"
+                    height="600px"
+                    alt="login"
+                    className="login-card-img w-100"
+                  />
                 </div>
                 <div className="col-md-7">
                   <div className="card-body">
                     <div className="brand-wrapper">
-                      <h1 className="text-warning"> <b>JUMIA</b></h1>
+                      <h1 className="text-warning">
+                        {" "}
+                        <b>JUMIA</b>
+                      </h1>
                     </div>
-                    <p className="login-card-description   text-primary">Sign into your account</p>
-                    <form>{/* <form onSubmit={this.handleSubmit}> */}
+                    <p className="login-card-description   text-primary">
+                      Sign into your account
+                    </p>
+                    <form>
+                      {/* <form onSubmit={this.handleSubmit}> */}
 
                       <div className="form-group">
-                        <label htmlFor="UserName" className="sr-only">UserName</label>
+                        <label htmlFor="UserName" className="sr-only">
+                          UserName
+                        </label>
                         {/* <input type="UserName" name="UserName" id="UserName" className="form-control" placeholder="UserName address"    value={this.state.UserName}  onChange={(e)=>this.setState({UserName:e.target.value})}/> */}
                         <input
                           name="UserName"
@@ -125,10 +137,11 @@ class Login extends Component {
                             {this.state.errors.UserName}
                           </div>
                         )}
-
                       </div>
                       <div className="form-group mb-4">
-                        <label htmlFor="password" className="sr-only">Password</label>
+                        <label htmlFor="password" className="sr-only">
+                          Password
+                        </label>
                         <input
                           name="Password"
                           value={this.state.Password}
@@ -138,28 +151,56 @@ class Login extends Component {
                           placeholder="**********"
                           className="form-control"
                         />
-                        {this.state.errors. Password && (
+                        {this.state.errors.Password && (
                           <div className="alert alert-danger">
                             {this.state.errors.Password}
                           </div>
                         )}
-
                       </div>
                       {/* <input name="login" id="login" className="btn btn-block  login-mb-5 bg-warning d-inline-block " type="button" defaultValue="Login" /> */}
-                      <button type="submit"onClick={this.handleSubmit} className="btn btn-block  login-mb-5 bg-warning d-inline-block ">
+                      <button
+                        type="submit"
+                        onClick={this.handleSubmit}
+                        className="btn btn-block  login-mb-5 bg-warning d-inline-block "
+                      >
                         login
-          </button>
+                      </button>
                     </form>
                     <div className="custom-control custom-checkbox">
-                      <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                      <label className="custom-control-label m-3 d-inline-block" htmlFor="customCheck1">Rember me</label>
-                      <a href="#!" className="forgot-password-link m-3 d-inline-block font-weight-bold text-warning">Forgot your password?</a>
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customCheck1"
+                      />
+                      <label
+                        className="custom-control-label m-3 d-inline-block"
+                        htmlFor="customCheck1"
+                      >
+                        Rember me
+                      </label>
+                      <a
+                        href="#!"
+                        className="forgot-password-link m-3 d-inline-block font-weight-bold text-warning"
+                      >
+                        Forgot your password?
+                      </a>
                     </div>
-                    <p className="login-card-footer-text">Don't have an account? <a href="register.html" className="text-reset">Register here</a></p>
+                    <p className="login-card-footer-text">
+                      Don't have an account?{" "}
+                      <Link to="/Register" className="text-reset">
+                        Register here
+                      </Link>
+                    </p>
                     <div className="form-group">
-                      <a href="#" className="btn btn-primary  btn-social btn-facebook mb-4  ">
+                      <a
+                        href="#"
+                        className="btn btn-primary  btn-social btn-facebook mb-4  "
+                      >
                         <i className="fa fa-facebook-f mr-2" />
-                        <span className="font-weight-bold">  login with Facebook</span>
+                        <span className="font-weight-bold">
+                          {" "}
+                          login with Facebook
+                        </span>
                       </a>
                     </div>
                     <nav className="login-card-footer-nav">
@@ -172,14 +213,9 @@ class Login extends Component {
             </div>
           </div>
         </main>
-
-
       </>
     );
   }
 }
 
-
-
 export default Login;
-

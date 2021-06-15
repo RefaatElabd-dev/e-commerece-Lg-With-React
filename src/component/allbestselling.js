@@ -31,7 +31,7 @@ export class AllBestSelling extends Component {
 
   render() {
     //console.log("location",this.props.location)
-    if(this.state.products==undefined){
+    if(this.state.products===undefined){
       return (<div>Loading.............................</div>)
     }
     else{

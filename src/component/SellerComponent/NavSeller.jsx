@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, BrowserRouter as Router } from "react-router-dom";
-
-// import './Nav.css'
-import { BiStar } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class NavSeller extends Component {
   state = {};
@@ -88,7 +84,7 @@ class NavSeller extends Component {
                   </ul>
                 </li>
                 {/* Our Services */}
-                <li className="nav-item mr-3 dropdown">
+                {/* <li className="nav-item mr-3 dropdown">
                   <NavLink
                     className="nav-NavLink dropdown-toggle text-white font-weight-bolder"
                     to="/OurServices/Services"
@@ -112,12 +108,12 @@ class NavSeller extends Component {
                       </NavLink>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                {/* Vendor Community */}
                <li className="nav-item mr-3 dropdown">
                   <NavLink
                     className="nav-NavLink dropdown-toggle text-white font-weight-bolder"
-                    to="/Vendor/Community"
+                    to="/Vendor/Stories"
                     id="navbarScrollingDropdown"
                     role="button"
                     data-toggle="dropdown"
@@ -137,14 +133,14 @@ class NavSeller extends Component {
                         Vendor Success Stories
                       </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink
                         className="dropdown-item bg-light text-dark"
                         to="/Vendor/Events"
                       >
                         Events & Gallery
                       </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                       <NavLink
                         className="dropdown-item bg-light text-dark"

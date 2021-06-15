@@ -1,52 +1,56 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Link, Route, Router } from "react-router-dom";
+import {Link } from "react-router-dom";
 class Brand extends Component {
-  
-  
   render() {
-    //console.log(this.props.sendBrands)
     return (
       <React.Fragment>
-        
-        <div className="text-center">
-        <h2 className="mt-5" >
-          Shop By Brand
-        </h2>
-
-        {this.props.sendBrands.map((b,i) => 
-          <div key={i}
-            className="container col-2  mt-5  w-300 "
-            style={{
-              display: "inline-block",
-              backgroundColor: "white",
-              marginLeft: "100px",
-            }}
-          >
-            <div className="  " style={{ display: "inline-block" }}>
-            <Link to={"/brand/"+b.brandId}>
-              <div className="card w-100">
-                <div className="card-img-top-wrapper">
-                  <div className="card-overlay" />
-                 
-                  <img
-                    className="card-img-top"
-                    src={b.image}
-                    alt="Card image cap"
-                    width="200px"
-                    height="150px"
-                  />
-                 
-                 
-                </div>
-                <div className="card-body">
-                  <p className="card-text">{b.brandName}</p>
-                </div>
+        <div className="container text-center">
+          {/* header Shop By Brand*/}
+          <h2>Shop By Brand</h2>
+          {/* List of 6 Brands */}
+          <div className="row m-0 p-0 mt-4  mb-4">
+            {this.props.sendBrands.slice(0, 6).map((c, i) => (
+              <div key={i} className="col-md-2 col-12">
+                <Link
+                  to={`/brand/` + c.brandId}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <div
+                    className="item-box-blog p-0 bg-light"
+                    style={{ height: "150px" }}
+                  >
+                    <img
+                      alt={`brand${c.brandName}`}
+                      className="m-0 p-0"
+                      height="100%"
+                      width="100%"
+                      src={c.image}
+                      // src={c.image}
+                    />
+                  </div>
+                  <div className="bg-warning">
+                    <p style={{overflow:"hidden",textOverflow:"ellipsis"}}> {c.brandName}</p>
+                  </div>
+                </Link>
               </div>
-              </Link>
-            </div>
+            ))}
           </div>
-        )}
+          {/* See All Brands */}
+          <Link
+            style={{
+              fontWeight: "600",
+              fontSize: "16px",
+              backgroundColor: "teal",
+              color: "white",
+            }}
+            to={{
+              pathname: `/AllBrands`,
+              HandlerSaving: this.props.sendBrands,
+            }}
+            className="btn btn-success m-3 text-uppercase p-2"
+          >
+            See All Brands
+          </Link>
         </div>
       </React.Fragment>
     );

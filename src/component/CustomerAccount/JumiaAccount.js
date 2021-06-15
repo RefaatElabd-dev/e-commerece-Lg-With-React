@@ -2,21 +2,14 @@ import React, { Component } from 'react';
 import { Link, Route ,BrowserRouter as Router,Switch} from 'react-router-dom';
 import  Index from './AccountIndex';
 import ChangePssword from './ChangePassword'
-import Recommended from './Recommended';
+import RecentlyViewed from './Recentlyviews'; 
 import SavedItems from './SavedItems';
-
 import PendingReviews from './PendingReviews';
 import Orders from './Orders';
-
-// import './Nav.css'
 import AccountDetails from './AccountDetails';
 import AdressBook from './AdressBook';
 import JumiaCredit from './JumiaCredit';
-import RecentlyViewed from './RecentlyViewed';
 import Inbox from './Inbox';
-
-// import './Nav.css'
-
 class JumiaAccount extends Component {
     state = {  }
     render() { 
@@ -82,7 +75,7 @@ class JumiaAccount extends Component {
       </div>
       {/*       carousel               */}
       <div className="container-fluid  " style={{backgroundColor: 'white', margin: 30}}>
-       <Recommended path="/Account/" />
+       <RecentlyViewed path="/Account/" />
       </div>
     </div>
   </div>

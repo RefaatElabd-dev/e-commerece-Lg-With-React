@@ -34,9 +34,9 @@
 }
 
 /* slideshow background */
-.rbg {
-    /* background-image: linear-gradient(#0062cc 10%, rgb(255, 166, 0)); */
-}
+/* .rbg {
+    background-image: linear-gradient(#0062cc 10%, rgb(255, 166, 0));
+} */
 
 .slide-arrow {
     background-color: rgba(148, 128, 128, 0.2);
@@ -57,10 +57,10 @@
     width: 95%;
 }
 
-.card:hover {
+/* .card:hover {
     transform: translateY(-15px);
     transition: transform 0.3s;
-}
+} */
 
 .text1 {
     font-size: 13px;
@@ -161,3 +161,27 @@
 .sect {
     background-color: #09c;
 }
+
+
+
+/* Scroll Style */
+/* width */
+::-webkit-scrollbar {
+    width: 17px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    background-color:lemonchiffon
+    /* border-radius: 10px; */
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: gray;
+    /* border-radius: 10px; */
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:teal;
+  }
+/* End Scroll Style */

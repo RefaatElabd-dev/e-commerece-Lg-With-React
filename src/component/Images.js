@@ -1,5 +1,4 @@
-import React, { Component, useEffect,useRef,useState } from "react";
-import axios from "axios";
+import React from "react";
 export default function Images() {
 //   const [images, setimages] = useState([]);
 //   //const inputRef=useRef(null);

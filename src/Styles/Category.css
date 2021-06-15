@@ -17,11 +17,11 @@
     }
     
   
-  .card:hover .card-overlay ,.store:hover,.store-overlay{
+  /* .card:hover .card-overlay ,.store:hover,.store-overlay{
       opacity: .3;
       transition:  all .2s ease-in-out;
       transform: scale(1.1);
-    }
+    } */
   
   
     /* block3 causal-  block4 causal */
@@ -112,11 +112,11 @@
       overflow: hidden;
   }
   
-  /* filter */
+  /* filter
   a{color: black;}
       a:hover{background-color: gainsboro;
       color: black;}
-  
+   */
       /* scroll */
       .ni{
           max-height: 220px;

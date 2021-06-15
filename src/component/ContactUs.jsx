@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../Styles/ContactUs.css';
-import $ from 'jquery';
 import CallUs from './CallUs';
 import ChatUs from './ChatUs';
 import { Link, Route, Switch } from 'react-router-dom';
