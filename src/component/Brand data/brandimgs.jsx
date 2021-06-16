@@ -24,8 +24,8 @@ class Brand extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      src={c.image}
-                      // src={c.image}
+                      //src={c.image}
+                       src={'../C:/Users/a/Documents/GitHub/J6\wwwroot/images/f7b8cd04-a93e-45bf-acaf-f58f57fa5eae_maca.jpg'}
                     />
                   </div>
                   <div className="bg-warning">

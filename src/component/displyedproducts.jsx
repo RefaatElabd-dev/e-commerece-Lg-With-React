@@ -40,7 +40,7 @@ class DisplayedProducts extends Component {
             const nextPage = () => this.setState({ currentPage: currentPage + 1 });
         
             const prevPage = () => this.setState({ currentPage: currentPage - 1 });
-            console.log("currenr",currentProducts,"pppp",this.props.prods)
+            //console.log("currenr",currentProducts,"pppp",this.props.prods)
         return (
             <React.Fragment>
                 <div className="row col-md-12 mt-sm-5 mt-md-0" style={{ backgroundColor: 'white', marginLeft: 20 }}>

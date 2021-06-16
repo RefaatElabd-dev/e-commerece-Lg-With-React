@@ -15,7 +15,7 @@ class Category extends Component {
         filtercolor:[],
         filteredprods:[],
         fcolor:[],
-        fbrand:"",
+        fbrand:[],
         filteredArray:[]
 
       }
@@ -61,87 +61,63 @@ class Category extends Component {
       }
 
       OnFilterClick=async(e)=>{
-        if(e.target.checked){
+      //   if(e.target.checked){
          
       
-       await this.setState({filteredArray:this.state.categoryprods.filter(item=>{
-          let x=true;
-          if(e.target.name=="color"){
-            x=item.color==e.target.value;
-            // for(let elem in this.state.fcolor){
-            //  x=item.color==elem;
-            //  cons
-            // }
-          }
-          if(e.target.name=="brand"){
-            x=item.brandId==e.target.value;
-          }
-         
-         
-          return x;
-
-
-        })})
-        console.log("categoryprods",this.state.categoryprods,"filteredArray",this.state.filteredArray)
-
-      }}
-      handlecheckedcolor=(e)=>{
-        if(e.target && e.target.checked ){
-       // let color=e.target.value;
-         let ncolors=this.state.fcolor;
-         ncolors.push(e.target.value)
-
-         this.setState({fcolor:ncolors})
-        console.log(this.state.fcolor)
-         // console.log(e.target.value)
-
-        }
-
-      }
-      // OnFilterClick=(e)=>{
-      //   if(e.target.checked){
-      // console.log(e.target.value)
-      // this.state.filteredArray=this.state.categoryprods.filter(item=>
-      //   {let x=true;
+      //  await this.setState({filteredArray:this.state.categoryprods.filter(item=>{
+      //     let x=true;
       //     if(e.target.name=="color"){
-         
-      //     x=item.color==e.target.value;
-      //   }
+            
+      //       x=item.color==e.target.value;
+            
+      //     }
       //     if(e.target.name=="brand"){
       //       x=item.brandId==e.target.value;
-
       //     }
-      //     return x;
+      // return x;
+
 
       //   }
-       
-      //   )
-      
+      //   )})
       //   console.log("categoryprods",this.state.categoryprods,"filteredArray",this.state.filteredArray)
-      
-      // }}
-      // getcatcolorprods=async(e)=>{
-
-      //  await axios(`https://localhost:44340/api/CategoriesAPi/color/${this.props.match.params.id}?color=${e.target.value}`).then(res=>{
-      //     console.log(e.target.name);
-      //     this.setState({filtercolor:res.data})
-      //    // console.log("filter colors",this.state.catcolorprods)
-
-      //   }).catch(err=>console.log(err))
 
       // }
-      // getcatbrandprods=async(e)=>{
-
-      //   await axios(`https://localhost:44340/api/CategoriesAPi/brand/${this.props.match.params.id}?brand=${e.target.value}`).then(res=>{
-           
-      //      this.setState({filterbrand:res.data})
-      //      console.log("filter brand",this.state.filterbrand)
+    }
+      handlecheckedcolor=async(e)=>{
+        if(e.target && e.target.checked ){
  
-      //    }).catch(err=>console.log(err))
- 
-      //  }
+       if(e.target.name=="color"){
+         let ncolors=this.state.fcolor;
+         ncolors.push(e.target.value)
+         console.log(this.state.fcolor)
 
-    
+        await this.setState({fcolor:ncolors})
+        await this.setState({filteredArray:this.state.categoryprods.filter(item=>{
+          let x=true;
+          //x=item.color==e.target.value;
+            for(let elem of this.state.fcolor){
+            console.log("elem",elem)
+            x=item.color=elem
+
+          }
+          
+      return x;
+
+
+        }
+      ) 
+      }
+        )
+        console.log(this.state.filteredArray)
+      }
+        if(e.target.name=="brand"){
+          let nbrands=this.state.fbrand;
+          nbrands.push(e.target.value);
+        await  this.setState({fbrand:nbrands})
+        //console.log(this.state.fbrand)
+        }
+
+      }}
 
       componentDidMount(){
   
@@ -227,7 +203,7 @@ class Category extends Component {
             </li>
             <li className="nav-item ml-3 ni">
             
-              {this.state.Catbrands.map((c,i)=> <div key={i}><input value={c.brandId} name="brand" type="checkbox" onClick={this.getcatbrandprods} onClick={this.OnFilterClick} /> {c.brandName}</div>)}
+              {this.state.Catbrands.map((c,i)=> <div key={i}><input value={c.brandId} name="brand" type="checkbox" onClick={this.getcatbrandprods} onChange={this.handlecheckedcolor} onClick={this.OnFilterClick} /> {c.brandName}</div>)}
               
             </li>
             <div className="dropdown-divider" />

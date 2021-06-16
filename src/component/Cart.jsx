@@ -1,13 +1,101 @@
 import React, { Component } from "react";
 import "../Styles/Cart.css";
 import { Link } from "react-router-dom";
+import Cartitem from './cartitem';
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
+import AuthService from "./Services/auth.service";
 class Cart extends Component {
-  state = {};
+  state = {
+    q:1,
+  
+    totalPrice: 0,
+    cartid:localStorage.getItem("cartid"),
+    productsIncart:this.props.productsCart
+  
+  };
+  
+   //get Total Price For Cart
+   async getTotalPrice() {
+     const { data } = await axios.get(
+       "https://localhost:44340/api/CartsItemAPI/priceofcart/"+this.state.cartid
+     );
+     this.setState({ totalPrice: data });
+    
+   }
+ 
+ 
+ 
+   //Delete Product From Cart
+ 
+   deleteFromCart= async(productid,e)=> {
+  ;
+      try {
+       await axios.delete(
+         'https://localhost:44340/api/CartsItemAPi/deleteProductsFromCart/'+this.state.cartid+'?productid='+productid
+ 
+ 
+       ).then(res=>{
+         toast.success(`Product  Deleted`)
+        ;window.location.reload();});
+     } catch (ex) {
+       toast.error("Can't Delete");
+      
+     }}
+
+  
+ 
+    incrementQuantity = async (productid) => {
+      const productsIncart = [...this.state.productsIncart];
+     this.setState({ productsIncart });
+      try {
+        await axios
+          .put(
+            "https://localhost:44340/increaseQuantity/"+
+              productid +
+              "/" +this.state.cartid
+              
+          )
+          .then((res) => {
+         
+  
+            toast.success(`quantity increment`);
+            window.location.reload();
+          });
+      } catch (ex) {
+        toast.error("Can't Add");
+        this.setState({ productsIncart: productsIncart });
+      }
+    };
+    decrementQuantity = async (productid) => {
+      const productsIncart = [...this.state.productsIncart];
+      this.setState({ productsIncart });
+      try {
+        await axios
+          .put(
+            "https://localhost:44340/decreaseQuantity/"+
+              productid +
+              "/" +this.state.cartid
+              
+          )
+          .then((res) => {
+           
+  
+            toast.success(`quantity increment`);
+            window.location.reload();
+          });
+      } catch (ex) {
+        toast.error("Can't Add");
+        this.setState({ productsIncart: productsIncart });
+      }
+    };
+  async componentDidMount(){
+  await  this.getTotalPrice();
+
+   }
+
   render() {
-    // const a=[...this.props.productsCart.map(p=>p.prodCarts.map(c=>c.quantity))];
-    // const index=a.indexOf(1);
-    // const quat=a[index].quantity;
-    // console.log([...this.props.productsCart.map(p=>p.prodCarts.map(c=>c.quantity))])
+ 
     return (
       <React.Fragment>
         {this.props.productsCart.length === 0 ? (
@@ -52,103 +140,17 @@ class Cart extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.props.productsCart.map((product) => (
-                    <tr key={product.productId}>
-                      {/* image */}
-                      <td>
-                        <Link 
-                        to={{
-                          pathname: `/Product/${product.productId}`,
-                        }}
-                        >
-                          <img
-                            src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                            alt="item"
-                            className="mr-2 mt-3 rounded-circle"
-                            width="80"
-                            height="80"
-                          />
-                        </Link>
-                      </td>
-                      {/* Item */}
-                      <td>
-                        <p className="mb-0 col-12">
-                          <Link 
-                          to={{
-                            pathname: `/Product/${product.productId}`,
-                          }}
-                          className="link">
-                            {" "}
-                            {product.productName}{" "}
-                          </Link>
-                        </p>
-                        <p
-                          className="mb-0 col-12"
-                          style={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {" "}
-                          {product.description}
-                        </p>
-                      </td>
-                      {/* QUANTITY */}
-                      <td>
-                        <select>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                        {/* <button type="submit" onClick={()=>{this.props.onAdd(product.productId)}} className="btn btn-sm btn-primary text-uppercase p-1 m-2"><i className="fas fa-plus-circle fa-2x"></i></button>
-                                    {product.quantity} */}
-                      </td>
-                      {/* UNIT PRICE	 */}
-                      <td>
-                        <span className="sp1 m-1 ">
-                          <span>Egp</span>
-                          <span>{product.price}</span>
-                        </span>
-                        <span className="sp2 m-1">
-                          <span>Egp</span>
-                          <span>
-                            {parseInt(
-                              parseInt(product.price) *
-                                (1 + parseInt(product.discount) * 0.01)
-                            )}
-                          </span>
-                        </span>
-                        <span className="sp3">
-                          <span>Saving :</span>
-                          <span>{product.discount}%</span>
-                        </span>
-                      </td>
-                      {/* SUBTOTAL */}
-                      <td>
-                        <span className="sp1" style={{ color: "orange" }}>
-                          <span>Egp</span>
-                          <span>{product.price * 1}</span>
-                        </span>
-                      </td>
-                      {/* Saved/Removed Buttons */}
-                      <td>
-                        <button className="btn btn-light mb-2 text-danger col-12">
-                          <i className="fa fa-heart mr-2"></i>
-                        </button>
-                        <button
-                          onClick={(event) => {
-                            this.props.onDelete(product, event);
-                          }}
-                          type="submit"
-                          className=" btn btn-light text-danger col-12"
-                        >
-                          <i className="fa fa-trash mr-2"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                 
+                  {
+                    this.props.productsCart.map(p=>
+                      <Cartitem key={p.productId} q={p.quantity} prodid={p.productId}
+                      totalPrice={this.state.totalPrice}
+                      onDelete={this.deleteFromCart}
+                      incrementQuant={this.incrementQuantity}
+                      decremenrQuant={this.decrementQuantity}
+                      />
+                      )
+                  }
                 </tbody>
               </table>
             </div>
@@ -186,7 +188,8 @@ class Cart extends Component {
                     </p>
                     <p className="col-6 text-center font-weight-bolder bg-light">
                       {" "}
-                      EGP <span>{this.props.totalPrice}</span>
+                      EGP <span>{this.state.totalPrice}</span>
+
                     </p>
                   </div>
                   <div>

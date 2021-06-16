@@ -104,7 +104,7 @@ class Home extends Component {
                 <div className="m-1 p-0" style={{overflowY:"scroll",height: "380px",backgroundColor: "#fff"}}>
                  <h4 className="">Categories</h4>
                   {this.state.Catogeries.map((cat, i) => (
-                    <div
+                    <div key={i}
                       className="text-left"
                       style={{ borderBottom: "1px solid black", width: "100%" }}
                     >

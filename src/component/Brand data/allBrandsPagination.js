@@ -75,7 +75,7 @@ export class AllBrandsPagination extends Component {
                       height="100%"
                       width="100%"
                       //src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                       src={c.image.data.data}
+                       src={c.image}
                      // src="45d240da-de50-4556-8876-043d61fb57a5_logo192.png"
                     />
                   </div>

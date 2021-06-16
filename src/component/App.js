@@ -52,9 +52,10 @@ class App extends Component {
     Customers: [],
     products: [],
     RecentlyViewed: [],
-    productsIncart: [],
-    totalPrice: 0,
-    cartid:localStorage.getItem("cartid")
+     productsIncart: [],
+    // totalPrice: 0,
+     cartid:localStorage.getItem("cartid")
+  
   };
   async getAllProduct() {
     const { data } = await axios.get("https://localhost:44340/api/ProductsAPi");
@@ -77,41 +78,17 @@ class App extends Component {
        "https://localhost:44340/api/CartsItemAPi/productsIncart/"+this.state.cartid
      );
      this.setState({productsIncart:data});
-     console.log("prods cart",data, "fff",this.state.productsIncart)
+    // console.log("prods cart",data, "fff",this.state.productsIncart)
    }};
 
-  //get Total Price For Cart
-  async getTotalPrice() {
-    const { data } = await axios.get(
-      "https://localhost:44340/api/CartsItemAPI/priceofcart/1"
-    );
-    this.setState({ totalPrice: data });
-  }
+//   //get Total Price For Cart
+//   async getTotalPrice() {
+//     const { data } = await axios.get(
+//       "https://localhost:44340/api/CartsItemAPI/priceofcart/1"
+//     );
+//     this.setState({ totalPrice: data });
+//   }
 
-
-
-  //Delete Product From Cart
-
-  deleteFromCart= async(product,e)=> {
-    if(AuthService.getCurrentUser()){
-   const productsIncart = [...this.state.productsIncart];
-   let index = productsIncart.indexOf(product);
-   productsIncart[index] = { ...productsIncart[index] };
-   const productid= productsIncart[index].productId;
-   const productname= productsIncart[index].productName;
-     this.setState({productsIncart});
-     try {
-      await axios.delete(
-        'https://localhost:44340/api/CartsItemAPi/deleteProductsFromCart/'+this.state.cartid+'?productid='+productid
-        // "https://localhost:44340/api/UserBagApi/DeleteSavedItem/"+AuthService.getCurrentUser().id+"?ProductId="+_pid,
-
-      ).then(res=>{toast.success(`Product ${productname} Deleted`);window.location.reload();});
-    } catch (ex) {
-      toast.error("Can't Delete");
-      this.setState({ productsIncart: productsIncart });
-    }}
-    console.log(AuthService.getCurrentUser().id);
-   };
 
 
  // Add To Cart
@@ -134,26 +111,6 @@ class App extends Component {
      console.log(AuthService.getCurrentUser().id);
    }};
 
-  incrementQuantity = async (productid) => {
-    const productsIncart = [...this.state.productsIncart];
-    this.setState({ productsIncart });
-    try {
-      await axios
-        .post(
-          "https://localhost:44340/api/CartsItemAPI/editQuantity/" +
-            productid +
-            "/1?quantity=" +
-            1
-        )
-        .then((res) => {
-          toast.success(`quantity increment`);
-          window.location.reload();
-        });
-    } catch (ex) {
-      toast.error("Can't Add");
-      this.setState({ productsIncart: productsIncart });
-    }
-  };
 
   getRecentlyViewed = () => {
     if (AuthService.getCurrentUser()) {
@@ -177,7 +134,7 @@ class App extends Component {
     this.getRecentlyViewed();
     this.getAllProduct();
     this.getProductCart();
-    this.getTotalPrice();
+   // this.getTotalPrice();
     this.getcartdata();
   }
 
@@ -254,9 +211,8 @@ class App extends Component {
               render={(props) => (
                 <Cart
                   productsCart={this.state.productsIncart}
-                  totalPrice={this.state.totalPrice}
-                  onDelete={this.deleteFromCart}
-                  onAdd={this.incrementQuantity}
+               
+
                   {...props}
                 />
               )}
