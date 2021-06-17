@@ -1,5 +1,29 @@
-import React,{Component} from 'react'
+import axios from 'axios';
+import e from 'cors';
+import React,{Component} from 'react';
+import AuthService from '../Services/auth.service';
 class ChangePssword extends Component{
+  state={
+    CurrentPassword:"",
+    NewPassword:"",
+
+    RetypeNewPassword:""
+
+
+
+  }
+  changePassword=async()=>{
+    if(AuthService.getCurrentUser() && this.state.NewPassword && this.state.NewPassword==this.state.RetypeNewPassword){
+      axios.post("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id+"?newpassword="+this.state.NewPassword).then(
+      console.log("changed")
+      // window.location.reload()
+      )
+      
+
+    }
+
+
+  }
     render(){
         return(
             <React.Fragment>
@@ -15,7 +39,7 @@ class ChangePssword extends Component{
           <div className="row">
             <div className="container mt-4 ">
               <div className=" form-check-inline col-lg-8 ">
-                <input className="input" id="CurrentPassword" type="text" placeholder="Current Password" />
+                <input className="input" id="CurrentPassword" type="password" placeholder="Current Password" onChange={(e)=>this.setState({CurrentPassword:e.target.value})}/>
                 <span className="fa fa-fw fa-eye field-icon toggle-password" />
               </div>
             </div>
@@ -25,7 +49,7 @@ class ChangePssword extends Component{
           <div className="row">
             <div className="container mt-4  ">
               <div className=" form-check-inline col-lg-8 ">
-                <input className="input" id="NewPassword" type="text" placeholder="New Password" />
+                <input className="input" id="NewPassword" type="password" placeholder="New Password" onChange={(e)=>this.setState({NewPassword:e.target.value})}/>
                 <span className="fa fa-fw fa-eye field-icon toggle-password" />
               </div>
             </div>
@@ -35,7 +59,7 @@ class ChangePssword extends Component{
           <div className="row">
             <div className="container mt-4 ">
               <div className=" form-check-inline col-lg-8 ">
-                <input className="input" id="RetypeNewPassword" type="text" placeholder="Retype New Password" />
+                <input className="input" id="RetypeNewPassword" type="password" placeholder="Retype New Password" onChange={(e)=>this.setState({RetypeNewPassword:e.target.value})}/>
                 <span className="fa fa-fw fa-eye field-icon toggle-password" />
               </div>
             </div>
@@ -43,7 +67,7 @@ class ChangePssword extends Component{
           <br />
           {/*         ---------------------------------------------*/}
           <div className="form-group  mt-4"> 
-            <button type="button" className="btn btn-warning btn-lg btn-block" style={{color: 'white'}}>Submit</button>
+            <button type="button" className="btn btn-warning btn-lg btn-block" style={{color: 'white'}} onClick={this.changePassword}>Submit</button>
           </div>
         </div>
       </div>

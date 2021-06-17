@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route ,BrowserRouter as Router,Switch} from 'react-router-dom';
+
 import  Index from './AccountIndex';
 import ChangePssword from './ChangePassword'
 import RecentlyViewed from './Recentlyviews'; 
@@ -10,8 +11,28 @@ import AccountDetails from './AccountDetails';
 import AdressBook from './AdressBook';
 import JumiaCredit from './JumiaCredit';
 import Inbox from './Inbox';
+import axios from 'axios';
+import AuthService from '../Services/auth.service';
 class JumiaAccount extends Component {
-    state = {  }
+    state = {
+      customer:{}
+      }
+    getcustomerdeatails=async()=>{
+      if(AuthService.getCurrentUser().id){
+      axios.get("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id).then(res=>
+      this.setState({customer:res.data})
+      )
+    }}
+    editcustomerdata=async(obj)=>{
+      if(AuthService.getCurrentUser().id){
+      axios.put("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id,obj).then(
+      //this.setState({customer:res.data})
+      )
+    }}
+  async  componentDidMount(){
+    this.getcustomerdeatails();
+
+    }
     render() { 
         return ( 
             <React.Fragment>
@@ -33,8 +54,7 @@ class JumiaAccount extends Component {
               <a className="nav-link" href="/Account/JumiaCredit"><i class="fas fa-credit-card"/> &nbsp; Jumia Credit</a>
               <a className="nav-link" href="/Account/wishlist"><i className="fa fa-heart" aria-hidden="true" />&nbsp; Saved
                 Items</a>
-              <a className="nav-link" href="/Account/RecentlyViewed"><i className="fa fa-history" aria-hidden="true" />&nbsp; Recently
-                Viewed </a>
+    
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item">
@@ -45,7 +65,7 @@ class JumiaAccount extends Component {
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item  text text-center ">
-              <Link className="nav-link  text-warning" to="#">Log out</Link>
+              <button className="btn btn-warning"  onClick={AuthService.logout}>Log out</button>
             </li>
           </ul>
           </Router>
@@ -55,14 +75,14 @@ class JumiaAccount extends Component {
         {/* routes for index */}
        <Router>
        <Switch>
-       <Index path="/Account/Index"/>
+       <Index cust={this.state.customer} path="/Account/Index"/>
        <ChangePssword path="/Account/ChangePass"/>
        <SavedItems path="/Account/wishlist"/>
        <PendingReviews path="/Account/reviwsrating"/>
        <Orders path="/Account/Orders"/>
        <JumiaCredit path='/Account/JumiaCredit'/>
       
-       <AccountDetails path="/Account/AccountDetails"/>
+       <AccountDetails cust={this.state.customer} onEdit={this.editcustomerdata} path="/Account/AccountDetails"/>
        <RecentlyViewed path="Account/RecentlyViewed"/>
        <AdressBook path="/Account/AdressBook"/>
        <Inbox path="/Account/Inbox"/>
