@@ -27,7 +27,7 @@ class Product extends Component {
   };
   findprod = (_id) => {
     axios
-      .get("https://localhost:44340/api/ProductsAPi/" + _id)
+      .get("https://localhost:44340/api/ProductsAPi/"+ _id)
       .then((res) => {
         //  this.setState({product:res.data,prodimgs:res.data.productImages[0].image})
         this.setState({ product: res.data });
@@ -91,8 +91,8 @@ class Product extends Component {
     //console.log(this.props.match)
   }
   render() {
-    // console.log(this.props);
-    // console.log("img",this.state.prodimgs)
+    //  console.log(this.props);
+    // console.log(this.props.match.params)
     return (
       <React.Fragment>
         <div className="container mt-2">
@@ -295,83 +295,12 @@ class Product extends Component {
         </div>
 
         {/*DELIVERY Details Modal */}
-        {/* <div
-          className="modal"
-          style={{ margin: "100px auto" }}
-          tabIndex="-1"
-          role="dialog"
-          id="delivery"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header text-dark">
-                <h5 className="modal-title">Door Delivery</h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <h6 className="text-muted">DOOR DELIVERY</h6>
-                <p>
-                  Delivery time starts from the day you place your order to the
-                  day one of our associates makes a first attempt to deliver to
-                  you. Delivery will be attempted 3 times over 5 days (7.00 am
-                  to 5.30 pm) after which the item will be cancelled.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        {/* performance Modal */}
-        {/* <div
-          className="modal"
-          style={{ margin: "100px auto" }}
-          tabIndex="-1"
-          role="dialog"
-          id="performance"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header text-dark">
-                <h5 className="modal-title">Seller Performance</h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <p>
-                  To help you decide on the best offer we have several key
-                  metrics to help you with your decision
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-       */}
+       
+      
+       
       </React.Fragment>
     );
   }
 }
 
 export default Product;
-{/* <div className="text-center text-white cursor col-12 row">
-  <button
-    style={{ width: "100%" }}
-    onClick={() =>
-      this.props.onAdd(this.state.product.productId)
-    }
-    className="btn btn-warning text-uppercase text-white font-weight-bold ml-3 mb-2"
-  >
-    Add to cart
-  </button>
-</div> */}

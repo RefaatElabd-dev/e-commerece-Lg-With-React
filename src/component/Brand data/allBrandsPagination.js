@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Pagination } from "../Pagination";
 
 export class AllBrandsPagination extends Component {
@@ -39,12 +39,12 @@ export class AllBrandsPagination extends Component {
       const nextPage = () => this.setState({ currentPage: currentPage + 1 });
 
       const prevPage = () => this.setState({ currentPage: currentPage - 1 });
-      console.log(
-        "hand",
-        this.props.location.HandlerSaving,
-        "stat",
-        currentbrands
-      );
+      // console.log(
+      //   "hand",
+      //   this.props.location.HandlerSaving,
+      //   "stat",
+      //   currentbrands
+      // );
 
       return (
         <div className="">
@@ -56,16 +56,15 @@ export class AllBrandsPagination extends Component {
             nextPage={nextPage}
             prevPage={prevPage}
           />
-          <div className="container  col-md-12 row ">
-            {currentbrands.map((c, i) => (
-              <div className="col-md-2 " key={i}>
-                <NavLink to={"/product/1"}>
-                  <div className="item-box-blog h-100 mt-5">
-                    <div className="item-box-blog-image h-100">
-                      {/*Date*/}
-
-                      {/* IMAGES*/}
-                      <div
+          <div className="container text-center ">
+            <div className="row m-0 p-0 mt-4  mb-4">
+              {currentbrands.map((c, i) => (
+                <div key={i} className="col-md-2 col-12">
+                    <Link
+                  to={`/brand/` + c.brandId}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <div
                     className="item-box-blog p-0 bg-light"
                     style={{ height: "150px" }}
                   >
@@ -75,23 +74,44 @@ export class AllBrandsPagination extends Component {
                       height="100%"
                       width="100%"
                       //src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                       src={c.image}
-                     // src="45d240da-de50-4556-8876-043d61fb57a5_logo192.png"
+                       src={`E:/ITI/Tasks ITI/Projects/Final/APIFinalProject/new git/V3/J6/wwwroot/images/"${c.image}`}
                     />
                   </div>
+                  <div className="bg-warning">
+                    <p style={{overflow:"hidden",textOverflow:"ellipsis"}}> {c.brandName}</p>
+                  </div>
+                </Link>
+              
+                  {/* <NavLink to={"/product/1"}>
+                    <div className="item-box-blog h-100 mt-5">
+                      <div className="item-box-blog-image h-100">
+                     
+                        <div
+                      className="item-box-blog p-0 bg-light"
+                      style={{ height: "150px" }}
+                    >
+                      <img
+                        alt={`brand${c.brandName}`}
+                        className="m-0 p-0"
+                        height="100%"
+                        width="100%"
+                        src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
+                        // src={c.image}
+                      />
                     </div>
-                    <div className="item-box-blog-body">
-                      {/*Heading*/}
-                      <div className="item-box-blog-heading">
-                        <p> {c.brandName}</p>
+                      </div>
+                      <div className="item-box-blog-body">
+                        <div className="item-box-blog-heading">
+                          <p> {c.brandName}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </NavLink>
+                  </NavLink>
+                 */}
+                </div>
+              ))}
               </div>
-            ))}
           </div>
-          <br /> <br /> <br /> <br />
         </div>
       );
     }

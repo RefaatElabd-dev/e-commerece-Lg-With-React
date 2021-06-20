@@ -10,12 +10,14 @@ import Orders from './Orders';
 import AccountDetails from './AccountDetails';
 import AdressBook from './AdressBook';
 import JumiaCredit from './JumiaCredit';
+import NewAdress from './NewAdress';
 import Inbox from './Inbox';
 import axios from 'axios';
 import AuthService from '../Services/auth.service';
 class JumiaAccount extends Component {
     state = {
-      customer:{}
+      customer:{},
+      Adress:{}
       }
     getcustomerdeatails=async()=>{
       if(AuthService.getCurrentUser().id){
@@ -26,6 +28,12 @@ class JumiaAccount extends Component {
     editcustomerdata=async(obj)=>{
       if(AuthService.getCurrentUser().id){
       axios.put("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id,obj).then(
+      //this.setState({customer:res.data})
+      )
+    }}
+    editAdressofcustomer=async(obj)=>{
+      if(AuthService.getCurrentUser().id){
+      axios.put("https://localhost:44340/api/CustomersApi/editaddress/"+AuthService.getCurrentUser().id,obj).then(
       //this.setState({customer:res.data})
       )
     }}
@@ -44,8 +52,8 @@ class JumiaAccount extends Component {
       <nav className="navbar  bg-white">
         <Router>
           <ul className="navbar-nav  w-100 ">
-            <li className="nav-item " style={{backgroundColor: 'rgba(228, 224, 224, 0.452)'}}>
-              <a className="nav-link" href="/Account/Index" id="myaccount"><i className="bi bi-person-fill" aria-hidden="true" />&nbsp;  My Jumia Accounnt</a>
+            <li className="nav-item " style={{backgroundColor: 'orange'}}>
+              <a className="nav-link " href="/Account/Index" id="myaccount"><i className="bi bi-person-fill" aria-hidden="true" />&nbsp;  My Jumia Accounnt</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/Account/Orders"><i className="fa fa-shopping-bag" />&nbsp;   Orders</a>
@@ -62,10 +70,11 @@ class JumiaAccount extends Component {
               <a className="nav-link" href="/Account/AdressBook">Adress Book</a>
               <a className="nav-link" href="/Account/ChangePass">Change Password</a>
             
+            
             </li>
             <div className="dropdown-divider" />
             <li className="nav-item  text text-center ">
-              <button className="btn btn-warning"  onClick={AuthService.logout}>Log out</button>
+              <button className="btn btn"  onClick={AuthService.logout} style={{backgroundColor: 'orange'}}>Log out</button>
             </li>
           </ul>
           </Router>
@@ -81,7 +90,7 @@ class JumiaAccount extends Component {
        <PendingReviews path="/Account/reviwsrating"/>
        <Orders path="/Account/Orders"/>
        <JumiaCredit path='/Account/JumiaCredit'/>
-      
+       <NewAdress Adres={this.state.Adress} onEdit={this.editAdressofcustomer} path='/Account/NewAdress'/>
        <AccountDetails cust={this.state.customer} onEdit={this.editcustomerdata} path="/Account/AccountDetails"/>
        <RecentlyViewed path="Account/RecentlyViewed"/>
        <AdressBook path="/Account/AdressBook"/>

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {NavLink, Route ,BrowserRouter as Router,Switch} from 'react-router-dom';
+
+
 class AdressBook extends Component {
     state = {  }
     render() { 
@@ -21,7 +24,7 @@ class AdressBook extends Component {
                 <h6><i>You have not added any address yet!</i></h6><br />
                 <p><i>Add your shipping addresses here for a fast purchase experience!
                     You will be able to add, modify or delete them at any time.</i> </p> 
-                <button type="button" className="btn btn-warning " style={{color: 'white', marginTop: 30}}><b>Add New Adress </b></button>
+                <a  href="/Account/NewAdress" type="button" className="btn btn-warning " style={{color: 'white', marginTop: 30}}><b>Add New Adress </b></a>
               </div>
             </div>
           </div> 

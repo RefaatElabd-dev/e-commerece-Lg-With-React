@@ -46,72 +46,70 @@ import Images from "./Images";
 import Subcategory from "./subcategory data/subcategory";
 import SavedItems from "./CustomerAccount/SavedItems";
 import AllBrandsPagination from "./Brand data/allBrandsPagination";
+import Search from "./navBar-component/Search";
 
 class App extends Component {
   state = {
     Customers: [],
     products: [],
     RecentlyViewed: [],
-     productsIncart: [],
-    // totalPrice: 0,
-     cartid:localStorage.getItem("cartid")
-  
+    productsIncart: [],
+    totalPrice: 0,
+    cartid:localStorage.getItem("cartid")
+    // searchString:'',
+    // searchResult:[],
   };
   async getAllProduct() {
     const { data } = await axios.get("https://localhost:44340/api/ProductsAPi");
     this.setState({ products: data });
   }
- async getcartdata (){
-   if(AuthService.getCurrentUser()){
-   const {data}=await axios.get("https://localhost:44340/api/CartsItemAPi/getcartforCustomer/"+AuthService.getCurrentUser().id);
-   //this.setState({cartid:data.id});
-   localStorage.setItem("cartid", data.id);
-   
-   //console.log("cart data",data)
-   //console.log(this.state.cartid)
 
-  }}
 
-  async getProductCart() {
+  
+  async getcartdata (){
     if(AuthService.getCurrentUser()){
-    const {data}  = await axios.get(
-       "https://localhost:44340/api/CartsItemAPi/productsIncart/"+this.state.cartid
-     );
-     this.setState({productsIncart:data});
-    // console.log("prods cart",data, "fff",this.state.productsIncart)
-   }};
+    const {data}=await axios.get("https://localhost:44340/api/CartsItemAPi/getcartforCustomer/"+AuthService.getCurrentUser().id);
+    //this.setState({cartid:data.id});
+    localStorage.setItem("cartid", data.id);
+    
+    //console.log("cart data",data)
+    //console.log(this.state.cartid)
+ 
+   }}
+ 
+   async getProductCart() {
+     if(AuthService.getCurrentUser()){
+     const {data}  = await axios.get(
+        "https://localhost:44340/api/CartsItemAPi/productsIncart/"+this.state.cartid
+      );
+      this.setState({productsIncart:data});
+     // console.log("prods cart",data, "fff",this.state.productsIncart)
+    }};
+ 
 
-//   //get Total Price For Cart
-//   async getTotalPrice() {
-//     const { data } = await axios.get(
-//       "https://localhost:44340/api/CartsItemAPI/priceofcart/1"
-//     );
-//     this.setState({ totalPrice: data });
-//   }
-
-
-
- // Add To Cart
-
-   addToCart= async(productid)=> {
-    if(AuthService.getCurrentUser()){
-     console.log("pid",productid)
-    const productsIncart = [...this.state.productsIncart];
-    this.setState({productsIncart});
-
-     try {
-      await axios.post(
-
-        'https://localhost:44340/api/CartsItemAPi/addproducttoCART/'+AuthService.getCurrentUser().id+'?productid='+productid
-      ).then(res=>{toast.success(`Product Added`);window.location.reload();});
-    } catch (ex) {
-      toast.error("Can't Add Or already Exist");
-      this.setState({ productsIncart: productsIncart });
-    }
-     console.log(AuthService.getCurrentUser().id);
-   }};
-
-
+ 
+ 
+ 
+  // Add To Cart
+ 
+    addToCart= async(productid)=> {
+     if(AuthService.getCurrentUser()){
+      console.log("pid",productid)
+     const productsIncart = [...this.state.productsIncart];
+     this.setState({productsIncart});
+ 
+      try {
+       await axios.post(
+ 
+         'https://localhost:44340/api/CartsItemAPi/addproducttoCART/'+AuthService.getCurrentUser().id+'?productid='+productid
+       ).then(res=>{toast.success(`Product Added`);window.location.reload();});
+     } catch (ex) {
+       toast.error("Can't Add Or already Exist");
+       this.setState({ productsIncart: productsIncart });
+     }
+      console.log(AuthService.getCurrentUser().id);
+    }};
+ 
   getRecentlyViewed = () => {
     if (AuthService.getCurrentUser()) {
       axios(
@@ -134,12 +132,32 @@ class App extends Component {
     this.getRecentlyViewed();
     this.getAllProduct();
     this.getProductCart();
-   // this.getTotalPrice();
+   
     this.getcartdata();
   }
+  // Get Search
+  // async search(name,e){
+  //   e.preventDefault();
+  //   try{
+  //   await axios.get("https://localhost:44340/api/SearchsAPi/"+name)
+  //   .then((res) => {
+  //     this.setState({ searchResult: res.data });
+  //     // toast.success("Success Search");
+  //     console.log(this.state.searchResult);
+  //     // window.location.replace("/search");
+  //   })}
+  //   catch (ex) {
+  //     toast.error("Enter Valid String");
+  //   }
+  // };
+
+//Form input Search
+// handleChange = (e) => {
+//   this.setState({searchString:e.target.value});
+//   console.log(e.currentTarget.value);
+// };
 
   render() {
-   // console.log("prods cart",this.state.productsIncart)
     return (
       <React.Fragment>
         <Helmet>
@@ -151,10 +169,21 @@ class App extends Component {
           <NavBar
             user={this.state.user}
             productsCart={this.state.productsIncart}
+            // onSearch={this.search}
+            // onHandleChange={this.handleChange}
+            // searchString={this.state.searchString}
+            // searchResult={this.state.searchResult}
           />
           <Switch>
             <Route component={Home} path="/" exact />
             <Route component={Home} path="/Home" exact />
+            {/* <Route
+             component={Search}
+              path="/Search" 
+              exact
+              // searchString={this.state.searchString}
+              searchResult={this.state.searchResult}
+              /> */}
 
             <Route
               component={(props) => <Register {...props} />}
@@ -211,8 +240,9 @@ class App extends Component {
               render={(props) => (
                 <Cart
                   productsCart={this.state.productsIncart}
-               
-
+                  totalPrice={this.state.totalPrice}
+                  onDelete={this.deleteFromCart}
+                  onAdd={this.incrementQuantity}
                   {...props}
                 />
               )}

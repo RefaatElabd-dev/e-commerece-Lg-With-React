@@ -40,10 +40,10 @@ class DisplayedProducts extends Component {
             const nextPage = () => this.setState({ currentPage: currentPage + 1 });
         
             const prevPage = () => this.setState({ currentPage: currentPage - 1 });
-            //console.log("currenr",currentProducts,"pppp",this.props.prods)
+          
         return (
             <React.Fragment>
-                <div className="row col-md-12 mt-sm-5 mt-md-0" style={{ backgroundColor: 'white', marginLeft: 20 }}>
+                <div className="row col-md-8 mt-sm-5 mt-md-0" style={{ backgroundColor: 'white', marginLeft: 20 }}>
                     <div className="card mt-4 mb-4" style={{ width: '70rem' }}>
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item"><h6 className="font-weight-bold" style={{fontSize:"24px"}}>{this.props.name} Products</h6></li>
@@ -54,7 +54,7 @@ class DisplayedProducts extends Component {
                                         <div id="gallery1" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
                                                 <div className="carousel-item active">
-                                                    <div className="row rounded p-2 bg-danger">
+                                                    <div className="row rounded p-2">
                                                       {currentProducts.map((c,i)=><Card cardprod={c} key={i}/>)}
                                                     </div>
                                                 </div>

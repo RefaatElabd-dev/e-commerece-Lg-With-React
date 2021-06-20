@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AuthService from './Services/auth.service';
 import { toast, ToastContainer } from "react-toastify";
+import AuthService from "./Services/auth.service";
 class Card extends Component {
   state = {
     prod: this.props.cardprod,
@@ -15,7 +15,8 @@ class Card extends Component {
     try {
       await axios
         .post(
-          'https://localhost:44340/api/CartsItemAPi/addproducttoCART/'+AuthService.getCurrentUser().id+'?productid='+productid
+          "https://localhost:44340/api/CartsItemAPi/addproducttoCART/"+AuthService.getCurrentUser().id+"?productid=" +
+            productid
         )
         .then((res) => {
           toast.success(`Product Added`);
@@ -79,8 +80,8 @@ class Card extends Component {
   SaveinViews = () => {
     axios
       .post("https://localhost:44340/api/ProductsAPi/SetView", {
-        UserId: this.state.user.id,
-        ProductId: this.props.cardprod.productId,
+         UserId: this.state.user.id,
+         ProductId: this.props.cardprod.id,
       })
       .then(console.log("ok"));
   };
@@ -95,7 +96,7 @@ class Card extends Component {
   }
 
   render() {
-   // console.log("userid",this.state.prod)
+   
 
     return (
       <React.Fragment>
@@ -105,19 +106,18 @@ class Card extends Component {
           <div className="card item-box-blog">
             <Link
               to={{
-                pathname: `/Product/${this.state.prod.productId}`,
+                pathname: `/Product/${this.state.prod.id}`,
                 HandlerSaving: this.state.user,
               }}
               onClick={this.SaveinViews}
               style={{ color: "black", textDecoration: "none" ,backgroundColor:"beige"}}
             >
-             {this.state.prod && this.state.prod.productImages&&this.state.prod.productImages[0]&& <img
+                <img
                   className="card-img-top"
-                  //src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                  src={this.state.prod.productImages[0].imageUrl}
+                  src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
                   alt={`${this.state.prod.productName}`}
                   height="250"
-                />}
+                />
                 <div className="card-body" style={{height:"350px",direction:"ltr"}}>
                   <h6 className="card-title text-left" style={{overflow:"hidden",textOverflow:"ellipsis"}}>
                     {this.state.prod.productName}

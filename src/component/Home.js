@@ -26,7 +26,7 @@ class Home extends Component {
     });
   };
   getbestselling = async () => {
-    await axios.get("https://localhost:44340/highselling").then((res) => {
+    await axios.get("http://localhost:44340/highselling").then((res) => {
       this.setState({
         TopSellings: res.data,
         firstcards: res.data.slice(0, 4),
@@ -48,7 +48,7 @@ class Home extends Component {
       this.setState({
         Brands: res.data,
       });
-      //console.log("Brand", this.state.Brands);
+      // console.log("Brand", this.state.Brands);
     });
   };
 
@@ -95,16 +95,16 @@ class Home extends Component {
       return <div>Loading......................</div>;
     } else {
       return (
-        <>
+        <React.Fragment>
           {/* Top */}
           <div className="container my-2 mt-2">
-            <div className="row">
+            <div className="row m-0 p-0">
               {/* Block1  Filter Catogeries*/}
-              <div className="col-12 col-md-3 p-0 item-box-blog rounded bg-dark">
+              <div className=" col-12 col-md-3 p-0 m-0 item-box-blog rounded bg-dark">
                 <div className="m-1 p-0" style={{overflowY:"scroll",height: "380px",backgroundColor: "#fff"}}>
                  <h4 className="">Categories</h4>
                   {this.state.Catogeries.map((cat, i) => (
-                    <div key={i}
+                    <div
                       className="text-left"
                       style={{ borderBottom: "1px solid black", width: "100%" }}
                     >
@@ -231,6 +231,7 @@ class Home extends Component {
             </div>
           </div>
           {/* Sections */}
+          
           <div className="container my-2">
             {/* Shop By Brand */}
             <Brand sendBrands={this.state.Brands} />
@@ -256,13 +257,14 @@ class Home extends Component {
               heading="New Arrivals"
             />
             {/* TopSellings */}
-            <CarouselData
+            {/* <CarouselData
               id="ss"
               prods={this.state.TopSellings}
               heading="Top Selling"
-            />
+            /> */}
           </div>
-        </>
+        
+        </React.Fragment>
       );
     }
   }

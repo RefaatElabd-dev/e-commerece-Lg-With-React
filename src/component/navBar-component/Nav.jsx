@@ -3,14 +3,60 @@ import { NavLink} from "react-router-dom";
 import { BiStar } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import AuthService from "../Services/auth.service";
-
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 class NavBar extends Component {
-  state = {};
+  state = {
+    prod: this.props.cardprod,
+    user: {},
+    searchString:'',
+    searchResult:[],
+  };
+// Add To Cart (Mahmoud)
+addToCart = async (productid) => {
+  const productsIncart = {...this.state.prod};
+  this.setState({ productsIncart });
+  try {
+    await axios
+      .post(
+        "https://localhost:44340/api/CartsItemAPi/addproducttoCART/1?productid=" +
+          productid
+      )
+      .then((res) => {
+        toast.success(`Product Added`);
+        window.location.reload();
+      });
+  } catch (ex) {
+    toast.error("Can't Add Or already Exist");
+    this.setState({ prod: productsIncart });
+  }
+};
 
+
+// Get Search
+async search(name,e){
+  e.preventDefault();
+  try{
+  await axios.get("https://localhost:44340/api/SearchsAPi/"+name)
+  .then((res) => {
+    this.setState({ searchResult: res.data });
+    // toast.success("Success Search");
+    console.log(this.state.searchResult);
+    // window.location.replace("/search");
+  })}
+  catch (ex) {
+    toast.error("Enter Valid String");
+  }
+};
+
+//Form input Search
+handleChange = (e) => {
+  this.setState({searchString:e.target.value});
+  console.log(e.currentTarget.value);
+};
   render() {
     return (
       <React.Fragment>
-        
         <nav
           className="navbar navbar-expand-lg navbar-light text-white fixed-top"
           style={{ backgroundColor: "#343a40",position: "sticky",
@@ -35,17 +81,23 @@ class NavBar extends Component {
               </h1>
             </Link>
           </div>
-          <form className="form-inline col-md-5 offset-1 col-12">
+          <form 
+            // action="/search"
+            onSubmit={(event)=>this.search(this.state.searchString,event)}
+            className="form-inline col-md-5 offset-1 col-12"
+            >
             <input
               className="form-control mr-sm-2 col-7"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              onChange={this.handleChange}
+              value={this.state.searchString}
+              name="searchString"
             />
             <button
               className="btn btn-primary my-2 my-sm-0"
               type="submit"
-              onClick={this.Search}
             >
               Search
             </button>
@@ -88,7 +140,7 @@ class NavBar extends Component {
                     </NavLink>
                   </li>)
                   :(
-                    <li className="dropdown-item bg-light text-dark text-center h5 font-weight-bold">{ JSON.parse(localStorage.getItem("user")).userName}</li>
+                    <li className="dropdown-item bg-light text-dark text-center h5 font-weight-bold"><Link to="Account/Index">{ JSON.parse(localStorage.getItem("user")).userName}</Link></li>
                   )}
                   <li>
                     <hr className="dropdown-divider" />
@@ -217,6 +269,105 @@ class NavBar extends Component {
         >
           <BiStar size="22" /> Sell On Jumia
         </Link>
+
+
+
+
+        {/* Search Result */}
+        <React.Fragment>
+          {(this.state.searchResult.length===1)
+            ?(
+            <React.Fragment>
+              {Object.keys(this.state.searchResult).map((key) => {
+                return (
+                  <div key={key} className="container text-center">
+                    <h1>Search Result</h1>
+                    <div className="row m-0 p-0 mt-4  mb-4">
+                        {this.state.searchResult[key].map((dataItem) => {
+                          {if(this.state.searchResult.length[key]!==0)
+                            return (
+                              //Cards
+                              <React.Fragment>
+                                <div  key={dataItem.productId} className="col-md-4 col-12">
+                                  <div className="card item-box-blog">
+                                    <Link
+                                      to={{
+                                        pathname: `/Product/${dataItem.productId}`,
+                                        HandlerSaving: this.state.user,
+                                      }}
+                                      onClick={this.SaveinViews}
+                                      style={{ color: "black", textDecoration: "none" ,backgroundColor:"beige"}}
+                                    >
+                                        <img
+                                          className="card-img-top"
+                                          src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
+                                          alt={`${dataItem.productName}`}
+                                          height="250"
+                                        />
+                                        <div className="card-body" style={{height:"350px",direction:"ltr"}}>
+                                          <h6 className="card-title text-left" style={{overflow:"hidden",textOverflow:"ellipsis"}}>
+                                            {dataItem.productName}
+                                          </h6>
+                                          <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
+                                            {dataItem.description}
+                                          </div>
+                                          <p className="card-text text-right">
+                                              {dataItem.price} Egp
+                                              {parseInt(dataItem.discount) > 0 && (
+                                                <div className="mt-2 p-0">
+                                                  <span className="sp">
+                                                    (Egp
+                                                    <span>
+                                                      {parseInt(
+                                                        parseInt(dataItem.price) *
+                                                          (1 +
+                                                            parseInt(dataItem.discount) * 0.01)
+                                                      )}
+                                                    </span>
+                                                    )
+                                                  </span>
+                                                </div>
+                                              )}
+                                              <p className="card-text text-right">
+                                                  <span className="alert text-danger col-1 p-0">
+                                                    -{dataItem.discount}%
+                                                  </span>
+                                              </p>
+                                          </p>
+                                        </div>
+                                    </Link>
+                                    <button className="mb-5 mt-2 ml-5" onClick={()=>this.addToCart(dataItem.productId)} style={{width:"50%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+                                  </div>
+                                </div>
+                              </React.Fragment>
+                            );
+                          }
+                          {
+                            if(this.state.searchResult.length[key]===0)
+                            {
+                              return(
+                                <React.Fragment>
+                                  <div className="alert alert-danger container text-center">
+                                    <h1>Not Found</h1>
+                                  </div>
+                                </React.Fragment>
+                              );
+                            }
+                          }
+                        })}
+                    </div>
+                  </div>
+                );
+              })}
+            </React.Fragment>
+            )
+            :(
+              <div className="alert alert-danger container text-center">
+                <h1>Search Not Found</h1>
+              </div>
+            )
+          }
+        </React.Fragment>
       </React.Fragment>
     );
   }

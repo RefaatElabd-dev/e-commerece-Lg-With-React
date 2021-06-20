@@ -21,7 +21,7 @@ class SmallCard extends Component {
 
             <div className="card-body" style={{ backgroundColor: "beige" }}>
                 {/*Heading*/}
-                <h6 className="card-title"> {this.props.cardprod.productName}</h6>
+                <h6 className="card-title" style={{overflow:"hidden",textOverflow:"ellipsis"}}> {this.props.cardprod.productName}</h6>
                 {/*Text*/}
                 <div className="card-text">
                   <span>EGP</span> <span>{this.props.cardprod.price}</span>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Brand from '../Brand data/brandimgs'
-import { Link } from 'react-router-dom';
 import DisplayedProducts from '../displyedproducts';
 
 
