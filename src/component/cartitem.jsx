@@ -40,7 +40,9 @@ SaveItems = () => {
 
     }
 render(){
-   // console.log("prod",this.state.prod,"id",this.props.prodid)
+  let nprice;
+this.state.prod.discount==0||this.state.prod.discount==null?nprice=this.state.prod.price:nprice=this.state.prod.price*(1-this.state.prod.discount)
+
     return(
         <React.Fragment>
           
@@ -104,27 +106,24 @@ render(){
                       <td>
                         <span className="sp1 m-1 ">
                           <span>Egp</span>
-                          <span>{this.state.prod.price}</span>
+                          <span>{parseInt(nprice)}</span>
                         </span>
-                        <span className="sp2 m-1">
+                        {(this.state.prod.discount>0) &&<span className="sp2 m-1">
                           <span>Egp</span>
                           <span>
-                            {parseInt(
-                              parseInt(this.state.prod.price) *
-                                (1 + parseInt(this.state.prod.discount) * 0.01)
-                            )}
+                            {this.state.prod.price}
                           </span>
-                        </span>
-                        <span className="sp3">
+                        </span>}
+                       {(this.state.prod.discount>0) &&<span className="sp3">
                           <span>Saving :</span>
-                          <span>{this.state.prod.discount}%</span>
-                        </span>
+                          <span>  {this.state.prod.discount*100}%</span>
+                        </span>}
                       </td>
                       {/* SUBTOTAL */}
                       <td>
                         <span className="sp1" style={{ color: "orange" }}>
                           <span>Egp</span>
-                          <span>{this.state.prod.price* this.props.q}</span>
+                          <span>{nprice* this.props.q}</span>
                         </span>
                       </td>
                       {/* Saved/Removed Buttons */}

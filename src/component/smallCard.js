@@ -9,7 +9,7 @@ class SmallCard extends Component {
       <React.Fragment>
           <NavLink
             style={{ color: "black", textDecoration: "none" }}
-            to={"/product/" + this.props.cardprod.productId}
+            to={"/product/" + this.props.cardprod.id}
           >
             {/* IMAGES*/}
             <img

@@ -187,7 +187,7 @@ class Product extends Component {
                     <button
                       style={{backgroundColor:"teal" }}
                       onClick={() =>
-                        this.props.onAdd(this.state.product.productId)
+                        this.props.onAdd(this.state.product.id)
                       }
                       className="btn text-uppercase text-white font-weight-bold mb-2 offset-md-2 col-12 col-md-8"
                     >

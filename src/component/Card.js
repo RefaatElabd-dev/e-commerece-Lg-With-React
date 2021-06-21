@@ -10,12 +10,13 @@ class Card extends Component {
   };
   // Add To Cart (Mahmoud)
   addToCart = async (productid) => {
+   // console.log("prodid",productid)
     const productsIncart = {...this.state.prod};
     this.setState({ productsIncart });
     try {
       await axios
         .post(
-          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"id":productid}
+          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"Id":productid}
         )
         .then((res) => {
           toast.success(`Product Added`);
@@ -96,7 +97,9 @@ class Card extends Component {
 
   render() {
    
-//console.log(this.state.prod)
+let nprice;
+this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
+
     return (
       <React.Fragment>
         {/* Toast just for notification  */}
@@ -128,31 +131,29 @@ class Card extends Component {
                     {this.rate(this.state.prod.rating)}
                   </p>
                   <p className="card-text text-right">
-                      {this.state.prod.price} Egp
-                      {parseInt(this.state.prod.discount) > 0 && (
+                      {parseInt(nprice)} Egp
+                      {(this.props.cardprod.discount) > 0 && (
                         <div className="mt-2 p-0">
                           <span className="sp">
                             (Egp
                             <span>
-                              {parseInt(
-                                parseInt(this.state.prod.price) *
-                                  (1 +
-                                    parseInt(this.state.prod.discount) * 0.01)
-                              )}
+                              {
+                              this.props.cardprod.price
+                              }
                             </span>
                             )
                           </span>
                         </div>
                       )}
                       <p className="card-text text-right">
-                          <span className="alert text-danger col-1 p-0">
-                            -{this.state.prod.discount}%
-                          </span>
+                         {(this.props.cardprod.discount > 0) && <span className="alert text-danger col-1 p-0">
+                            -{this.props.cardprod.discount*100}%
+                          </span>}
                       </p>
                   </p>
                 </div>
             </Link>
-            <button className="mb-5 mt-2 ml-5" onClick={()=>this.addToCart(this.state.prod.productId)} style={{width:"50%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+            <button className="mb-5 mt-2 ml-5" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"50%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
             </div>
         </div>
       </React.Fragment>

@@ -153,7 +153,7 @@ else{
                         type="button"
                         className="btn btn-warning ml-2 "
                         style={{ color: "white", marginTop: 30 }}
-                        onClick={()=>this.removesavedItems(c.productId)}
+                        onClick={()=>this.removesavedItems(c.id)}
                       >
                       
                         <b>
