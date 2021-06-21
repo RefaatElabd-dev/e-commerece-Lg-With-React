@@ -94,14 +94,14 @@ class App extends Component {
  
     addToCart= async(productid)=> {
      if(AuthService.getCurrentUser()){
-      console.log("pid",productid)
+      //console.log("pid",productid)
      const productsIncart = [...this.state.productsIncart];
      this.setState({productsIncart});
  
       try {
        await axios.post(
  
-         'https://localhost:44340/api/CartsItemAPi/addproducttoCART/'+AuthService.getCurrentUser().id+'?productid='+productid
+        "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"id":productid}
        ).then(res=>{toast.success(`Product Added`);window.location.reload();});
      } catch (ex) {
        toast.error("Can't Add Or already Exist");

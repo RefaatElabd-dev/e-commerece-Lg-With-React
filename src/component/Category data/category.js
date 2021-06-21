@@ -18,7 +18,8 @@ class Category extends Component {
     fbrand: [],
     fshipping:[],
     fdiscount:"",
-    filteredArray: []
+    filteredArray: [],
+    filterDiscount:[]
   }
 
 
@@ -182,18 +183,27 @@ class Category extends Component {
       //==========================================filter discount===================================
       if (e.target.name == "discount") {
        
-        
-      if(e.target.checked){
+        if(this.state.filteredArray.length==0){
+        await  this.setState({filterDiscount:this.state.categoryprods})
+
+        }else{
+          await  this.setState({filterDiscount:this.state.filteredArray})
+
+        }
+        if (e.target.checked) {
 
       
-        let filteredProducts = this.state.categoryprods.filter(item =>item.discount>=parseFloat(e.target.value)
-   )
-   
+
+            let filteredProducts = this.state.categoryprods.filter(item => item.discount >= parseFloat(e.target.value)
+            )
+
+         await this.setState({ filteredArray: filteredProducts })
+            console.log(filteredProducts)
+          
         
-        await this.setState({filteredArray: filteredProducts})
-        console.log(filteredProducts)
         }
-    }
+
+      }
     
         
       

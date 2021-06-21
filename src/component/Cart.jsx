@@ -90,7 +90,7 @@ class Cart extends Component {
       }
     };
   async componentDidMount(){
-  await  this.getTotalPrice();
+  //await  this.getTotalPrice();
 
    }
 
@@ -188,7 +188,7 @@ class Cart extends Component {
                     </p>
                     <p className="col-6 text-center font-weight-bolder bg-light">
                       {" "}
-                      EGP <span>{this.state.totalPrice}</span>
+                      {/* EGP <span>{this.state.totalPrice}</span> */}
 
                     </p>
                   </div>

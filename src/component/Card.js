@@ -15,8 +15,7 @@ class Card extends Component {
     try {
       await axios
         .post(
-          "https://localhost:44340/api/CartsItemAPi/addproducttoCART/"+AuthService.getCurrentUser().id+"?productid=" +
-            productid
+          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"id":productid}
         )
         .then((res) => {
           toast.success(`Product Added`);
@@ -97,7 +96,7 @@ class Card extends Component {
 
   render() {
    
-
+//console.log(this.state.prod)
     return (
       <React.Fragment>
         {/* Toast just for notification  */}
