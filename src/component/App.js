@@ -12,6 +12,7 @@ import "../Styles/ChangePassword.css";
 import "../Styles/Product.css";
 import "../Styles/Category.css";
 import Footer from "./navBar-component/Footer";
+import DisplayedProducts from './displyedproducts';
 
 import JumiaAccount from "./CustomerAccount/JumiaAccount";
 import Category from "./Category data/category";
@@ -47,6 +48,7 @@ import Subcategory from "./subcategory data/subcategory";
 import SavedItems from "./CustomerAccount/SavedItems";
 import AllBrandsPagination from "./Brand data/allBrandsPagination";
 import Search from "./navBar-component/Search";
+import SearchResult from "./search";
 
 class App extends Component {
   state = {
@@ -230,6 +232,10 @@ class App extends Component {
             <Route
               render={(props) => <AllBrandsPagination {...props} />}
               path="/AllBrands"
+            />
+             <Route
+              render={(props) => <SearchResult {...props} />}
+              path="/searchResult"
             />
             <JumiaAccount path="/Account" />
             <Route path="/AboutUs" component={AboutUs} />

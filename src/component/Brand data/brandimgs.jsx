@@ -33,7 +33,7 @@ class Brand extends Component {
                       //  src="../../J6/wwwroot/images/0ac638c5-3cb7-45ca-af4d-f6d4be43969b_FB_IMG_1496904814546.jpg"
                       //  {`V3/J6/wwwroot/images/${c.image}`}
                       // src={image}
-                      src={c.image}
+                      src={`https://localhost:44340/${c.image}`}
                     />
                   </div>
                   <div className="bg-warning">

@@ -17,10 +17,9 @@ class Cart extends Component {
   
    //get Total Price For Cart
    async getTotalPrice() {
-     const { data } = await axios.get(
+     await axios.get(
        "https://localhost:44340/api/CartsItemAPI/priceofcart/"+this.state.cartid
-     );
-     this.setState({ totalPrice: data });
+     ).then(res=> this.setState({ totalPrice: res.data }));
     
    }
  
@@ -90,11 +89,12 @@ class Cart extends Component {
       }
     };
   async componentDidMount(){
-  //await  this.getTotalPrice();
+  await  this.getTotalPrice();
 
    }
 
   render() {
+   
  
     return (
       <React.Fragment>
@@ -188,7 +188,7 @@ class Cart extends Component {
                     </p>
                     <p className="col-6 text-center font-weight-bolder bg-light">
                       {" "}
-                      {/* EGP <span>{this.state.totalPrice}</span> */}
+                      EGP <span>{this.state.totalPrice}</span>
 
                     </p>
                   </div>

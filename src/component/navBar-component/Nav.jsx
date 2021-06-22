@@ -275,14 +275,14 @@ handleChange = (e) => {
 
         {/* Search Result */}
         <React.Fragment>
-          {(this.state.searchResult.length===1)
+          {(this.state.searchResult.length>=1)
             ?(
             <React.Fragment>
-              {Object.keys(this.state.searchResult).map((key) => {
+              {this.state.searchResult.map((c,i) => {
                 return (
-                  <div key={key} className="container text-center">
+                  <div key={i} className="container text-center">
                     <h1>Search Result</h1>
-                    <div className="row m-0 p-0 mt-4  mb-4">
+                    {/* <div className="row m-0 p-0 mt-4  mb-4">
                         {this.state.searchResult[key].map((dataItem) => {
                           {if(this.state.searchResult.length[key]!==0)
                             return (
@@ -355,7 +355,7 @@ handleChange = (e) => {
                             }
                           }
                         })}
-                    </div>
+                    </div> */}
                   </div>
                 );
               })}
