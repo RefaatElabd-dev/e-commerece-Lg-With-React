@@ -52,29 +52,7 @@ class RecentlyViewed extends Component {
   render() {
     if (this.props.prods == undefined || this.props.prods.length == 0)
       return null;
-    else if (this.props.prods.length <= 6)
-      return (
-        <React.Fragment>
-          <h4 className="mb-2 ">RecentlyViewed</h4>
-          <div className="container row ">
-            <div className="row blog ">
-              <div className=" col-md-12">
-                <div className="col-md-3">
-                  {this.props.prods.map((c, i) => (
-                    <SmallCard cardprod={c} key={i} />
-                  ))}
-                </div>
-              </div>
-
-              <div className="carousel-item ">
-                <div className="row">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
-      );
+  
     else {
       return (
         <React.Fragment>
@@ -83,23 +61,14 @@ class RecentlyViewed extends Component {
             <div className="row blog ">
               <div className="col-md-12 h-100">
                 <div
-                  id="blogCarousel"
-                  className="carousel slide container-blog"
-                  data-ride="carousel"
+               
                 >
-                  <ol className="carousel-indicators ">
-                    <li
-                      data-target="#blogCarousel"
-                      data-slide-to={0}
-                      className="active"
-                    />
-                    <li data-target="#blogCarousel" data-slide-to={1} />
-                  </ol>
+                  
                   {/* Carousel items */}
-                  <div className="carousel-inner">
-                    <div className="carousel-item active">
+                  <div>
+                    <div >
                       <div className="row">
-                        {this.props.prods.slice(0, 6).map((c, i) => (
+                        {this.props.prods.slice(0, 5).map((c, i) => (
                           <SmallCard cardprod={c} key={i} />
                         ))}
                       </div>

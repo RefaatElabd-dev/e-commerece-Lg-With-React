@@ -90,14 +90,39 @@ class Cart extends Component {
     };
   async componentDidMount(){
   await  this.getTotalPrice();
+  const script = document.createElement("script");
 
-   }
+  
+  script.src="https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card"
+
+  script.async = true;
+
+  document.body.appendChild(script);
+
+
+   
+   const script2 = document.createElement("script");
+
+  
+   script2.src="payment.js"
+ 
+   script2.async = true;
+ 
+   document.body.appendChild(script2);
+ 
+ 
+    }
 
   render() {
    
  
     return (
       <React.Fragment>
+     
+
+
+
+
         {this.props.productsCart.length === 0 ? (
           <React.Fragment>
             <div className="container text-center m-4">
@@ -109,6 +134,7 @@ class Cart extends Component {
               >
                 Go Shopping
               </Link>
+             
             </div>
           </React.Fragment>
         ) : (
@@ -203,6 +229,15 @@ class Cart extends Component {
             </div>
           </React.Fragment>
         )}
+        {/* <script src="https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card"></script>
+        <script >
+          
+          
+        </script> */}
+        <br/>
+          <div id="pay1">
+          
+           </div>
       </React.Fragment>
     );
   }

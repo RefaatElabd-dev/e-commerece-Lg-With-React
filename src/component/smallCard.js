@@ -8,12 +8,13 @@ class SmallCard extends Component {
     return (
       <React.Fragment>
           <NavLink
+          className="m-1 h-100"
             style={{ color: "black", textDecoration: "none" }}
             to={"/product/" + this.props.cardprod.id}
           >
             {/* IMAGES*/}
             <img
-                className="card-img-top"
+            
                 height="250"
                 alt={this.props.cardprod.productName}
                 src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"

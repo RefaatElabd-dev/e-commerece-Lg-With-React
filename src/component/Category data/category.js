@@ -5,11 +5,13 @@ import Categoriesimages from './Categoriesimags';
 import Brand from '../Brand data/brandimgs';
 import DisplayedProducts from '../displyedproducts';
 import Index from './../CustomerAccount/AccountIndex';
+import SubcatProd from './subcatprod';
 
 class Category extends Component {
   state = {
     slidprice:0,
     Catbrands: [],
+    subcategCat:[],
     colors: [],
     sizes:[],
     prices:[],
@@ -27,7 +29,12 @@ class Category extends Component {
   }
 
 
+getsubcategincategory=async(_id)=>{
+  await axios("https://localhost:44340/api/CategoriesAPi/categoryproduct/" + _id).then(async res => {
+    await this.setState({ subcategCat: res.data })
+  });
 
+}
   getcategprods = async (_id) => {
     await axios("https://localhost:44340/api/CategoriesAPi/allproductonlyIncategory/" + _id).then(async res => {
       await this.setState({ categoryprods: res.data })
@@ -208,7 +215,7 @@ class Category extends Component {
               await  this.setState({filterDiscount:this.state.filteredArray})
              }
            
-              let filteredProducts = this.state.filterDiscount.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
+              let filteredProducts = this.state.categoryprods.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
                 )
                 await this.setState({ filteredArray: filteredProducts })
                // console.log(this.state.filteredArray)
@@ -227,6 +234,7 @@ class Category extends Component {
   await  this.getcategorycolors(this.props.match.params.id);
   await  this.getcategprods(this.props.match.params.id);
   await   this.getcatprices(this.props.match.params.id);
+  await this.getsubcategincategory(this.props.match.params.id);
 
   }
   render() {
@@ -273,6 +281,9 @@ class Category extends Component {
         <div className="container-fluid mt-5">
           <Brand sendBrands={this.state.Catbrands} />
         </div>
+      { this.state.subcategCat &&   <div className="container-fluid mt-5">
+            <SubcatProd subcategories={this.state.subcategCat} />
+          </div>}
         <div className="container-fluid mt-5">
           <div className="row">
             <div className="col-md-3">

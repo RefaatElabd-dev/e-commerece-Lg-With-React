@@ -17,13 +17,34 @@ import AuthService from '../Services/auth.service';
 class JumiaAccount extends Component {
     state = {
       customer:{},
-      Adress:{}
+      Adress:{},
+      messages:[]
       }
     getcustomerdeatails=async()=>{
       if(AuthService.getCurrentUser().id){
       axios.get("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id).then(res=>
       this.setState({customer:res.data})
       )
+    }}
+    getchatmessage=async()=>{
+      if(AuthService.getCurrentUser().id){
+        axios.get("https://localhost:44340/api/ChatHubs/"+AuthService.getCurrentUser().id+"/12").then(res=>
+        this.setState({messages:res.data})
+        )
+
+    }}
+    sendmessage=async(_text)=>{
+      if(AuthService.getCurrentUser().id){
+        axios.post("https://localhost:44340/api/ChatHubs/",{"UserName":this.state.customer.UserName,
+        "Text":_text,
+        "UserID":AuthService.getCurrentUser().id,
+        "sellerId":12,
+        "SenderId":AuthService.getCurrentUser().id
+      }).then(
+        window.location.reload()
+        //this.setState({messages:res.data})
+        )
+  
     }}
     editcustomerdata=async(obj)=>{
       if(AuthService.getCurrentUser().id){
@@ -38,7 +59,9 @@ class JumiaAccount extends Component {
       )
     }}
   async  componentDidMount(){
-    this.getcustomerdeatails();
+   await this.getcustomerdeatails();
+   await this.getchatmessage();
+
 
     }
     render() { 
@@ -94,7 +117,7 @@ class JumiaAccount extends Component {
        <AccountDetails cust={this.state.customer} onEdit={this.editcustomerdata} path="/Account/AccountDetails"/>
        <RecentlyViewed path="Account/RecentlyViewed"/>
        <AdressBook path="/Account/AdressBook"/>
-       <Inbox path="/Account/Inbox"/>
+       <Inbox path="/Account/Inbox" mess={this.state.messages} sendmess={this.sendmessage}/>
        </Switch>
        </Router>
         {/* <Route path="/Account/Index" Component={Index} exact/>

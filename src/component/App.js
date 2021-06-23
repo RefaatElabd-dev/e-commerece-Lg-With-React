@@ -220,6 +220,7 @@ class App extends Component {
               )}
               path="/card"
             />
+            
             <Route
               render={(props) => <Subcategory {...props} />}
               path="/subcategory/:id"
