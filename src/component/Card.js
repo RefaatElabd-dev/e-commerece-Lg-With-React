@@ -96,7 +96,7 @@ class Card extends Component {
   }
 
   render() {
-   
+   //console.log(this.state.prod.image)
 let nprice;
 this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
 
@@ -116,7 +116,8 @@ this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.
             >
                 <img
                   className="card-img-top"
-                  src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
+                 // src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
+                 src={`https://localhost:44340/${this.state.prod.image}`}
                   alt={`${this.state.prod.productName}`}
                   height="250"
                 />

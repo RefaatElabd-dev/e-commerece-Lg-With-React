@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import {Link } from "react-router-dom";
 // import image from "../../J6/wwwroot/images/00522b9e-3ee6-4763-8876-d7d8e5d45de8_maca.jpg"
 class Brand extends Component {
+  show(_v){
+    console.log(_v)
+  }
   render() {
     // let image="../../J6/wwwroot/images/"
     // console.log("image= "+image);
@@ -35,6 +38,7 @@ class Brand extends Component {
                       // src={image}
                       src={`https://localhost:44340/${c.image}`}
                     />
+                 
                   </div>
                   <div className="bg-warning">
                     <p style={{overflow:"hidden",textOverflow:"ellipsis"}}> {c.brandName}</p>

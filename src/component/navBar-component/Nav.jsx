@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { NavLink} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+
+import { Link ,NavLink} from "react-router-dom";
 import { BiStar } from "react-icons/bi";
-import { Link } from "react-router-dom";
 import AuthService from "../Services/auth.service";
+import SearchResult from "../search";
+
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 class NavBar extends Component {
@@ -34,17 +38,19 @@ addToCart = async (productid) => {
 
 
 // Get Search
-async search(name,e){
+ search=async(name,e)=>{
   e.preventDefault();
   try{
   await axios.get("https://localhost:44340/api/SearchsAPi/"+name)
   .then((res) => {
-    this.setState({ searchResult: res.data });
-    // toast.success("Success Search");
-    console.log(this.state.searchResult);
-    // window.location.replace("/search");
+    this.setState({ searchResult: res.data })
+  
+    console.log(res.data)
+    this.props.history.push("/search",res.data)
+ 
+    
   })}
-  catch (ex) {
+  catch {
     toast.error("Enter Valid String");
   }
 };
@@ -55,6 +61,7 @@ handleChange = (e) => {
   console.log(e.currentTarget.value);
 };
   render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <nav
@@ -81,6 +88,7 @@ handleChange = (e) => {
               </h1>
             </Link>
           </div>
+         
           <form 
             // action="/search"
             onSubmit={(event)=>this.search(this.state.searchString,event)}
@@ -95,13 +103,16 @@ handleChange = (e) => {
               value={this.state.searchString}
               name="searchString"
             />
+            
             <button
               className="btn btn-primary my-2 my-sm-0"
               type="submit"
             >
               Search
             </button>
+          
           </form>
+         
           <div
             className="collapse navbar-collapse col-12 col-md-3"
             id="navbarSupportedContent"
@@ -269,105 +280,13 @@ handleChange = (e) => {
         >
           <BiStar size="22" /> Sell On Jumia
         </Link>
-
-
+ 
+    
+     
 
 
         {/* Search Result */}
-        <React.Fragment>
-          {(this.state.searchResult.length>=1)
-            ?(
-            <React.Fragment>
-              {this.state.searchResult.map((c,i) => {
-                return (
-                  <div key={i} className="container text-center">
-                    <h1>Search Result</h1>
-                    {/* <div className="row m-0 p-0 mt-4  mb-4">
-                        {this.state.searchResult[key].map((dataItem) => {
-                          {if(this.state.searchResult.length[key]!==0)
-                            return (
-                              //Cards
-                              <React.Fragment>
-                                <div  key={dataItem.productId} className="col-md-4 col-12">
-                                  <div className="card item-box-blog">
-                                    <Link
-                                      to={{
-                                        pathname: `/Product/${dataItem.productId}`,
-                                        HandlerSaving: this.state.user,
-                                      }}
-                                      onClick={this.SaveinViews}
-                                      style={{ color: "black", textDecoration: "none" ,backgroundColor:"beige"}}
-                                    >
-                                        <img
-                                          className="card-img-top"
-                                          src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                                          alt={`${dataItem.productName}`}
-                                          height="250"
-                                        />
-                                        <div className="card-body" style={{height:"350px",direction:"ltr"}}>
-                                          <h6 className="card-title text-left" style={{overflow:"hidden",textOverflow:"ellipsis"}}>
-                                            {dataItem.productName}
-                                          </h6>
-                                          <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
-                                            {dataItem.description}
-                                          </div>
-                                          <p className="card-text text-right">
-                                              {dataItem.price} Egp
-                                              {parseInt(dataItem.discount) > 0 && (
-                                                <div className="mt-2 p-0">
-                                                  <span className="sp">
-                                                    (Egp
-                                                    <span>
-                                                      {parseInt(
-                                                        parseInt(dataItem.price) *
-                                                          (1 +
-                                                            parseInt(dataItem.discount) * 0.01)
-                                                      )}
-                                                    </span>
-                                                    )
-                                                  </span>
-                                                </div>
-                                              )}
-                                              <p className="card-text text-right">
-                                                  <span className="alert text-danger col-1 p-0">
-                                                    -{dataItem.discount}%
-                                                  </span>
-                                              </p>
-                                          </p>
-                                        </div>
-                                    </Link>
-                                    <button className="mb-5 mt-2 ml-5" onClick={()=>this.addToCart(dataItem.productId)} style={{width:"50%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
-                                  </div>
-                                </div>
-                              </React.Fragment>
-                            );
-                          }
-                          {
-                            if(this.state.searchResult.length[key]===0)
-                            {
-                              return(
-                                <React.Fragment>
-                                  <div className="alert alert-danger container text-center">
-                                    <h1>Not Found</h1>
-                                  </div>
-                                </React.Fragment>
-                              );
-                            }
-                          }
-                        })}
-                    </div> */}
-                  </div>
-                );
-              })}
-            </React.Fragment>
-            )
-            :(
-              <div className="alert alert-danger container text-center">
-                <h1>Search Not Found</h1>
-              </div>
-            )
-          }
-        </React.Fragment>
+        
       </React.Fragment>
     );
   }

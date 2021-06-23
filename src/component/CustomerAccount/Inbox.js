@@ -11,14 +11,14 @@ class Inbox extends Component {
     return (
       <React.Fragment>
 
-        <div className="card col-md-12" style={{ marginTop: 10, padding: 10 }}>
+        {/* <div className="card col-md-12" style={{ marginTop: 10, padding: 10 }}>
           <div className="card-header">
             <div className="row">
               <div className="col-md-6"> <h3>Inbox Message</h3> </div>
             </div>
           </div>
           {/*  --------------------------OpenOrders---------------------- */}
-          <div className="row" style={{ textAlign: 'center', marginTop: 60 }}>
+          {/* <div className="row" style={{ textAlign: 'center', marginTop: 60 }}>
             <div className="container mt-12" id="OpenOrders">
               <img src="../img/message.jpg" width="120px" height="120px" /><br /> <br />
               <div className=" form col-lg-12 ">
@@ -28,7 +28,7 @@ class Inbox extends Component {
             </div>
           </div>
           <br />
-        </div>
+        </div>  */}
 
         {(AuthService.getCurrentUser().id &&this.props.mess!=undefined&& this.props.mess.length>0) && <React.Fragment>
           <div className="border col-12 m-5 ">

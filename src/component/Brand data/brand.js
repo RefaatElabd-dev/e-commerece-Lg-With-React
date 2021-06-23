@@ -4,6 +4,20 @@ import DisplayedProducts from "../displyedproducts";
 class Brand extends Component {
   state = {
     brandprods: [],
+    slidprice:0,
+    colors: [],
+     sizes:[],
+     prices:[],
+     filterbrand: [],
+     filtercolor: [],
+     filteredprods: [],
+     fcolor: [],
+     fbrand: [],
+   
+     fshipping:[],
+     fdiscount:"",
+     filteredArray: [],
+     filterDiscount:[]
   };
   getbrandprods = (_id) => {
     axios(
@@ -12,9 +26,21 @@ class Brand extends Component {
       this.setState({
         brandprods: res.data,
       });
-      //console.log("cat", res.data)
+      
     });
   };
+  getbrandcolors = async (_id) => {
+    await axios("https://localhost:44340/api/SubCategoriesAPI/allsubcolor/" + _id).then(async res => {
+     await this.setState({ colors: res.data })
+    }).catch(err => console.log(err))
+  }
+  getbrandtprices = async (_id) => {
+    await axios("https://localhost:44340/api/SubCategoriesApi/allsubprice/"+_id).then(async res => {
+       //console.log(res.data);
+      await this.setState({ prices: res.data,slidprice:Math.max.apply(null,res.data) })
+     }).catch(err => console.log(err))
+  
+   }
   async componentDidMount() {
     await this.getbrandprods(this.props.match.params.id);
   }

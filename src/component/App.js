@@ -168,14 +168,16 @@ class App extends Component {
         {/* Toast just for notification  */}
         <ToastContainer />
         <Router>
-          <NavBar
+          {/* <NavBar 
             user={this.state.user}
             productsCart={this.state.productsIncart}
             // onSearch={this.search}
             // onHandleChange={this.handleChange}
             // searchString={this.state.searchString}
             // searchResult={this.state.searchResult}
-          />
+          /> */}
+          <Route render={(props)=><NavBar {...props} user={this.state.user}
+            productsCart={this.state.productsIncart} />} />
           <Switch>
             <Route component={Home} path="/" exact />
             <Route component={Home} path="/Home" exact />
@@ -234,10 +236,10 @@ class App extends Component {
               render={(props) => <AllBrandsPagination {...props} />}
               path="/AllBrands"
             />
-             <Route
-              render={(props) => <SearchResult {...props} />}
-              path="/searchResult"
-            />
+              <Route 
+                 render={(props) => <SearchResult {...props}  />}
+                  path="/search"
+                         />
             <JumiaAccount path="/Account" />
             <Route path="/AboutUs" component={AboutUs} />
             <Route path="/ContactUs" component={ContactUs} />

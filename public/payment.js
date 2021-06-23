@@ -14,11 +14,13 @@ paypal.Buttons({
     },
     onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
-            console.log(details)
-            window.location.replace("http://localhost:3000/paypal/success.html")
+            //console.log(details)
+            console.log("done")
+           // window.location.replace("http://localhost:3000/paypal/success.html")
         })
     },
     onCancel: function (data) {
-        window.location.replace("http://localhost:3000/paypal/Oncancel.html")
+        //window.location.replace("http://localhost:3000/paypal/Oncancel.html")
+        console.log("failed")
     }
 }).render('#pay1');

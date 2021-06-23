@@ -9,9 +9,9 @@ import SubcatProd from './subcatprod';
 
 class Category extends Component {
   state = {
+    subcategCat:[],
     slidprice:0,
     Catbrands: [],
-    subcategCat:[],
     colors: [],
     sizes:[],
     prices:[],
@@ -28,13 +28,13 @@ class Category extends Component {
     filterDiscount:[]
   }
 
+  getsubcategincategory=async(_id)=>{
+    await axios("https://localhost:44340/api/CategoriesAPi/categoryproduct/" + _id).then(async res => {
+      await this.setState({ subcategCat: res.data })
+    });
+  
+  }
 
-getsubcategincategory=async(_id)=>{
-  await axios("https://localhost:44340/api/CategoriesAPi/categoryproduct/" + _id).then(async res => {
-    await this.setState({ subcategCat: res.data })
-  });
-
-}
   getcategprods = async (_id) => {
     await axios("https://localhost:44340/api/CategoriesAPi/allproductonlyIncategory/" + _id).then(async res => {
       await this.setState({ categoryprods: res.data })
@@ -119,7 +119,7 @@ getsubcategincategory=async(_id)=>{
         console.log(this.state.filteredArray)
         }
         else{
-          let filteredProducts = this.state.filteredArray.filter(item =>this.state.fbrand.includes(`${item.brandId}`) )
+          let filteredProducts = this.state.categoryprods.filter(item =>this.state.fbrand.includes(`${item.brandId}`) )
          await this.setState({filteredArray: filteredProducts})
         console.log(this.state.filteredArray)
         }
@@ -175,7 +175,7 @@ getsubcategincategory=async(_id)=>{
         else{
             await  this.setState({filterDiscount:this.state.filteredArray})
            }
-          if (e.target.checked) { let filteredProducts = this.state.filterDiscount.filter(item =>item.discount >=parseFloat(e.target.value*.01)
+          if (e.target.checked) { let filteredProducts = this.state.categoryprods.filter(item =>item.discount >=parseFloat(e.target.value*.01)
               )
               await this.setState({ filteredArray: filteredProducts })
               console.log(e.target.value*.01)
@@ -192,7 +192,7 @@ getsubcategincategory=async(_id)=>{
               await  this.setState({filterDiscount:this.state.filteredArray})
              }
             if (e.target.checked) { 
-              let filteredProducts = this.state.filterDiscount.filter(item =>item.rating >=parseFloat(e.target.value)
+              let filteredProducts = this.state.categoryprods.filter(item =>item.rating >=parseFloat(e.target.value)
                 )
                 await this.setState({ filteredArray: filteredProducts })
                // console.log(e.target.value*.01)
@@ -281,7 +281,7 @@ getsubcategincategory=async(_id)=>{
         <div className="container-fluid mt-5">
           <Brand sendBrands={this.state.Catbrands} />
         </div>
-      { this.state.subcategCat &&   <div className="container-fluid mt-5">
+        { this.state.subcategCat &&   <div className="container-fluid mt-5">
             <SubcatProd subcategories={this.state.subcategCat} />
           </div>}
         <div className="container-fluid mt-5">
