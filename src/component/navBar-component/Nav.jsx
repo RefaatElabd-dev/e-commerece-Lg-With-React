@@ -84,7 +84,7 @@ handleChange = (e) => {
             <Link className="navbar-brand text-white" to="/" title="Home">
               <h1>
                 {" "}
-                <b>JUMIA</b> <i className="fa fa-shopping-cart text-light" />
+                <b>J6</b> <i className="fa fa-shopping-cart text-light" />
               </h1>
             </Link>
           </div>
@@ -179,7 +179,7 @@ handleChange = (e) => {
                   <li>
                     <NavLink
                       className="dropdown-item bg-light text-dark"
-                      to="#"
+                      to="/Account/Orders"
                     >
                       <i className="fas fa-shopping-cart mr-2"></i>Social Orders
                     </NavLink>
@@ -229,7 +229,7 @@ handleChange = (e) => {
                       Help Center
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
@@ -250,7 +250,7 @@ handleChange = (e) => {
                     >
                       Payment and Account
                     </NavLink>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li className="nav-item m-2">

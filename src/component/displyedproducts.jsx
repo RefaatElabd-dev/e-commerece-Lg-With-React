@@ -7,7 +7,7 @@ class DisplayedProducts extends Component {
        
         loading: false,
         currentPage: 1,
-        productsPerPage: 8
+        productsPerPage: 4
       };
       getproducts = async () => {
         this.setState({ loading: true });
@@ -43,18 +43,18 @@ class DisplayedProducts extends Component {
           
         return (
             <React.Fragment>
-                <div className="row col-md-8 mt-sm-5 mt-md-0" style={{ backgroundColor: 'white', marginLeft: 20 }}>
-                    <div className="card mt-4 mb-4" style={{ width: '70rem' }}>
+                <div className="row col-md-9 mt-sm-5 mt-md-0 m-0 p-0" style={{ backgroundColor: 'white' }}>
+                    <div className="card mt-4 mb-4" style={{ width: '100%' }}>
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item"><h6 className="font-weight-bold" style={{fontSize:"24px"}}>{this.props.name} Products</h6></li>
                             <li className="list-group-item">{this.props.prods.length} products found</li>
-                            <li className="list-group-item">
-                                <section>
-                                    <div className="container ">
+                            <li className="list-group-item p-0">
+                                <section className="">
+                                    <div className="container p-0 m-0">
                                         <div id="gallery1" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
                                                 <div className="carousel-item active">
-                                                    <div className="row rounded p-2">
+                                                    <div className="row rounded p-0 m-0">
                                                       {currentProducts.map((c,i)=><Card cardprod={c} key={i}/>)}
                                                     </div>
                                                 </div>

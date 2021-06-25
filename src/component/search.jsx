@@ -19,7 +19,9 @@ class SearchResult extends Component {
               </React.Fragment>
               )
               :(
-                <DisplayedProducts prods={this.props.location.state} name={this.props.location.name} />
+                <div className="bg-danger container text-center p-4">
+                  <DisplayedProducts prods={this.props.location.state} name={this.props.location.name} />
+                </div>
               )
             }
           </React.Fragment>

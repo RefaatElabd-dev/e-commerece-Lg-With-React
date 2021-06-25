@@ -58,7 +58,7 @@ class RecentlyViewed extends Component {
         <React.Fragment>
           <div className="container  ">
             <h4 className="mb-2 ">RecentlyViewed</h4>
-            <div className="row blog ">
+            <div className="row blog m-0 p-0">
               <div className="col-md-12 h-100">
                 <div
                
@@ -67,7 +67,7 @@ class RecentlyViewed extends Component {
                   {/* Carousel items */}
                   <div>
                     <div >
-                      <div className="row">
+                      <div className="row m-0 p-0">
                         {this.props.prods.slice(0, 5).map((c, i) => (
                           <SmallCard cardprod={c} key={i} />
                         ))}
@@ -78,7 +78,7 @@ class RecentlyViewed extends Component {
                 </div>
                 {/*.item*/}
                 <div className="carousel-item ">
-                  <div className="row">
+                  <div className="row m-0 p-0">
                     {this.props.prods.slice(6, 12).map((c, i) => (
                       <SmallCard cardprod={c} key={i} />
                     ))}

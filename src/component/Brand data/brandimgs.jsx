@@ -31,11 +31,6 @@ class Brand extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      // src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                      //  src={require(`../../../J6/wwwroot/images/${c.image}`)}
-                      //  src="../../J6/wwwroot/images/0ac638c5-3cb7-45ca-af4d-f6d4be43969b_FB_IMG_1496904814546.jpg"
-                      //  {`V3/J6/wwwroot/images/${c.image}`}
-                      // src={image}
                       src={`https://localhost:44340/${c.image}`}
                     />
                  

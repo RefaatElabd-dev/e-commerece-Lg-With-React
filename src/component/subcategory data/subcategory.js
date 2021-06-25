@@ -219,7 +219,7 @@ getsubcatprices = async (_id) => {
     render() { 
         return (
           <div className="container-fluid mt-5">
-          <div className="row">
+          <div className="row m-0 p-0">
             <div className="col-md-3">
               <nav className="navbar  bg-white">
                 <ul className="navbar-nav  w-100 ">
@@ -284,7 +284,7 @@ getsubcatprices = async (_id) => {
                   </li>
                   <li className="nav-item ml-3">
                    <input type="checkbox" name="shipping" value="1"  onChange={this.handlechecked} />  Shipped from Egypt <br/>
-                  <input type="checkbox" name="shipping"  name="shipping" value="2"  onChange={this.handlechecked}/>  Shipped from abroad
+                  <input type="checkbox" name="shipping"  value="2"  onChange={this.handlechecked}/>  Shipped from abroad
                   </li>
                   <div className="dropdown-divider" />
                   <li className="nav-item  mt-2  mb-2 ">

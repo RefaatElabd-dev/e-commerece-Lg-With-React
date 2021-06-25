@@ -19,10 +19,10 @@ class Orders extends Component{
        <Router>
           <li className="nav-item active">
               
-            <a className="nav-link text-warning" href="/Account/Orders/Opened">Open Orders (0)</a>
+            <a className="nav-link  text-uppercase" href="/Account/Orders/Opened">Orders InProgress(0)</a>
           </li>
           <li className="nav-item active">
-            <a className="nav-link text-warning" href="/Account/Orders/Closed">Closed Orders (0)</a>
+            <a className="nav-link  text-uppercase" href="/Account/Orders/Closed">Orders Done(0)</a>
           </li>
           </Router>
         </ul>

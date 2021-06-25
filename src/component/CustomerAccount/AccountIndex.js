@@ -38,10 +38,11 @@ class Index extends Component {
               <h5 className="card-title">JUMIA PRIME</h5>
               <div className="dropdown-divider" />
               <p className="card-text">Jumia Prime Jumia Prime &amp; Jumia Prime Plus are loyalty programs which allow its members to benefit from free delivery on their Jumia Express and Jumia Food orders, exclusive access to promotions as well as rewards and partnerships.</p>
-              <a href="#" className="btn btn-warning">Subscribe JUMIA Prime</a>
+              {/* <a href="#" className="btn btn-warning">Subscribe JUMIA Prime</a> */}
             </div>
           </div>
         </div>
+{/*         
         <div className="col-sm-6" style={{marginTop: 10}}>
           <div className="card h-100">
             <div className="card-body">
@@ -54,14 +55,15 @@ class Index extends Component {
         </div>
         <div className="col-sm-6" style={{marginTop: 10, marginBottom: 20}}>
           <div className="card h-100">
-            {/* <div className="card-body">
+            <div className="card-body">
               <h5 className="card-title">NEWSLETTER PREFERENCES</h5>
               <div className="dropdown-divider" />
               <p className="card-text">You are currently not subscribed to any of You are currently not subscribed to any of our newsletters.</p>
               <a href="#" className="btn btn-warning">EDIT NEWSLetter preferences</a>
-            </div> */}
+            </div>
           </div>
         </div>
+            */}
             </React.Fragment>
         )
     }

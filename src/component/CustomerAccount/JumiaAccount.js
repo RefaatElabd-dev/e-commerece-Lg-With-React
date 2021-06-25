@@ -75,14 +75,14 @@ class JumiaAccount extends Component {
       <nav className="navbar  bg-white">
         <Router>
           <ul className="navbar-nav  w-100 ">
-            <li className="nav-item " style={{backgroundColor: 'orange'}}>
-              <a className="nav-link " href="/Account/Index" id="myaccount"><i className="bi bi-person-fill" aria-hidden="true" />&nbsp;  My Jumia Accounnt</a>
+            <li className="nav-item ">
+              <a className="nav-link " href="/Account/Index" id="myaccount"><i className="fa fa-user" aria-hidden="true" />&nbsp;  My Jumia Accounnt</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/Account/Orders"><i className="fa fa-shopping-bag" />&nbsp;   Orders</a>
               <a className="nav-link" href="/Account/Inbox"><i class="far fa-envelope"/>&nbsp;   Inbox </a>
               <a className="nav-link" href="/Account/reviwsrating"><i class="far fa-comment-alt"/>&nbsp; Pending Reviews</a>
-              <a className="nav-link" href="/Account/JumiaCredit"><i class="fas fa-credit-card"/> &nbsp; Jumia Credit</a>
+              {/* <a className="nav-link" href="/Account/JumiaCredit"><i class="fas fa-credit-card"/> &nbsp; Jumia Credit</a> */}
               <a className="nav-link" href="/Account/wishlist"><i className="fa fa-heart" aria-hidden="true" />&nbsp; Saved
                 Items</a>
     

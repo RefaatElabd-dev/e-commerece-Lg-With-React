@@ -47,8 +47,10 @@ import Images from "./Images";
 import Subcategory from "./subcategory data/subcategory";
 import SavedItems from "./CustomerAccount/SavedItems";
 import AllBrandsPagination from "./Brand data/allBrandsPagination";
+import Form from './SellerComponent/Training/Form';
 import Search from "./navBar-component/Search";
 import SearchResult from "./search";
+import CheckOut from './Checkout';
 
 class App extends Component {
   state = {
@@ -195,7 +197,10 @@ class App extends Component {
             />
             <Route component={(props) => <Login {...props} />} path="/Login" />
             <Route
-              component={(props) => <AllBestSelling {...props} />}
+              component={(props) => <AllBestSelling 
+                product={this.state.products}
+              {...props}
+              onAdd={this.addToCart} />}
               path="/allbestselling"
             />
             {/* <Route render={()=>AuthService.logout()}  path="/logout"/> */}
@@ -256,10 +261,21 @@ class App extends Component {
                 />
               )}
             />
+            <Route path="/CheckOut"
+            render={(props) => (
+              <CheckOut
+                productsCart={this.state.productsIncart}
+                totalPrice={this.state.totalPrice}
+                user={this.state.user}
+                {...props}
+              />
+            )}
+            />
             <Route path="/Product" component={Product} />
             <Router>
               <NavSeller />
               <div className="">
+              <Route component={Form} path="/Traning/Form"/>
                 <Route component={Knowledge} path="/Knowledge" />
                 <Route component={VendorHub} path="/VendorHub" />
                 <Route component={Community} path="/Vendor/Community" />

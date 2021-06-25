@@ -27,15 +27,16 @@ class Card extends Component {
       this.setState({ prod: productsIncart });
     }
   };
-  rate = (t) => {
-    if (t === 1) {
+  rate = (v) => {
+    let t=parseFloat(v);
+    if (t >= 1 && t < 1.5) {
       return (
         <div>
           {" "}
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 1 && t <= 2) {
+    } else if (t >= 1.5 && t < 2.5) {
       return (
         <div>
           {" "}
@@ -43,7 +44,7 @@ class Card extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 2 && t <= 3) {
+    } else if (t > 2.5 && t < 3.5) {
       return (
         <div>
           {" "}
@@ -52,7 +53,7 @@ class Card extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 3 && t <= 4) {
+    } else if (t >= 3.5 && t < 4.5) {
       return (
         <div>
           {" "}
@@ -62,7 +63,7 @@ class Card extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 4 && t <= 5) {
+    } else if (t >= 4.5 && t <= 5) {
       return (
         <div>
           {" "}
@@ -98,7 +99,10 @@ class Card extends Component {
   render() {
    //console.log(this.state.prod.image)
 let nprice;
-this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
+//this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
+this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
+? (nprice = this.props.cardprod.price)
+: (nprice = parseInt(this.props.cardprod.price*(1-this.props.cardprod.discount)));
 
     return (
       <React.Fragment>
@@ -116,8 +120,7 @@ this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.
             >
                 <img
                   className="card-img-top"
-                 // src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                 src={`https://localhost:44340/${this.state.prod.image}`}
+                 src={`https://localhost:44340/images/${this.state.prod.image}`}
                   alt={`${this.state.prod.productName}`}
                   height="250"
                 />
@@ -132,29 +135,34 @@ this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.
                     {this.rate(this.state.prod.rating)}
                   </p>
                   <p className="card-text text-right">
-                      {parseInt(nprice)} Egp
-                      {(this.props.cardprod.discount) > 0 && (
-                        <div className="mt-2 p-0">
-                          <span className="sp">
-                            (Egp
-                            <span>
-                              {
-                              this.props.cardprod.price
-                              }
-                            </span>
-                            )
-                          </span>
-                        </div>
-                      )}
-                      <p className="card-text text-right">
-                         {(this.props.cardprod.discount > 0) && <span className="alert text-danger col-1 p-0">
-                            -{this.props.cardprod.discount*100}%
-                          </span>}
-                      </p>
-                  </p>
+               
+            {this.props.cardprod.discount > 0 ? (
+              <> 
+                 <span className="sp1 m-1 ">
+              <span>Egp</span>
+              <span>{nprice}</span>
+            </span>
+              <span className="sp2 m-1">
+                <span>Egp</span>
+                <span>{this.props.cardprod.price}</span>
+              </span>
+              <span className="sp3">
+                <span>Saving :</span>
+                <span>  {parseInt(this.props.cardprod.discount*100)} </span>
+              </span>
+              </>
+            ):
+            <span className="sp1 mt-4">
+              
+            <span>Egp</span>
+            <span>{parseInt(nprice)}</span>
+          </span>}
+          
+            </p>
                 </div>
+           
             </Link>
-            <button className="mb-5 mt-2 ml-5" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"50%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+            <button className="mb-5 mt-2" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
             </div>
         </div>
       </React.Fragment>

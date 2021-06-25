@@ -1,6 +1,6 @@
 import axios from "axios";
-import e from "cors";
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import AuthService from "../Services/auth.service";
 class ChangePssword extends Component {
   state = {
@@ -20,9 +20,7 @@ class ChangePssword extends Component {
           "https://localhost:44340/api/CustomersApi/"+this.state.CurrentPassword+"/"+this.state.NewPassword,{"id":
           AuthService.getCurrentUser().id}
         )
-        .then(
-          console.log("changed")
-          // window.location.reload()
+        .then(  window.location.reload()
         );
     }
 

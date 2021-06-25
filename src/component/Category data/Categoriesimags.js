@@ -24,8 +24,7 @@ class Categoriesimages extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                      // src={b.image}
+                      src={`https://localhost:44340/${b.image}`}
                     />
                   </div>
                   <div className="bg-warning">

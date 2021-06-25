@@ -48,14 +48,7 @@ export class AllBrandsPagination extends Component {
 
       return (
         <div className="">
-          <br />
-          <Pagination
-            brandsPerPage={brandsPerPage}
-            totalbrands={brands.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
-          />
+
           <div className="container text-center ">
             <div className="row m-0 p-0 mt-4  mb-4">
               {currentbrands.map((c, i) => (
@@ -73,9 +66,8 @@ export class AllBrandsPagination extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      //src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                       src={`E:/ITI/Tasks ITI/Projects/Final/APIFinalProject/new git/V3/J6/wwwroot/images/"${c.image}`}
-                    />
+                      src={`https://localhost:44340/${c.image}`}
+                   />
                   </div>
                   <div className="bg-warning">
                     <p style={{overflow:"hidden",textOverflow:"ellipsis"}}> {c.brandName}</p>
@@ -111,8 +103,16 @@ export class AllBrandsPagination extends Component {
                 </div>
               ))}
               </div>
+            </div>
+            <br />
+          <Pagination
+            brandsPerPage={brandsPerPage}
+            totalbrands={brands.length}
+            paginate={paginate}
+            nextPage={nextPage}
+            prevPage={prevPage}
+          />
           </div>
-        </div>
       );
     }
   }

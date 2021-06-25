@@ -90,27 +90,6 @@ class Cart extends Component {
     };
   async componentDidMount(){
   await  this.getTotalPrice();
-  const script = document.createElement("script");
-
-  
-  script.src="https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card"
-
-  script.async = true;
-
-  document.body.appendChild(script);
-
-
-   
-   const script2 = document.createElement("script");
-
-  
-   script2.src="payment.js"
- 
-   script2.async = true;
- 
-   document.body.appendChild(script2);
- 
- 
     }
 
   render() {
@@ -166,7 +145,6 @@ class Cart extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                 
                   {
                     this.props.productsCart.map(p=>
                       <Cartitem key={p.productId} q={p.quantity} prodid={p.productId}
@@ -201,7 +179,7 @@ class Cart extends Component {
                   <Link
                     className="col-md-6  btn-sm btn-light bg-danger shadow-lg text-white p-2 m-2"
                     style={{ textDecoration: "none" }}
-                    to="#"
+                    to="/Checkout"
                   >
                     Countinue to check out
                   </Link>
@@ -229,15 +207,6 @@ class Cart extends Component {
             </div>
           </React.Fragment>
         )}
-        {/* <script src="https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card"></script>
-        <script >
-          
-          
-        </script> */}
-        <br/>
-          <div id="pay1">
-          
-           </div>
       </React.Fragment>
     );
   }

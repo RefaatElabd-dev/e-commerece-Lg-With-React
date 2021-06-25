@@ -99,16 +99,19 @@ class Home extends Component {
           {/* Top */}
           <div className="container my-2 mt-2">
             <div className="row m-0 p-0">
-              {/* Block1  Filter Catogeries*/}
-              <div className=" col-12 col-md-3 p-0 m-0 item-box-blog rounded bg-dark">
-                <div className="m-1 p-0" style={{overflowY:"scroll",height: "380px",backgroundColor: "#fff"}}>
-                 <h4 className="">Categories</h4>
+              {/* Block1  Filter Categories*/}
+              <div className=" col-12 col-md-3 p-0 m-0 card rounded">
+                <div className="m-1 p-0" style={{overflowY:"auto",height: "380px",backgroundColor: "#fff"}}>
+                 <h4 className="card-header text-center">Categories</h4>
                   {this.state.Catogeries.map((cat, i) => (
                     <div
                       className="text-left"
                       style={{ borderBottom: "1px solid black", width: "100%" }}
                     >
-                      <Dropdown as={ButtonGroup}>
+                      <Dropdown as={ButtonGroup}
+                      style={{width:"100%"}}
+                      drop="down"
+                      >
                         <Link
                           variant="Warning"
                           className="dropItem m-2"
@@ -126,10 +129,10 @@ class Home extends Component {
                           variant=""
                           id={i}
                           className="text text-right"
+                          
                         />
-                        <Dropdown.Menu style={{fontWeight:"600",fontSize:"20px"}}>
-                          <h6 className="text-center">Subcategories</h6>
-                          <hr classNam=""/>
+                        <Dropdown.Menu style={{fontWeight:"600",fontSize:"20px", width:"100%"}}>
+                          <h5 className="card-header text-center">Subcategories</h5>
                           {cat.subCategories.map((s, j) => (
                             <Dropdown.Item
                               href={"/subcategory/" + s.subcategoryId}
@@ -173,13 +176,25 @@ class Home extends Component {
                     </ol>
                     <div className="carousel-inner bloc1">
                       <div className="carousel-item active sliditem">
+                        <Link to={`/category/${this.state.Catogeries[0].categoryId}`} >
                         <img
-                          src="https://eg.jumia.is/cms/ramadan-21/1day-offer/7April/slider_Desktop_EN.jpg"
+                          src={`https://localhost:44340/${this.state.Catogeries[0].image}`}
                           className="d-block w-100 h-100 img-fluid imgslid"
                           alt="..."
                         />
+                        </Link>
                       </div>
-                      <div className="carousel-item bloc1">
+                      {this.state.Catogeries.slice(1,4).map((c,i)=><div key={i} className="carousel-item bloc1">
+                        <Link to={`/category/${c.categoryId}`}>
+                        <img
+                         // src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
+                         src={`https://localhost:44340/${c.image}`}
+                          className="d-block w-100 h-100 imgslid img-fluid "
+                          alt="..."
+                        />
+                        </Link>
+                      </div>)}
+                      {/* <div className="carousel-item bloc1">
                         <img
                           src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
                           className="d-block w-100 h-100 imgslid img-fluid "
@@ -199,7 +214,7 @@ class Home extends Component {
                           className="d-block w-100 h-100 imgslid img-fluid "
                           alt="..."
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <a
                       className="carousel-control-prev"

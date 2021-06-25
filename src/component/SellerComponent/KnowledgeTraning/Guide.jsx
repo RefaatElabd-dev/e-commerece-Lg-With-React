@@ -69,7 +69,7 @@ class Guide extends Component {
                                 <li><Link to="#" style={{"color":"#f68b1e","textDecoration":"none"}}>Commisions</Link></li>
                                 <li><Link to="#" style={{"color":"#f68b1e","textDecoration":"none"}}>Jumia Express Fees</Link></li>
                             </ul>
-                            <h1 style={{"textAlign":'center'}}><Link to="#" style={{"color":"#f68b1e","textDecoration":"none"}}>“Start selling”</Link></h1>
+                            <h1 style={{"textAlign":'center'}}><Link to="/Traning/Form" style={{"color":"#f68b1e","textDecoration":"none"}}>“Start selling”</Link></h1>
                         </div>
                         {/* 3 */}
                         {/* left */}

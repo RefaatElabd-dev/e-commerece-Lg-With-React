@@ -27,7 +27,7 @@ class Product extends Component {
   };
   findprod = (_id) => {
     axios
-      .get("https://localhost:44340/api/ProductsAPi/"+ _id)
+      .get("https://localhost:44340/api/ProductsAPi/" + _id)
       .then((res) => {
         //  this.setState({product:res.data,prodimgs:res.data.productImages[0].image})
         this.setState({ product: res.data });
@@ -93,6 +93,16 @@ class Product extends Component {
   render() {
     //  console.log(this.props);
     // console.log(this.props.match.params)
+    let nprice;
+    this.state.product.discount == 0 || this.state.product.discount == null
+      ? (nprice = this.state.product.price)
+      : (nprice = this.state.product.price * (1 - this.state.product.discount));
+    this.state.product.discount == 0 || this.state.product.discount == null
+      ? (nprice = this.state.product.price)
+      : (nprice =
+          parseInt(this.state.product.price) +
+          parseInt(this.state.product.discount));
+
     return (
       <React.Fragment>
         <div className="container mt-2">
@@ -101,37 +111,26 @@ class Product extends Component {
               <div className="row m-0 p-0  mt-3">
                 {/*product section */}
                 {/* left */}
-                <div className="col-12 col-md-5 p-0" style={{height:"550px"}}>
+                <div className="col-12 col-md-5 p-0">
                   {/*image box */}
                   {/* Main Image */}
-                    <div  className="" >
-                      {/* <img src={this.state.product.mimg}  id="basicImage" width="100%" /> */}
-                      <img
-                        src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                        id="basicImage"
-                        width="100%"
-                        height="280px"
-                        alt={this.state.product.productName}
-                      />
-                    </div>
-                    {/* 4 Images */}
-                  <div className="m-0 row p-0">
-                            <div className="p-2 col-6 col-md-3">
-                              <img alt={this.state.product.productName}  src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg" width="100%" height="100"/>
-                            </div>
-                            <div className="p-2 col-6 col-md-3">
-                              <img alt={this.state.product.productName} src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg" width="100%" height="100"/>
-                            </div>
-                            <div className="p-2 col-6 col-md-3">
-                              <img alt={this.state.product.productName} src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg" width="100%" height="100"/>
-                            </div>
-                            <div className="p-2 col-6 col-md-3">
-                              <img alt={this.state.product.productName} src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg" width="100%" height="100"/>
-                            </div>
-                        </div>
+                  <div>
+                    <img
+                      src={`https://localhost:44340/${this.state.product.image}`}
+                      id="basicImage"
+                      width="100%"
+                      height="280px"
+                      className="rounded"
+                      alt={this.state.product.productName}
+                    />
+                  </div>
+                  {/* 4 Images */}
                 </div>
                 {/* Right */}
-                <div className="col-12 col-md-7">
+                <div
+                  className="col-12 col-md-7"
+                  style={{ fontFamily: "cursive " }}
+                >
                   {/*information box */}
                   <div className="row justify-content-between p-2">
                     <div className="d-flex justify-content-start badge badge-danger text-light">
@@ -150,45 +149,35 @@ class Product extends Component {
                   <div className="">
                     <h5>{this.state.product.description}</h5>
                   </div>
-                  {/* <div>
-                    <span>Brand: </span>{" "}
-                    <a href="#">{this.state.product.brandId}</a>
-                  </div> */}
-                  <div className="align-items-center mt-2 text-left">
+                  <div className="align-items-center mt-2 text-center">
                     <span>{this.rate(this.state.product.rating)}</span>
                   </div>
                   <hr className="m-0 mb-2 mt-2 d-md-block" />
-                  {/* <div className="row  d-md-block text-center"> */}
-                    <div className="p-0 text-left">
-                      <h2 className="mb-0 badge badge-pill oranged text-white p-2">
-                        EGP <span>{this.state.product.price}</span>
-                      </h2>
-                    {parseInt(this.state.product.discount) > 0 && (
-                      <div className="mt-2 p-0 mb-2">
-                        <span className="sp  col-3 p-1">
-                          (Egp{" "}
-                          <span>
-                            {parseInt(
-                              parseInt(this.state.product.price) *
-                                (1 +
-                                  parseInt(this.state.product.discount) * 0.01)
-                            )}
-                          </span>
-                          )
-                        </span>
-                        <span className="alert text-danger col-3 p-0">
-                          -{this.state.product.discount}%
-                        </span>
-                      </div>
-                      
+                  <div className="p-0 text-center">
+                    <h2 className="mb-0 badge badge-pill oranged text-white p-2">
+                      EGP <span>{this.state.product.price}</span>
+                    </h2>
+
+                    {this.state.product.discount > 0 && (
+                      <span className="sp2 m-1" style={{ fontSize: "17px" }}>
+                        <span>Egp</span>
+                        <span>{parseInt(nprice)}</span>
+                      </span>
                     )}
-                    </div>
-                    <div className="text-center text-white cursor col-12 row m-0 p-2">
+                    {this.state.product.discount > 0 && (
+                      <span className="sp3" style={{ fontSize: "17px" }}>
+                        <span>Saving :</span>
+                        <span>
+                          {parseInt(nprice) -
+                            parseInt(this.state.product.price)}{" "}
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-center text-white cursor col-12 row m-0 p-2">
                     <button
-                      style={{backgroundColor:"teal" }}
-                      onClick={() =>
-                        this.props.onAdd(this.state.product.id)
-                      }
+                      style={{ backgroundColor: "teal" }}
+                      onClick={() => this.props.onAdd(this.state.product.id)}
                       className="btn text-uppercase text-white font-weight-bold mb-2 offset-md-2 col-12 col-md-8"
                     >
                       Add to cart
@@ -199,44 +188,84 @@ class Product extends Component {
                 <hr className="my-2 m-0" />
                 {/* Product details */}
                 <div
-                  className="card border-0 mt-2 p-2 font-size-small item-box-blog text-left"
+                  className="card  mt-2 mb-2 p-2 font-size-small item-box-blog text-left"
                   id="details"
                 >
                   <header className="h">
                     <h2 className="">Product details</h2>
                   </header>
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Name: </span>
-                    {this.state.product.productName}
-                  </div>
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Description: </span>
-                    {this.state.product.description}
-                  </div>
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Model: </span>
-                    {this.state.product.model}
-                  </div>
+                  <ul style={{ fontFamily: "cursive " }}>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Name : </span>
+                        {this.state.product.productName}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>
+                          Description :{" "}
+                        </span>
+                        {this.state.product.description}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Model : </span>
+                        {this.state.product.model}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Color : </span>
+                        <span style={{ color: this.state.product.color }}>
+                          {this.state.product.color}
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Material : </span>
+                        {this.state.product.material}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>manufacture : </span>
+                        {this.state.product.manufacture}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Size : </span>
+                        {this.state.product.size}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Price : </span>
+                        EGP {this.state.product.price}
+                      </div>
+                    </li>
+                    <li>
+                      {" "}
+                      <div className="">
+                        <span style={{ fontWeight: "700" }}>Shipped From </span>
+                        <span>
+                          {" "}
+                          {this.state.product.ship == 1 ? "Egypt" : "Abroad"}
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+
                   {/* <div className="">
-                    <span style={{ fontWeight: "800" }}>Brand: </span>
-                    {this.state.product.brand}
+                    <span style={{ fontWeight: "800" }}>Brand : </span>
+                    {this.state.product.brandId}
                   </div> */}
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Color: </span>
-                    <span style={{ color: this.state.product.color }}>
-                      {this.state.product.color}
-                    </span>
-                  </div>
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Size: </span>
-                    {this.state.product.size}
-                  </div>
-                  <div className="">
-                    <span style={{ fontWeight: "800" }}>Price: </span>
-                    EGP {this.state.product.price}
-                  </div>
                 </div>
                 {/*  specifications */}
+                {/*                 
                 <div
                   id="specifications"
                   className="col-12 border-0 mt-2 p-2 font-size-small mb-3"
@@ -272,7 +301,9 @@ class Product extends Component {
                           </li>
                           <li className="">
                             <b className="">Color</b>:{" "}
-                           <span style={{ color: this.state.product.color }}>{this.state.product.color}</span> 
+                            <span style={{ color: this.state.product.color }}>
+                              {this.state.product.color}
+                            </span>
                           </li>
                           <li className="">
                             <b className="">Main Material</b>: Cotton
@@ -289,15 +320,13 @@ class Product extends Component {
                     </div>
                   </div>
                 </div>
+              */}
               </div>
             </div>
           </div>
         </div>
 
         {/*DELIVERY Details Modal */}
-       
-      
-       
       </React.Fragment>
     );
   }

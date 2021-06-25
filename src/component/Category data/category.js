@@ -28,12 +28,6 @@ class Category extends Component {
     filterDiscount:[]
   }
 
-  getsubcategincategory=async(_id)=>{
-    await axios("https://localhost:44340/api/CategoriesAPi/categoryproduct/" + _id).then(async res => {
-      await this.setState({ subcategCat: res.data })
-    });
-  
-  }
 
   getcategprods = async (_id) => {
     await axios("https://localhost:44340/api/CategoriesAPi/allproductonlyIncategory/" + _id).then(async res => {
@@ -69,6 +63,15 @@ class Category extends Component {
      await this.setState({ catbrandprods: res.data })
     }).catch(err => console.log(err))
 
+  }
+
+  
+  getsubcategincategory=async(_id)=>{
+    await axios("https://localhost:44340/api/CategoriesAPi/categoryproduct/" + _id).then(async res => {
+      await this.setState({ subcategCat: res.data })
+      //console.log(res.data,"kkkkk",this.state.subcategCat)
+    }).catch(err=>console.log(err));
+  
   }
 
  
@@ -229,55 +232,96 @@ class Category extends Component {
  
 
  async componentDidMount() {
-
+  await  this.getsubcategincategory(this.props.match.params.id);
   await  this.getcategorybrands(this.props.match.params.id);
   await  this.getcategorycolors(this.props.match.params.id);
   await  this.getcategprods(this.props.match.params.id);
   await   this.getcatprices(this.props.match.params.id);
-  await this.getsubcategincategory(this.props.match.params.id);
+
 
   }
   render() {
     //console.log(Math.max.apply(null,this.state.prices))
-    //console.log(this.state.prices)
+ // console.log(this.state.subcategCat.slice(0,3))
 
     return (
       <div className="container my-3 ">
         {/* causal */}
-        <div className="d-none d-md-block col-md-10 offset-1 bloc1 mt-3 ">
-          <div className=" ">
-            <div id="carouselExampleCaptions" className="carousel slide" data-ride="carousel">
-              <ol className="carousel-indicators ">
-                <li data-target="#carouselExampleCaptions " data-slide-to={0} className="active" />
-                <li data-target="#carouselExampleCaptions" data-slide-to={1} />
-                <li data-target="#carouselExampleCaptions" data-slide-to={2} />
-                <li data-target="#carouselExampleCaptions" data-slide-to={3} />
-              </ol>
-              <div className="carousel-inner bloc1">
-                <div className="carousel-item active sliditem">
-                  <img src="https://eg.jumia.is/cms/ramadan-21/1day-offer/7April/slider_Desktop_EN.jpg" className="d-block w-100 h-100 img-fluid imgslid" alt="..." />
+        {/* <div className="d-none d-md-inline-block col-md-8 bloc1 mt-0 bg-dark ml-5 p-2">
+                <div className=" ">
+                  <div
+                    id="carouselExampleCaptions"
+                    className="carousel slide"
+                    data-ride="carousel"
+                  >
+                    <ol className="carousel-indicators ">
+                      <li
+                        data-target="#carouselExampleCaptions "
+                        data-slide-to={0}
+                        className="active"
+                      />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={1}
+                      />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={2}
+                      />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={3}
+                      />
+                    </ol>
+                    <div className="carousel-inner bloc1">
+                      <div className="carousel-item active sliditem">
+                        <Link to={`/subcategory/${this.state.subcategCat[0].subcategoryId}`} >
+                        <img
+                          src={`https://localhost:44340/${this.state.subcategCat[0].image}`}
+                          className="d-block w-100 h-100 img-fluid imgslid"
+                          alt="..."
+                        />
+                        </Link>
+                      </div>
+                      {this.state.subcategCat.slice(1,4).map((c,i)=><div key={i} className="carousel-item bloc1">
+                        <Link to={`/subcategory/${c.subcategoryId}`}>
+                        <img
+                         // src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
+                         src={`https://localhost:44340/${c.image}`}
+                          className="d-block w-100 h-100 imgslid img-fluid "
+                          alt="..."
+                        />
+                        </Link>
+                      </div>)}
+                   
+                    </div>
+                    <a
+                      className="carousel-control-prev"
+                      href="#carouselExampleCaptions"
+                      role="button"
+                      data-slide="prev"
+                    >
+                      <span
+                        className="carousel-control-prev-icon"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Previous</span>
+                    </a>
+                    <a
+                      className="carousel-control-next"
+                      href="#carouselExampleCaptions"
+                      role="button"
+                      data-slide="next"
+                    >
+                      <span
+                        className="carousel-control-next-icon"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Next</span>
+                    </a>
+                  </div>
                 </div>
-                <div className="carousel-item bloc1">
-                  <img src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg" className="d-block w-100 h-100 imgslid img-fluid " alt="..." />
-                </div>
-                <div className="carousel-item bloc1">
-                  <img src="https://eg.jumia.is/cms/ramadan-21/wof/7-4/Slider-Desktop-EN_-(1).jpg" className="d-block w-100 h-100 imgslid img-fluid " alt="..." />
-                </div>
-                <div className="carousel-item bloc1">
-                  <img src="https://eg.jumia.is/cms/ramadan-21/sliders/slider_Desktop_EN_copy.jpg" className="d-block w-100 h-100 imgslid img-fluid " alt="..." />
-                </div>
-              </div>
-              <a className="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true" />
-                <span className="sr-only">Previous</span>
-              </a>
-              <a className="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true" />
-                <span className="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-        </div>
+              </div> */}
         <div className="container-fluid mt-5">
           <Brand sendBrands={this.state.Catbrands} />
         </div>
@@ -285,7 +329,7 @@ class Category extends Component {
             <SubcatProd subcategories={this.state.subcategCat} />
           </div>}
         <div className="container-fluid mt-5">
-          <div className="row">
+          <div className="row m-0 p-0">
             <div className="col-md-3">
               <nav className="navbar  bg-white">
                 <ul className="navbar-nav  w-100 ">

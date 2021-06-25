@@ -4,53 +4,48 @@ import { NavLink } from "react-router-dom";
 
 class SmallCard extends Component {
   render() {
+    let nprice;
+    this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
+      ? (nprice = this.props.cardprod.price)
+      : (nprice =
+          parseInt(this.props.cardprod.price*(1-this.props.cardprod.discount)));
+
     // console.log("card product data",this.props.cardprod)
     return (
       <React.Fragment>
-          <NavLink
-          className="m-1 h-100"
-            style={{ color: "black", textDecoration: "none" }}
-            to={"/product/" + this.props.cardprod.id}
-          >
-            {/* IMAGES*/}
-            <img
-            
-                height="250"
-                alt={this.props.cardprod.productName}
-                src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-            />
+        <NavLink class="card col-md-2 m-2" 
+    
+          style={{ color: "black", textDecoration: "none",height:"250px" }}
+          to={"/product/" + this.props.cardprod.id}
+        >
+          {/* IMAGES*/}
+          <img
+          class="card-img-top"
+        height="170px"
+            alt={this.props.cardprod.productName}
+            src={`https://localhost:44340/images/${this.props.cardprod.image}`}
+          />
 
-            <div className="card-body" style={{ backgroundColor: "beige" }}>
-                {/*Heading*/}
-                <h6 className="card-title" style={{overflow:"hidden",textOverflow:"ellipsis"}}> {this.props.cardprod.productName}</h6>
-                {/*Text*/}
-                <div className="card-text">
-                  <span>EGP</span> <span>{this.props.cardprod.price}</span>
-                </div>  
-                <div>
-                    <del>
-                        {parseInt(this.props.cardprod.discount) > 0 && (
-                        <div className="mt-2 p-0">
-                            <span className="sp  ">
-                            (Egp{" "}
-                            <span>
-                                {parseInt(
-                                parseInt(this.props.cardprod.price) *
-                                    (1 +
-                                    parseInt(this.props.cardprod.discount) * 0.01)
-                                )}
-                            </span>
-                            )
-                            </span>
-                            <span className="alert text-danger col-1 p-0">
-                            -{this.props.cardprod.discount}%
-                            </span>
-                        </div>
-                        )}
-                    </del>
-                </div>
+          <div className="card-body" style={{ backgroundColor: "beige" }}>
+            {/*Heading*/}
+            <h6
+              className="card-title"
+              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+            >
+            
+              {this.props.cardprod.productName}
+            </h6>
+            {/*Text For price and discount*/}
+            <div className="card-text">
+              <span className="sp1 mb-4 ">
+                <span>Egp</span>
+                <span>{nprice}</span>
+              </span>
+           
+              
             </div>
-          </NavLink>
+          </div>
+        </NavLink>
       </React.Fragment>
     );
   }
