@@ -1,10 +1,11 @@
 import Joi from "joi-browser";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import axios from "axios";
 import AuthService from "../component/Services/auth.service";
 import { Link } from "react-router-dom";
 import Cartitem from './cartitem';
 import CheckoutProduct from "./CheckoutProducts";
+import PayPal from "./Paypal";
 class CheckOut extends Component {
   state = {
     productsIncart: this.props.productsCart,
@@ -16,7 +17,7 @@ class CheckOut extends Component {
     government:"",
     city:"",
     totalPrice: 0,
-    cartid: localStorage.getItem("cartid"),
+    cartid: localStorage.getItem("cartid")
   };
   schema = {
     address: Joi.string().min(5).max(255).required(),
@@ -78,15 +79,15 @@ class CheckOut extends Component {
     this.getcustomerdeatails();
 
     // script for payment
-    const script = document.createElement("script");
-    script.src =
-      "https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card";
-    script.async = true;
-    document.body.appendChild(script);
-    const script2 = document.createElement("script");
-    script2.src = "payment.js";
-    script2.async = true;
-    document.body.appendChild(script2);
+    // const script = document.createElement("script");
+    // script.src =
+    //   "https://www.paypal.com/sdk/js?client-id=AZeyyEhHSUoTdfZtIunBIJracGO7IudcmXXcHhuBzq985qTBdWL9nGhVnDkQiwfrhKFqEo7IRY8YJHkn&disable-funding=credit,card";
+    // script.async = true;
+    // document.body.appendChild(script);
+    // const script2 = document.createElement("script");
+    // script2.src = "payment.js";
+    // script2.async = true;
+    // document.body.appendChild(script2);
   }
   render() {
     return (
@@ -184,12 +185,12 @@ class CheckOut extends Component {
                           type="text"
                           className="form-control"
                         />
-                        <div class="col-md-12 mb-4">
-                      <label for="address" class="form-label">
+                        <div className="col-md-12 mb-4">
+                      <label for="address" className="form-label">
                       government*
                       </label>
                       <select
-                        class="form-select p-2"
+                        className="form-select p-2"
                         name="government"
                         aria-label="Default select example"
                         onChange={this.handleChange}
@@ -200,13 +201,13 @@ class CheckOut extends Component {
                         <option value="Al Daqahliya">Al Daqahliya</option>
                       </select>
                     </div>
-                    <div class="col-md-12 mb-4">
-                      <label for="address" class="form-label">
+                    <div className="col-md-12 mb-4">
+                      <label for="address" className="form-label">
                       City *
                       </label>
                       <select
                         name="city"
-                        class="form-select p-2"
+                        className="form-select p-2"
                         aria-label="Default select example"
                         onChange={this.handleChange}
                         value={this.state.city}
@@ -223,7 +224,11 @@ class CheckOut extends Component {
                   <p className="h5 text-danger">
                     Estimated Delivery Between 4 to 15 Days
                   </p>
-                  <div id="pay1" className="mt-5"></div>
+                  <div className="App mt-5">
+                    
+                      <PayPal />
+                    
+                  </div>
                 </div>
               </div>
             </div>
