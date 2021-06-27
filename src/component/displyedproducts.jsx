@@ -7,7 +7,7 @@ class DisplayedProducts extends Component {
        
         loading: false,
         currentPage: 1,
-        productsPerPage: 4
+        productsPerPage: 12
       };
       getproducts = async () => {
         this.setState({ loading: true });

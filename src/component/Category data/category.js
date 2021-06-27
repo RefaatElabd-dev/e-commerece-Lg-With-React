@@ -74,8 +74,7 @@ class Category extends Component {
   
   }
 
- 
-
+   
 
   handlechecked = async (e) => {
     if (e.target) {
@@ -101,7 +100,8 @@ class Category extends Component {
         await this.setState({filteredArray: filteredProducts})
       console.log(this.state.filteredArray)
 
-    }}
+    }
+  }
       //Color Filteration complete
       //TODO Rest Filters
       //==========================brands filter======================================================
@@ -122,7 +122,7 @@ class Category extends Component {
         console.log(this.state.filteredArray)
         }
         else{
-          let filteredProducts = this.state.categoryprods.filter(item =>this.state.fbrand.includes(`${item.brandId}`) )
+          let filteredProducts = this.state.filteredArray.filter(item =>this.state.fbrand.includes(`${item.brandId}`) )
          await this.setState({filteredArray: filteredProducts})
         console.log(this.state.filteredArray)
         }
@@ -198,7 +198,7 @@ class Category extends Component {
               let filteredProducts = this.state.categoryprods.filter(item =>item.rating >=parseFloat(e.target.value)
                 )
                 await this.setState({ filteredArray: filteredProducts })
-               // console.log(e.target.value*.01)
+               console.log(this.state.filteredArray)
                
              }
              }
@@ -241,90 +241,12 @@ class Category extends Component {
 
   }
   render() {
-    //console.log(Math.max.apply(null,this.state.prices))
- // console.log(this.state.subcategCat.slice(0,3))
-
-    return (
+   return (
       <div className="container my-3 ">
-        {/* causal */}
-        {/* <div className="d-none d-md-inline-block col-md-8 bloc1 mt-0 bg-dark ml-5 p-2">
-                <div className=" ">
-                  <div
-                    id="carouselExampleCaptions"
-                    className="carousel slide"
-                    data-ride="carousel"
-                  >
-                    <ol className="carousel-indicators ">
-                      <li
-                        data-target="#carouselExampleCaptions "
-                        data-slide-to={0}
-                        className="active"
-                      />
-                      <li
-                        data-target="#carouselExampleCaptions"
-                        data-slide-to={1}
-                      />
-                      <li
-                        data-target="#carouselExampleCaptions"
-                        data-slide-to={2}
-                      />
-                      <li
-                        data-target="#carouselExampleCaptions"
-                        data-slide-to={3}
-                      />
-                    </ol>
-                    <div className="carousel-inner bloc1">
-                      <div className="carousel-item active sliditem">
-                        <Link to={`/subcategory/${this.state.subcategCat[0].subcategoryId}`} >
-                        <img
-                          src={`https://localhost:44340/${this.state.subcategCat[0].image}`}
-                          className="d-block w-100 h-100 img-fluid imgslid"
-                          alt="..."
-                        />
-                        </Link>
-                      </div>
-                      {this.state.subcategCat.slice(1,4).map((c,i)=><div key={i} className="carousel-item bloc1">
-                        <Link to={`/subcategory/${c.subcategoryId}`}>
-                        <img
-                         // src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
-                         src={`https://localhost:44340/${c.image}`}
-                          className="d-block w-100 h-100 imgslid img-fluid "
-                          alt="..."
-                        />
-                        </Link>
-                      </div>)}
-                   
-                    </div>
-                    <a
-                      className="carousel-control-prev"
-                      href="#carouselExampleCaptions"
-                      role="button"
-                      data-slide="prev"
-                    >
-                      <span
-                        className="carousel-control-prev-icon"
-                        aria-hidden="true"
-                      />
-                      <span className="sr-only">Previous</span>
-                    </a>
-                    <a
-                      className="carousel-control-next"
-                      href="#carouselExampleCaptions"
-                      role="button"
-                      data-slide="next"
-                    >
-                      <span
-                        className="carousel-control-next-icon"
-                        aria-hidden="true"
-                      />
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </div>
-                </div>
-              </div> */}
-        <div className="container-fluid mt-5">
+        
+      {this.state.Catbrands.length>0&&  <div className="container-fluid mt-5">
           <Brand sendBrands={this.state.Catbrands} />
-        </div>
+        </div>}
         { this.state.subcategCat &&   <div className="container-fluid mt-5">
             <SubcatProd subcategories={this.state.subcategCat} />
           </div>}
@@ -425,7 +347,8 @@ class Category extends Component {
                 </ul>
               </nav>
             </div>
-            {this.state.filteredArray.length>0 ?<DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />:<DisplayedProducts prods={this.state.categoryprods} name={this.props.location.name} />}
+            {/* {this.state.filteredArray.length>0 ?<DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />:<DisplayedProducts prods={this.state.categoryprods} name={this.props.location.name} />} */}
+           <DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />
           </div>
         </div>
 

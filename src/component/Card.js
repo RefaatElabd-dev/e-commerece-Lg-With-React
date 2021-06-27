@@ -108,7 +108,7 @@ this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
       <React.Fragment>
         {/* Toast just for notification  */}
         <ToastContainer />
-        <div className="col-md-3 col-12">
+        <div className="col-md-3 col-12 mt-2">
           <div className="card item-box-blog">
             <Link
               to={{
@@ -116,53 +116,51 @@ this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
                 HandlerSaving: this.state.user,
               }}
               onClick={this.SaveinViews}
-              style={{ color: "black", textDecoration: "none" ,backgroundColor:"beige"}}
+              style={{ color: "black", textDecoration: "none"}}
             >
                 <img
                   className="card-img-top"
                  src={`https://localhost:44340/images/${this.state.prod.image}`}
                   alt={`${this.state.prod.productName}`}
-                  height="250"
+                  height="150px"
                 />
-                <div className="card-body" style={{height:"350px",direction:"ltr"}}>
-                  <h6 className="card-title text-left" style={{overflow:"hidden",textOverflow:"ellipsis"}}>
-                    {this.state.prod.productName}
-                  </h6>
+                <div className="card-body" style={{height:"150px",direction:"ltr"}}>
+                 
                   <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
                     {this.state.prod.description}
-                  </div>
-                  <p className="card-text text-right">
+                   
+                  <p className="card-text text-left">
+               
+               {this.props.cardprod.discount > 0 ? (
+                 <> 
+                    <span className="sp1 m-1 " >
+                      <b>
+                 <span>EGP</span>
+                 &nbsp;  <span>{nprice}</span>
+                 </b>
+               </span>
+                 <span className="sp2 m-1">
+                   <span>Egp</span>
+                   &nbsp;  <span>{this.props.cardprod.price}</span> 
+                 </span>
+                
+                 </>
+               ):
+               <span className="sp1 mt-1">
+                 <b>
+               <span>EGP</span>
+               &nbsp; <span>{parseInt(nprice)}</span>
+               </b>
+             </span>}
+             </p>
+             <p className="card-text text-left">
                     {this.rate(this.state.prod.rating)}
                   </p>
-                  <p className="card-text text-right">
-               
-            {this.props.cardprod.discount > 0 ? (
-              <> 
-                 <span className="sp1 m-1 ">
-              <span>Egp</span>
-              <span>{nprice}</span>
-            </span>
-              <span className="sp2 m-1">
-                <span>Egp</span>
-                <span>{this.props.cardprod.price}</span>
-              </span>
-              <span className="sp3">
-                <span>Saving :</span>
-                <span>  {parseInt(this.props.cardprod.discount*100)} </span>
-              </span>
-              </>
-            ):
-            <span className="sp1 mt-4">
-              
-            <span>Egp</span>
-            <span>{parseInt(nprice)}</span>
-          </span>}
-          
-            </p>
-                </div>
+                  </div> 
+                  </div>
            
             </Link>
-            <button className="mb-5 mt-2" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+            <button className="" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
             </div>
         </div>
       </React.Fragment>

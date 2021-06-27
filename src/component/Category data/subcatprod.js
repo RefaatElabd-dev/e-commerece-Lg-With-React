@@ -21,8 +21,8 @@ class SubcatProd extends Component {
         else {
             return(
                 <div>
-            {(this.props.subcategories[0].products&&this.props.subcategories[0].products.length>0) &&   <div className="card  ml-3 " style={{ backgroundColor: 'white', marginTop: 10 ,paddingLeft:5}}>
-                     <div style={{ backgroundColor: 'plum', marginTop: 10 }}>
+            {(this.props.subcategories[0].products&&this.props.subcategories[0].products.length>0) &&   <div className="card  text text-center" style={{ backgroundColor: 'white', marginTop: 10 ,paddingLeft:10}}>
+                     <div style={{ backgroundColor:'orange', marginTop: 10 }} >
                                 <h5 className=" mt-4 col-md-9 " style={{ float: 'left' }}>{this.props.subcategories[0].subcategoryName}</h5>
                                <a className=" col-md-1 mt-4" style={{ float: 'right' }}>see all&gt; </a>
                      </div>
@@ -32,10 +32,10 @@ class SubcatProd extends Component {
                      </div>
 
                 </div>}
-               {(this.props.subcategories[1].products&&this.props.subcategories[1].products.length>0) && <div className="card  ml-3" style={{ backgroundColor: 'white', marginTop: 10 ,paddingLeft:5}}>
-                     <div style={{ backgroundColor: 'plum', marginTop: 10 }}>
+               {(this.props.subcategories[1].products&&this.props.subcategories[1].products.length>0) && <div className="card  text text-center" style={{ backgroundColor: 'white', marginTop: 10 ,paddingLeft:10}}>
+                     <div style={{ backgroundColor: 'orange', marginTop: 10 }}>
                                 <h5 className=" mt-4 col-md-9 " style={{ float: 'left' }}>{this.props.subcategories[1].subcategoryName}</h5>
-                               <a className=" col-md-1 mt-4" style={{ float: 'right' }}>see all&gt; </a>
+                               <Link  className=" col-md-1 mt-4" style={{ float: 'right' }}>see all&gt; </Link>
                      </div>
                      <div className="row mt-4">
                          {this.props.subcategories[1].products.slice(0,5).map((c,i)=><SmallCard key={i}  cardprod={c}/>)}

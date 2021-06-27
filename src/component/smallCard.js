@@ -13,38 +13,54 @@ class SmallCard extends Component {
     // console.log("card product data",this.props.cardprod)
     return (
       <React.Fragment>
-        <NavLink class="card col-md-2 m-2" 
+        <NavLink className="card col-md-2 m-2" 
     
-          style={{ color: "black", textDecoration: "none",height:"250px" }}
+          style={{ color: "black", textDecoration: "none",height:"260px" }}
           to={"/product/" + this.props.cardprod.id}
         >
+          <div>
           {/* IMAGES*/}
           <img
           class="card-img-top"
-        height="170px"
+        height="150px"
             alt={this.props.cardprod.productName}
             src={`https://localhost:44340/images/${this.props.cardprod.image}`}
           />
 
-          <div className="card-body" style={{ backgroundColor: "beige" }}>
-            {/*Heading*/}
-            <h6
-              className="card-title"
-              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
-            >
-            
-              {this.props.cardprod.productName}
-            </h6>
-            {/*Text For price and discount*/}
-            <div className="card-text">
-              <span className="sp1 mb-4 ">
-                <span>Egp</span>
-                <span>{nprice}</span>
-              </span>
-           
+<div className="card-body" style={{height:"130px",direction:"ltr"}}>
+                 
+                 <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
+                   {this.props.cardprod.description}
+                  
+                 <p className="card-text text-left">
               
-            </div>
+              {this.props.cardprod.discount > 0 ? (
+                <> 
+                   <span className="sp1 m-1 " >
+                     <b>
+                <span>EGP</span>
+                &nbsp;  <span>{nprice}</span>
+                </b>
+              </span>
+                <span className="sp2 m-1">
+                  <span>Egp</span>
+                  &nbsp;  <span>{this.props.cardprod.price}</span> 
+                </span>
+               
+                </>
+              ):
+              <span className="sp1 mt-1">
+                <b>
+              <span>EGP</span>
+              &nbsp; <span>{parseInt(nprice)}</span>
+              </b>
+            </span>}
+            </p>
+        
+                 </div> 
+                 </div>
           </div>
+         
         </NavLink>
       </React.Fragment>
     );

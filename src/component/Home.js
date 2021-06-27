@@ -6,6 +6,7 @@ import Brand from "./Brand data/brandimgs.jsx";
 import Categoriesimages from "./Category data/Categoriesimags";
 import CarouselData from "./carouselData";
 import Subcategory from './subcategory data/subcategory';
+import AuthService from "./Services/auth.service.js";
 
 class Home extends Component {
   state = {
@@ -26,7 +27,7 @@ class Home extends Component {
     });
   };
   getbestselling = async () => {
-    await axios.get("http://localhost:44340/highselling").then((res) => {
+    await axios.get("https://localhost:44340/allproduct").then((res) => {
       this.setState({
         TopSellings: res.data,
         firstcards: res.data.slice(0, 4),
@@ -194,27 +195,7 @@ class Home extends Component {
                         />
                         </Link>
                       </div>)}
-                      {/* <div className="carousel-item bloc1">
-                        <img
-                          src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
-                          className="d-block w-100 h-100 imgslid img-fluid "
-                          alt="..."
-                        />
-                      </div>
-                      <div className="carousel-item bloc1">
-                        <img
-                          src="https://eg.jumia.is/cms/ramadan-21/wof/7-4/Slider-Desktop-EN_-(1).jpg"
-                          className="d-block w-100 h-100 imgslid img-fluid "
-                          alt="..."
-                        />
-                      </div>
-                      <div className="carousel-item bloc1">
-                        <img
-                          src="https://eg.jumia.is/cms/ramadan-21/sliders/slider_Desktop_EN_copy.jpg"
-                          className="d-block w-100 h-100 imgslid img-fluid "
-                          alt="..."
-                        />
-                      </div> */}
+                     
                     </div>
                     <a
                       className="carousel-control-prev"
@@ -251,11 +232,11 @@ class Home extends Component {
             {/* Shop By Brand */}
             <Brand sendBrands={this.state.Brands} />
             {/* Top Picks for you */}
-            <CarouselData
+           {(this.state.TopPicks.length>0&& AuthService.getCurrentUser().id) &&<CarouselData
               id="tt"
               prods={this.state.TopPicks}
               heading="Top Picks for you"
-            />
+            />}
             {/* Recommened for you */}
             {this.state.Recommended && this.state.user && (
               <CarouselData
@@ -266,17 +247,17 @@ class Home extends Component {
             {/* Shop By Category */}
             <Categoriesimages sendCategories={this.state.Catogeries} />
             {/*  NewArrivals*/}
-            <CarouselData
+           {this.state.NewArrivals.length>0&&  <CarouselData
               id="nn"
               prods={this.state.NewArrivals}
               heading="New Arrivals"
-            />
+            />}
             {/* TopSellings */}
-            {/* <CarouselData
+           {this.state.TopSellings.length>0&& <CarouselData
               id="ss"
               prods={this.state.TopSellings}
               heading="Top Selling"
-            /> */}
+            />}
           </div>
         
         </React.Fragment>

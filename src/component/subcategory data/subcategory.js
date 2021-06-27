@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DisplayedProducts from '../displyedproducts';
+import Brand from '../Brand data/brandimgs';
 
 
 class  Subcategory extends Component {
@@ -218,6 +219,10 @@ getsubcatprices = async (_id) => {
       }
     render() { 
         return (
+          <div className="container my-3">
+             {this.state.subcatatbrands.length>0&&  <div className="container-fluid mt-5">
+          <Brand sendBrands={this.state.subcatatbrands} />
+        </div>}
           <div className="container-fluid mt-5">
           <div className="row m-0 p-0">
             <div className="col-md-3">
@@ -304,7 +309,7 @@ getsubcatprices = async (_id) => {
           </div>
         </div>
 
-
+        </div>
         )}}
 
         export default Subcategory;

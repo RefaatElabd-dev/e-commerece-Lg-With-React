@@ -11,7 +11,7 @@ export class AllBestSelling extends Component {
     products: [],
     loading: false,
     currentPage: 1,
-    productsPerPage: 4
+    productsPerPage: 16
   };
    getproducts = async () => {
     this.setState({ loading: true });
