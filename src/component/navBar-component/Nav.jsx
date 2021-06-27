@@ -61,7 +61,7 @@ handleChange = (e) => {
   console.log(e.currentTarget.value);
 };
   render() {
-    console.log(this.props)
+   
     return (
       <React.Fragment>
         <nav
