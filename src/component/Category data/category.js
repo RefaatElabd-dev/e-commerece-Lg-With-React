@@ -97,9 +97,8 @@ class Category extends Component {
       }
     else{
        let filteredProducts = this.state.filteredArray.filter(item => this.state.fcolor.includes(item.color)) 
-      
         await this.setState({filteredArray: filteredProducts})
-      console.log([...new Set(filteredProducts.concat(this.state.filteredArray))])
+      console.log(this.state.filteredArray)
 
     }
   }
@@ -179,43 +178,28 @@ class Category extends Component {
         else{
             await  this.setState({filterDiscount:this.state.filteredArray})
            }
-          if (e.target.checked) { 
-            if(this.state.filteredArray>0){
-            let filteredProducts = this.state.categoryprods.filter(item =>item.discount >=parseFloat(e.target.value*.01)
+          if (e.target.checked) { let filteredProducts = this.state.categoryprods.filter(item =>item.discount >=parseFloat(e.target.value*.01)
               )
               await this.setState({ filteredArray: filteredProducts })
-              
+              console.log(e.target.value*.01)
               console.log(this.state.filteredArray)
-           }else{
-            let filteredProducts = this.state.filteredArray.filter(item =>item.discount >=parseFloat(e.target.value*.01)
-            )
-            await this.setState({ filteredArray: filteredProducts })
-            
-            console.log(this.state.filteredArray)
-
            }
-          }
            }
            //===============================rating filter====================================
            if (e.target.name == "rating") {
              
-            
-            
-            if (e.target.checked) {
-              if(this.state.filteredArray.length==0){ 
+            if(this.state.filteredArray.length==0){
+            await  this.setState({filterDiscount:this.state.categoryprods})
+            }
+          else{
+              await  this.setState({filterDiscount:this.state.filteredArray})
+             }
+            if (e.target.checked) { 
               let filteredProducts = this.state.categoryprods.filter(item =>item.rating >=parseFloat(e.target.value)
                 )
                 await this.setState({ filteredArray: filteredProducts })
                console.log(this.state.filteredArray)
                
-             }
-             else{
-            
-                let filteredProducts = this.state.filteredArray.filter(item =>item.rating >=parseFloat(e.target.value)
-                  )
-                  await this.setState({ filteredArray: filteredProducts })
-                 console.log(this.state.filteredArray)
-                }
              }
              }
           }
@@ -228,16 +212,22 @@ class Category extends Component {
         if(e.target.name=="price"){
          this.setState({slidprice:e.target.value})
           if(this.state.filteredArray.length==0){
-           let filteredProducts = this.state.categoryprods.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
+            await  this.setState({filterDiscount:this.state.categoryprods})
+            }
+          else{
+              await  this.setState({filterDiscount:this.state.filteredArray})
+             }
+           
+              let filteredProducts = this.state.categoryprods.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
                 )
                 await this.setState({ filteredArray: filteredProducts })
-                }else{
-                  let filteredProducts = this.state.filteredArray.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
-                  )
-                  await this.setState({ filteredArray: filteredProducts })
-                 }
+               // console.log(this.state.filteredArray)
+               
+             
 
-      }}
+        }
+
+      }
     
  
 
@@ -251,13 +241,11 @@ class Category extends Component {
 
   }
   render() {
-   // console.log([...new Set(this.state.categoryprods.concat(this.state.categoryprods))])
- //  console.log(this.state.categoryprods.concat(this.state.categoryprods))
    return (
       <div className="container my-3 ">
         
       {this.state.Catbrands.length>0&&  <div className="container-fluid mt-5">
-          <Brand sendBrands={this.state.Catbrands} />
+          <Brand sendBrands={this.state.Catbrands}  imgpath="https://localhost:44340/images/"/>
         </div>}
         { this.state.subcategCat &&   <div className="container-fluid mt-5">
             <SubcatProd subcategories={this.state.subcategCat} />
@@ -360,7 +348,7 @@ class Category extends Component {
               </nav>
             </div>
             {/* {this.state.filteredArray.length>0 ?<DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />:<DisplayedProducts prods={this.state.categoryprods} name={this.props.location.name} />} */}
-           <DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />
+           <DisplayedProducts prods={this.state.categoryprods} name={this.props.location.name} />
           </div>
         </div>
 

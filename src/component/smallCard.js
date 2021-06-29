@@ -18,10 +18,10 @@ class SmallCard extends Component {
           style={{ color: "black", textDecoration: "none",height:"260px" }}
           to={"/product/" + this.props.cardprod.id}
         >
-          <div>
+         
           {/* IMAGES*/}
           <img
-          class="card-img-top"
+          className="card-img-top"
         height="150px"
             alt={this.props.cardprod.productName}
             src={`https://localhost:44340/images/${this.props.cardprod.image}`}
@@ -44,7 +44,7 @@ class SmallCard extends Component {
               </span>
                 <span className="sp2 m-1">
                   <span>Egp</span>
-                  &nbsp;  <span>{this.props.cardprod.price}</span> 
+                  &nbsp;  <span>{parseInt(this.props.cardprod.price)}</span> 
                 </span>
                
                 </>
@@ -59,7 +59,7 @@ class SmallCard extends Component {
         
                  </div> 
                  </div>
-          </div>
+         
          
         </NavLink>
       </React.Fragment>

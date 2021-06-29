@@ -121,7 +121,7 @@ class CheckOut extends Component {
                     <ul className="list-group list-group-flush ">
                       {/* Subtotal */}
                       <li className="list-group-item">
-                        Subtotal: <span>{this.state.totalPrice} EGP </span>
+                        Subtotal: <span>{Math.ceil(this.state.totalPrice)} EGP </span>
                       </li>
                       {/* Shipping amount */}
                       <li className="list-group-item">
@@ -130,7 +130,7 @@ class CheckOut extends Component {
                       {/* Total */}
                       <li className="list-group-item">
                         <p className="text-center font-weight-bolder bg-light p-2">
-                          Total : <span>{this.state.totalPrice + 40} EGP </span>
+                          Total : <span>{Math.ceil(this.state.totalPrice) + 40} EGP </span>
                         </p>
                       </li>
                     </ul>

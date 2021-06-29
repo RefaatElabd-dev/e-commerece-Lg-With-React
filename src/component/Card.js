@@ -16,7 +16,7 @@ class Card extends Component {
     try {
       await axios
         .post(
-          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"Id":productid}
+          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"id":productid}
         )
         .then((res) => {
           toast.success(`Product Added`);
@@ -141,7 +141,7 @@ this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
                </span>
                  <span className="sp2 m-1">
                    <span>Egp</span>
-                   &nbsp;  <span>{this.props.cardprod.price}</span> 
+                   &nbsp;  <span>{parseInt(this.props.cardprod.price)}</span> 
                  </span>
                 
                  </>
@@ -160,7 +160,7 @@ this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
                   </div>
            
             </Link>
-            <button className="" onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+            <button  onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
             </div>
         </div>
       </React.Fragment>

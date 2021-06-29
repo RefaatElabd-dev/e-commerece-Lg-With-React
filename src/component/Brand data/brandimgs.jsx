@@ -31,7 +31,7 @@ class Brand extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      src={`https://localhost:44340/${c.image}`}
+                      src={`${this.props.imgpath}${c.image}`}
                     />
                  
                   </div>

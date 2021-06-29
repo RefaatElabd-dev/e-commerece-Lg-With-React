@@ -18,8 +18,10 @@ class JumiaAccount extends Component {
     state = {
       customer:{},
       Adress:{},
-      messages:[]
+      messages:[],
+     
       }
+    
     getcustomerdeatails=async()=>{
       if(AuthService.getCurrentUser().id){
       axios.get("https://localhost:44340/api/CustomersApi/"+AuthService.getCurrentUser().id).then(res=>
@@ -63,8 +65,10 @@ class JumiaAccount extends Component {
    await this.getchatmessage();
 
 
+
     }
     render() { 
+      // console.log(this.state.doneprders.products);
         return ( 
             <React.Fragment>
               

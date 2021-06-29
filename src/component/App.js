@@ -139,29 +139,9 @@ class App extends Component {
    
     this.getcartdata();
   }
-  // Get Search
-  // async search(name,e){
-  //   e.preventDefault();
-  //   try{
-  //   await axios.get("https://localhost:44340/api/SearchsAPi/"+name)
-  //   .then((res) => {
-  //     this.setState({ searchResult: res.data });
-  //     // toast.success("Success Search");
-  //     console.log(this.state.searchResult);
-  //     // window.location.replace("/search");
-  //   })}
-  //   catch (ex) {
-  //     toast.error("Enter Valid String");
-  //   }
-  // };
-
-//Form input Search
-// handleChange = (e) => {
-//   this.setState({searchString:e.target.value});
-//   console.log(e.currentTarget.value);
-// };
-
+  
   render() {
+   
     return (
       <React.Fragment>
         <Helmet>
@@ -170,27 +150,13 @@ class App extends Component {
         {/* Toast just for notification  */}
         <ToastContainer />
         <Router>
-          {/* <NavBar 
-            user={this.state.user}
-            productsCart={this.state.productsIncart}
-            // onSearch={this.search}
-            // onHandleChange={this.handleChange}
-            // searchString={this.state.searchString}
-            // searchResult={this.state.searchResult}
-          /> */}
+       
           <Route render={(props)=><NavBar {...props} user={this.state.user}
             productsCart={this.state.productsIncart} />} />
           <Switch>
             <Route component={Home} path="/" exact />
             <Route component={Home} path="/Home" exact />
-            {/* <Route
-             component={Search}
-              path="/Search" 
-              exact
-              // searchString={this.state.searchString}
-              searchResult={this.state.searchResult}
-              /> */}
-
+            
             <Route
               component={(props) => <Register {...props} />}
               path="/Register"

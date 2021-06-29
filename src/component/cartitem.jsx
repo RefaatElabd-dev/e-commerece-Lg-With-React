@@ -35,6 +35,7 @@ class Cartitem extends Component {
     this.getprod();
   }
   render() {
+
     let nprice;
     this.state.prod.discount == 0 || this.state.prod.discount == null
       ? (nprice = this.state.prod.price)
@@ -115,22 +116,22 @@ class Cartitem extends Component {
               <>
               
               <span className="sp1 m-1 ">
-                <span>Egp</span>
-                <span>{nprice}</span>
+                <span>EGP</span>
+                <span>{parseInt(nprice)}</span>
               </span>
               <span className="sp2 m-1">
                 <span>Egp</span>
-                <span>{this.state.prod.price}</span>
+                <span>{parseInt(this.state.prod.price)}</span>
               </span>
               <span className="sp3">
                 <span>Saving :</span>
-                <span>  {parseInt(this.state.prod.discount*100)} </span>
+                <span>  {Math.ceil(this.state.prod.discount*100)} </span>
               </span>
             </>)
             :
             <span className="sp1 m-1 ">
             <span>Egp</span>
-            <span>{nprice}</span>
+            <span>{parseInt(nprice)}</span>
           </span>
             }
             
@@ -138,8 +139,8 @@ class Cartitem extends Component {
           {/* SUBTOTAL */}
           <td>
             <span className="sp1" style={{ color: "orange" }}>
-              <span>Egp</span>
-              <span>{nprice * this.props.q}</span>
+              <span>EGP</span>
+              <span>{Math.ceil(nprice*this.props.q)}</span>
             </span>
           </td>
           {/* Saved/Removed Buttons */}

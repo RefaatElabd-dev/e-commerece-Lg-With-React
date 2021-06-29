@@ -1,8 +1,12 @@
 import React,{Component} from 'react'
+import Saveditemscard from './saveditemscard'
 
 class Opened extends Component{
     render(){
+      const {onprogress} = this.props;
+      if (onprogress.lenghth == 0) {
         return(
+          
             <React.Fragment>
  <div className="container mt-12" id="OpenOrders">
         <img src="../img/ordercart.png" width="120px" height="120px" /><br /> <br />
@@ -12,5 +16,21 @@ class Opened extends Component{
           <button type="button" className="btn btn-warning " style={{color: 'white', marginTop: 30}}> <b>Continue Shopping</b></button>
         </div>
       </div>
-            </React.Fragment>)}}
+            </React.Fragment>)}
+            else {
+              return( <div className="container mt-12 " >
+                   {onprogress.map((o,i)=>
+                   <div key={i}> 
+                     {o.products.map((p,j)=>
+                      <Saveditemscard key={j} prod={p}/>
+        
+                     )}
+                    </div> 
+                   )}
+              </div>
+              )
+            }
+          }
+            }
+      
             export default Opened;

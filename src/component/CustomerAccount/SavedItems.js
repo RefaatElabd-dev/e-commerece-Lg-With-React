@@ -3,6 +3,7 @@ import AuthService from "../Services/auth.service";
 import axios from "axios";
 import authHeader from "../Services/auth-header";
 import { toast, ToastContainer } from "react-toastify";
+import Saveditemscard from "./saveditemscard";
 
 class SavedItems extends Component {
   state = {
@@ -38,9 +39,7 @@ class SavedItems extends Component {
         .then(window.location.reload());
     }
   };
-  componentDidMount() {
-    this.getsavedItems();
-  }
+ 
   addToCart = async (productid) => {
     // console.log("prodid",productid)
      const productsIncart = {...this.state.prod};
@@ -59,6 +58,9 @@ class SavedItems extends Component {
        this.setState({ prod: productsIncart });
      }
    };
+   componentDidMount() {
+    this.getsavedItems();
+  }
 
   render() {
     if (
@@ -120,67 +122,8 @@ class SavedItems extends Component {
         <React.Fragment>
           <div className="container row m-0 p-0 ">
             {this.state.SavedItems.map((c, i) => (
-              <div key={i} className="col-12" style={{ marginTop: 20 }}>
-                <div
-                  className="col-sm-12 "
-                  style={{ marginTop: 10, display: "inline-block" }}
-                >
-                  <div className="card h-100 " style={{ width: "100%" }}>
-                    <div className="card-body">
-                      <div style={{ float: "left" }}>
-                        <img
-                          src={`https://localhost:44340/images/${c.image}`}
-                          style={{ display: "inline-block" }}
-                          width="80px"
-                          height="70px"
-                        />
-                        <span
-                          className=" form col-lg-12 "
-                          style={{ display: "inline-block" }}
-                        >
-                           <span style={{ fontWeight: "700" }}>Name : </span>{c.productName}
-                        </span>
-                        <span
-                          className=" form col-lg-12 "
-                          style={{ display: "inline-block" }}
-                        >
-                         <span style={{ fontWeight: "700" }}>Description : </span> {c.description}
-                        </span>
-                        <span
-                          className=" form col-lg-12 "
-                          style={{ display: "inline-block" }}
-                        >
-                          <span style={{ fontWeight: "700" }}>Price : Egp </span>
-                          <span>{c.price}</span>
-                        </span>
-                      </div>
-                      <div style={{ float: "right" }}>
-                        <button
-                          type="button"
-                          className="btn  text-uppercase"
-                          style={{ color: "white", marginTop: 30,backgroundColor:"teal" }}
-                          onClick={()=>this.addToCart(c.id)}
-                        >
-                          {" "}
-                          <b>Add to cart</b>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger ml-2 "
-                          style={{ color: "white", marginTop: 30 }}
-                          onClick={() => this.removesavedItems(c.id)}
-                        >
-                          <b>
-                            <i className="fas fa-trash-alt" />
-                            &nbsp; Remove
-                          </b>
-                        </button>
-                        ‏
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      
+              <Saveditemscard onAdd={this.addToCart} Ondelete={this.removesavedItems} key={i} prod={c}/>
             ))}
           </div>
         </React.Fragment>

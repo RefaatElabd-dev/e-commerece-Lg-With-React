@@ -28,7 +28,7 @@ class Cart extends Component {
    //Delete Product From Cart
  
    deleteFromCart= async(productid,e)=> {
-  ;
+  
       try {
        await axios.delete(
          'https://localhost:44340/api/CartsItemAPi/deleteProductsFromCart/'+this.state.cartid+'?productid='+productid
@@ -192,7 +192,7 @@ class Cart extends Component {
                     </p>
                     <p className="col-6 text-center font-weight-bolder bg-light">
                       {" "}
-                      EGP <span>{this.state.totalPrice}</span>
+                      EGP <span>{Math.ceil(this.state.totalPrice)}</span>
 
                     </p>
                   </div>

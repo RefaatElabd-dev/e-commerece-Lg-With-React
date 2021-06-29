@@ -230,9 +230,9 @@ class Home extends Component {
           
           <div className="container my-2">
             {/* Shop By Brand */}
-            <Brand sendBrands={this.state.Brands} />
+            <Brand sendBrands={this.state.Brands} imgpath="https://localhost:44340/"/>
             {/* Top Picks for you */}
-           {(this.state.TopPicks.length>0&& AuthService.getCurrentUser().id) &&<CarouselData
+           {(this.state.TopPicks.length>0&& AuthService.getCurrentUser()) &&<CarouselData
               id="tt"
               prods={this.state.TopPicks}
               heading="Top Picks for you"

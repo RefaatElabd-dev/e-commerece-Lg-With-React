@@ -221,7 +221,7 @@ getsubcatprices = async (_id) => {
         return (
           <div className="container my-3">
              {this.state.subcatatbrands.length>0&&  <div className="container-fluid mt-5">
-          <Brand sendBrands={this.state.subcatatbrands} />
+          <Brand sendBrands={this.state.subcatatbrands} imgpath="https://localhost:44340/images/" />
         </div>}
           <div className="container-fluid mt-5">
           <div className="row m-0 p-0">

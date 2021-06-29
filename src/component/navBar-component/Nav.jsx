@@ -58,10 +58,10 @@ addToCart = async (productid) => {
 //Form input Search
 handleChange = (e) => {
   this.setState({searchString:e.target.value});
-  console.log(e.currentTarget.value);
+  //console.log(e.currentTarget.value);
 };
   render() {
-   
+   // console.log(this.props)
     return (
       <React.Fragment>
         <nav
