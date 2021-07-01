@@ -9,7 +9,7 @@ class Closed extends Component {
 state={
   ratevalue:"",
   ratetext:"",
-  flag:true
+
 }
 handlerchange=async(e)=>{
   if(e.target.name=="ratevalue"){
@@ -25,21 +25,20 @@ handlerchange=async(e)=>{
 
 }
 handlerclick=async(_pid)=>{
+  try{
 await axios.post("https://localhost:44340/api/ProductsAPi/AddReviewToProduct",{
   "CustomerId":AuthService.getCurrentUser().id,
   "ProductId":_pid,
   "Comment":this.state.ratetext,
-  "Rating":this.state.ratevalue
-}).then(async res=>
-  {
-   await this.setState({ratetext:res.data.comment,
-    ratevalue:res.data.rating})
-    await this.setState({flag:false})
-    toast.success("done");
+  "Rating":this.state.ratevalue,
+})
+ toast.success("done")
+ window.location.reload();
+}
+catch{
+  toast.error("you set it befor go to product to edit yor review")
+}
 
-  }).catch(
-    toast.warn("invalid")
-  )
 }
   
   render() {
@@ -82,6 +81,7 @@ await axios.post("https://localhost:44340/api/ProductsAPi/AddReviewToProduct",{
                 <div >
                   <SmallCard key={j} cardprod={p} />
                   <select className="col-12" name="ratevalue" onChange={(e)=>this.handlerchange(e)}>
+                   <option>choose</option>
                     <option value="5">5</option>
                     <option value="4">4</option>
                     <option value="3">3</option>

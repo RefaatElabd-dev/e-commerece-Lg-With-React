@@ -1,6 +1,27 @@
 import React ,{Component}from 'react';
 import { Link } from "react-router-dom";
+import axios from "axios";
+import AuthService from '../Services/auth.service';
+
 class Index extends Component {
+  state={
+    country:"",
+    city:"",
+    street:""
+
+  }
+  getAdressdeatails=async()=>{
+    if(AuthService.getCurrentUser().id){
+    axios.get("https://localhost:44340/api/CustomersApi/GetUserAddress/"+AuthService.getCurrentUser().id).then(res=>
+    this.setState({country:res.data.country,
+      city:res.data.city,
+      street:res.data.street
+    })
+    )
+  }}
+  async componentDidMount(){
+    await this.getAdressdeatails();
+  }
     render(){
 
         return(
@@ -12,7 +33,7 @@ class Index extends Component {
         <div className="col-sm-6 " style={{marginTop: 10}}>
           <div className="card h-100">
             <div className="card-body">
-              <h5 className="card-title">ACCOUNT Details    <a href="edit.html" className="icon-block  text-warning"> <i className="fas fa-edit" /></a> </h5>
+              <h5 className="card-title">ACCOUNT Details    <a href="/Account/AccountDetails" className="icon-block  text-warning"> <i className="fas fa-edit" /></a> </h5>
               <div className="dropdown-divider" />
               <p className="card-text" id="useraccount">{this.props.cust.firstName+' '+this.props.cust.lastName}</p>
               <p className="card-text" id="useraccount">{this.props.cust.email}</p>
@@ -27,8 +48,9 @@ class Index extends Component {
               <div className="dropdown-divider" />
               <p className="card-text">Your default shipping address:</p>
               <p className="card-text">{this.props.cust.firstName+' '+this.props.cust.lastName} </p>
-              <p className="card-text">{this.props.cust.address} </p>
-              <a href="#" className="text-warning">Add Default Address</a>
+              <p className="card-text">{this.state.country+','+this.state.city+','+this.state.street} </p>
+              <a href="/Account/NewAdress" className="text-warning">Add Address</a>
+              
             </div>
           </div>
         </div>

@@ -1,10 +1,13 @@
 import React,{Component} from 'react'
+import SmallCard from '../smallCard';
 import Saveditemscard from './saveditemscard'
 
 class Opened extends Component{
+
     render(){
-      const {onprogress} = this.props;
-      if (onprogress.lenghth == 0) {
+      console.log(this.props.ondelievery)
+      const {ondelievery} = this.props;
+      if (ondelievery.lenghth == 0) {
         return(
           
             <React.Fragment>
@@ -18,14 +21,20 @@ class Opened extends Component{
       </div>
             </React.Fragment>)}
             else {
-              return( <div className="container mt-12 " >
-                   {onprogress.map((o,i)=>
-                   <div key={i}> 
+              return( <div className="container " >
+                   {ondelievery.map((o,i)=>
+                   <>
+                   <h4 className="text text-left">order: {i+1}</h4>
+                   <div key={i} className="row p-0 m-0"> 
+                   
                      {o.products.map((p,j)=>
-                      <Saveditemscard key={j} prod={p}/>
+                      <SmallCard key={j} cardprod={p}/>
         
                      )}
+                     <hr/>
                     </div> 
+                    </>
+                    
                    )}
               </div>
               )

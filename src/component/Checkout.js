@@ -3,7 +3,7 @@ import React, { Component, useState } from "react";
 import axios from "axios";
 import AuthService from "../component/Services/auth.service";
 import { Link } from "react-router-dom";
-import Cartitem from './cartitem';
+import Cartitem from "./cartitem";
 import CheckoutProduct from "./CheckoutProducts";
 import PayPal from "./Paypal";
 class CheckOut extends Component {
@@ -14,16 +14,16 @@ class CheckOut extends Component {
     email: "",
     phoneNumber: "",
     address: "",
-    government:"",
-    city:"",
+    country: "",
+    city: "",
+    street:"",
     totalPrice: 0,
-    cartid: localStorage.getItem("cartid")
+    cartid: localStorage.getItem("cartid"),
   };
   schema = {
     address: Joi.string().min(5).max(255).required(),
     government: Joi.string().min(5).max(255).required(),
     city: Joi.string().min(5).max(255).required(),
-
   };
   handleChange = (e) => {
     //Clone
@@ -33,17 +33,26 @@ class CheckOut extends Component {
     //Set state
     this.setState(state);
   };
-//   get product
-//   getprod=async()=>{
+  
+   getAdressdeatails=async()=>{
+    if(AuthService.getCurrentUser().id){
+    axios.get("https://localhost:44340/api/CustomersApi/GetUserAddress/"+AuthService.getCurrentUser().id).then(res=>
+    this.setState({country:res.data.country,
+      city:res.data.city,
+      street:res.data.street
+    })
+    )
+  }}
+  //   get product
+  //   getprod=async()=>{
 
-
-//     axios.get("https://localhost:44340/api/ProductsAPi/"+this.props.prodid).
-//     then(res=>{
-//         this.setState({prod:res.data})
-//         //console.log(res.data)
-//     }
-//         )
-// }
+  //     axios.get("https://localhost:44340/api/ProductsAPi/"+this.props.prodid).
+  //     then(res=>{
+  //         this.setState({prod:res.data})
+  //         //console.log(res.data)
+  //     }
+  //         )
+  // }
   //get Customer data
   getcustomerdeatails = async () => {
     if (AuthService.getCurrentUser().id) {
@@ -77,6 +86,7 @@ class CheckOut extends Component {
   async componentDidMount() {
     await this.getTotalPrice();
     this.getcustomerdeatails();
+    this.getAdressdeatails();
 
     // script for payment
     // const script = document.createElement("script");
@@ -107,21 +117,20 @@ class CheckOut extends Component {
                     </h5>
                   </div>
                   {/* Product */}
-                   {
-                    this.props.productsCart.map(p=>
-                      <CheckoutProduct
-                        key={p.productId}
-                        q={p.quantity}
-                        prodid={p.productId}
-                      />
-                      )
-                  }
+                  {this.props.productsCart.map((p) => (
+                    <CheckoutProduct
+                      key={p.productId}
+                      q={p.quantity}
+                      prodid={p.productId}
+                    />
+                  ))}
                   {/* Total */}
                   <div className="card-body list-group col-12">
                     <ul className="list-group list-group-flush ">
                       {/* Subtotal */}
                       <li className="list-group-item">
-                        Subtotal: <span>{Math.ceil(this.state.totalPrice)} EGP </span>
+                        Subtotal:{" "}
+                        <span>{Math.ceil(this.state.totalPrice)} EGP </span>
                       </li>
                       {/* Shipping amount */}
                       <li className="list-group-item">
@@ -130,7 +139,10 @@ class CheckOut extends Component {
                       {/* Total */}
                       <li className="list-group-item">
                         <p className="text-center font-weight-bolder bg-light p-2">
-                          Total : <span>{Math.ceil(this.state.totalPrice) + 40} EGP </span>
+                          Total :{" "}
+                          <span>
+                            {Math.ceil(this.state.totalPrice) + 40} EGP{" "}
+                          </span>
                         </p>
                       </li>
                     </ul>
@@ -156,68 +168,61 @@ class CheckOut extends Component {
                 <div className="bg-light pl-3 p-3">
                   <p className="h6">
                     Customer Name:{" "}
-                    <span className="h5">
+                    <span className="h5" style={{color:"#00acee"}}>
                       {this.state.firstName} {this.state.lastName}
                     </span>
                   </p>
                   <p className="h6">
                     Customer Email:{" "}
-                    <a className="tel" href={`mailto:${this.state.email}`}>
+                    <a className="tel " style={{color:"#00acee"}} href={`mailto:${this.state.email}`}>
                       {this.state.email}
                     </a>
                   </p>
                   <p className="h6">
                     Phone:{" "}
-                    <a className="tel" href={`tel:${this.state.phoneNumber}`}>
+                    <a className="tel" style={{color:"#00acee"}} href={`tel:${this.state.phoneNumber}`}>
                       +20{this.state.phoneNumber}
                     </a>
                   </p>
-                  <p className="h6">Address:<br/>{this.state.address}<br/>{this.state.government}<br/>{this.state.city}</p>
+                  <p className="h6">
+                    Address:
+                  <span style={{color:"#00acee"}}><b>
+                    {this.state.country+','+this.state.city+','+this.state.street}
+                    </b>
+                    </span>
+                  </p>
+
                   
                   <input
-                          name="address"
-                          type="address"
-                          value={this.state.address}
-                          onChange={this.handleChange}
-                          placeholder="address"
-                          autoFocus
-                          id="address"
-                          type="text"
-                          className="form-control"
-                        />
-                        <div className="col-md-12 mb-4">
-                      <label for="address" className="form-label">
-                      government*
-                      </label>
-                      <select
-                        className="form-select p-2"
-                        name="government"
-                        aria-label="Default select example"
-                        onChange={this.handleChange}
-                        value={this.state.government}
-                      >
-                        <option value="Cairo">Cairo</option>
-                        <option value="Giza">Giza</option>
-                        <option value="Al Daqahliya">Al Daqahliya</option>
-                      </select>
-                    </div>
-                    <div className="col-md-12 mb-4">
-                      <label for="address" className="form-label">
-                      City *
-                      </label>
-                      <select
-                        name="city"
-                        className="form-select p-2"
-                        aria-label="Default select example"
-                        onChange={this.handleChange}
-                        value={this.state.city}
-                      >
-                        <option value="Mansoura">Mansoura</option>
-                        <option value="Manzalah">Manzalah</option>
-                        <option value="Aga">Aga</option>
-                      </select>
-                    </div>
-              
+                    id="Region"
+                    type="Region"
+                    name="Region"
+                    placeholder="Region"
+                    className="form-control  mt-3"
+                    value={this.state.country}
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    id="City"
+                    type="City"
+                    name="City"
+                    placeholder="City "
+                    className="form-control mt-3"
+                    value={this.state.city}
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    name="street"
+                    type="street"
+                    value={this.state.street}
+                    onChange={this.handleChange}
+                    placeholder="street"
+                    autoFocus
+                    id="street"
+                    type="text"
+                    className="form-control mt-3"
+                  />
+                     <a  href="/Account/NewAdress" type="button" className=" button form-control text-white mt-4">Create New Adress</a>
                 </div>
                 <hr />
                 <div className="text-center">
@@ -225,9 +230,7 @@ class CheckOut extends Component {
                     Estimated Delivery Between 4 to 15 Days
                   </p>
                   <div className="App mt-5">
-                    
-                      <PayPal />
-                    
+                    <PayPal />
                   </div>
                 </div>
               </div>

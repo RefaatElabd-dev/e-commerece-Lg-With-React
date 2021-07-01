@@ -1,13 +1,30 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
 import AuthService from '../Services/auth.service';
+import Chatbody from './chatbody';
 class Inbox extends Component {
   state = {
+   sellers:[],
  
     text:""
   }
+  getsellers=async()=>{
+    axios.get("https://localhost:44340/api/ChatHubs/getallcalledseller/"+11).then(
+      res=>{
+        console.log(res.data)
+        this.setState({sellers:res.data})
+      }
+    )
+
+  }
+ async componentDidMount(){
+   await this.getsellers();
+
+  }
 
   render() {
-    //console.log(this.props.mess)
+console.log(this.state.sellers)
     return (
       <React.Fragment>
 
@@ -30,25 +47,37 @@ class Inbox extends Component {
           <br />
         </div>  */}
 
-        {(AuthService.getCurrentUser().id &&this.props.mess!=undefined&& this.props.mess.length>0) && <React.Fragment>
-          <div className="border col-12 m-5 ">
-            <ul className="list-unstyled" style={{ overflow: "auto" ,height:200}}>
-              {this.props.mess.map((c, i) =>
-                <li key={i}>
-                     {c.userName == AuthService.getCurrentUser().userName ? <p className="bg-warning"> {c.userName}: {c.text}</p> : <p>{c.userName}: {c.text}</p>}
-                  </li>)
-              }
+<div className="container-fluid h-100">
+  <div className="row justify-content-center h-100">
+    <div className="col-md-6 col-xl-8 chat">
+      <div className="card mb-sm-3 mb-md-0 contacts_card">
+       
+        <div className="card-body contacts_body">
+          <ui className="contacts">
+           {this.state.sellers.map((s,i)=>
+           <li className="active" key={i}>
+             <a href={`/chat/${s.id}`}>
+           <div className="d-flex bd-highlight">
+           
+             <div className="user_info">
+               <span> {s.firstName+" "+s.lastName} 's store</span>
+               
+             </div>
+           </div>
+           </a>
+           
+            
+            </li>)}
+           
+           
+          </ui>
+        </div>
+        <div className="card-footer" />
+      </div>
+    </div>
 
-            </ul>
-            <div className="input-group">
-              <input type="text" className="form-control rounded"  
-                 onChange={(e)=>this.setState({text:e.target.value})}/>
-              <button type="button" className="btn btn-outline-primary" onClick={()=>this.props.sendmess(this.state.text)}>send</button>
-            </div>
-
-          </div>
-
-        </React.Fragment>}
+  </div>
+</div>
 
       </React.Fragment>
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import authHeader from "./Services/auth-header";
 import "../Styles/Product.css";
 import AuthService from "./Services/auth.service";
+import { Link} from "react-router-dom";
 import Productreviews from "./productreviews";
 class Product extends Component {
   state = {
@@ -45,15 +46,16 @@ class Product extends Component {
        })
       .catch((err) => console.log(err));
   };
-  rate = (t) => {
-    if (t === 1) {
+  rate = (v) => {
+    let t=parseFloat(v);
+    if (t >= 1 && t < 1.5) {
       return (
         <div>
           {" "}
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 1 && t <= 2) {
+    } else if (t >= 1.5 && t < 2.5) {
       return (
         <div>
           {" "}
@@ -61,7 +63,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 2 && t <= 3) {
+    } else if (t > 2.5 && t < 3.5) {
       return (
         <div>
           {" "}
@@ -70,7 +72,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 3 && t <= 4) {
+    } else if (t >= 3.5 && t < 4.5) {
       return (
         <div>
           {" "}
@@ -80,7 +82,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 4 && t <= 5) {
+    } else if (t >= 4.5 && t <= 5) {
       return (
         <div>
           {" "}
@@ -140,7 +142,7 @@ class Product extends Component {
                   {/*information box */}
                   <div className="row justify-content-between p-2">
                     <div className="d-flex justify-content-start badge badge-danger text-light">
-                      Official Store
+                    <Link to={`/chat/${this.state.product.sellerId}`}> chat with seller </Link>
                     </div>
                     <div className="d-flex justify-content-end heart">
                       <button
@@ -186,7 +188,7 @@ class Product extends Component {
                   <div className="text-center text-white cursor col-12 row m-0 p-2">
                     <button
                       style={{ backgroundColor: "teal" }}
-                      onClick={() => this.props.onAdd(this.state.product.productid)}
+                      onClick={() => this.props.onAdd(this.state.product.id)}
                       className="btn text-uppercase text-white font-weight-bold mb-2 offset-md-2 col-12 col-md-8"
                     >
                       Add to cart

@@ -54,7 +54,7 @@ class DisplayedProducts extends Component {
                                         <div id="gallery1" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
                                                 <div className="carousel-item active">
-                                                    <div className="row rounded p-0 m-0">
+                                                    <div className="row rounded p-0 m-0 mb-3">
                                                       {currentProducts.map((c,i)=><Card cardprod={c} key={i}/>)}
                                                     </div>
                                                 </div>

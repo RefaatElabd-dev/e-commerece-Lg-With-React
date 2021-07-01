@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
@@ -10,13 +11,15 @@ class Card extends Component {
   };
   // Add To Cart (Mahmoud)
   addToCart = async (productid) => {
-   // console.log("prodid",productid)
-    const productsIncart = {...this.state.prod};
+    // console.log("prodid",productid)
+    const productsIncart = { ...this.state.prod };
     this.setState({ productsIncart });
     try {
       await axios
         .post(
-          "https://localhost:44340/addproducttoCART/"+AuthService.getCurrentUser().id,{"id":productid}
+          "https://localhost:44340/addproducttoCART/" +
+            AuthService.getCurrentUser().id,
+          { id: productid }
         )
         .then((res) => {
           toast.success(`Product Added`);
@@ -28,7 +31,7 @@ class Card extends Component {
     }
   };
   rate = (v) => {
-    let t=parseFloat(v);
+    let t = parseFloat(v);
     if (t >= 1 && t < 1.5) {
       return (
         <div>
@@ -81,8 +84,8 @@ class Card extends Component {
   SaveinViews = () => {
     axios
       .post("https://localhost:44340/api/ProductsAPi/SetView", {
-         UserId: this.state.user.id,
-         ProductId: this.props.cardprod.id,
+        UserId: this.state.user.id,
+        ProductId: this.props.cardprod.id,
       })
       .then(console.log("ok"));
   };
@@ -97,12 +100,14 @@ class Card extends Component {
   }
 
   render() {
-   //console.log(this.state.prod.image)
-let nprice;
-//this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
-this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
-? (nprice = this.props.cardprod.price)
-: (nprice = parseInt(this.props.cardprod.price*(1-this.props.cardprod.discount)));
+    //console.log(this.state.prod.image)
+    let nprice;
+    //this.props.cardprod.discount==0||this.props.cardprod.discount==null?nprice=this.props.cardprod.price:nprice=this.props.cardprod.price*(1-this.props.cardprod.discount)
+    this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
+      ? (nprice = this.props.cardprod.price)
+      : (nprice = parseInt(
+          this.props.cardprod.price * (1 - this.props.cardprod.discount)
+        ));
 
     return (
       <React.Fragment>
@@ -116,55 +121,92 @@ this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
                 HandlerSaving: this.state.user,
               }}
               onClick={this.SaveinViews}
-              style={{ color: "black", textDecoration: "none"}}
+              style={{ color: "black", textDecoration: "none" }}
             >
-                <img
-                  className="card-img-top"
-                 src={`https://localhost:44340/images/${this.state.prod.image}`}
-                  alt={`${this.state.prod.productName}`}
-                  height="150px"
-                />
-                <div className="card-body" style={{height:"150px",direction:"ltr"}}>
-                 
-                  <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
-                    {this.state.prod.description}
-                   
+              <img
+                className="card-img-top"
+                src={`https://localhost:44340/images/${this.state.prod.image}`}
+                alt={`${this.state.prod.productName}`}
+                height="200px"
+              />
+              <h6
+                className="card-title text-center mt-1"
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "700",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  color: "black",
+                }}
+              >
+                {" "}
+                {this.state.prod.productName}
+              </h6>
+
+              <div className="" style={{ height: "100px", direction: "ltr" }}>
+                <div
+                  className="card-text text-left"
+                  style={{
+                    fontSize: "15px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    height: "100px",
+                  }}
+                >
+                  {this.state.prod.description}
+
                   <p className="card-text text-left">
-               
-               {this.props.cardprod.discount > 0 ? (
-                 <> 
-                    <span className="sp1 m-1 " >
-                      <b>
-                 <span>EGP</span>
-                 &nbsp;  <span>{nprice}</span>
-                 </b>
-               </span>
-                 <span className="sp2 m-1">
-                   <span>Egp</span>
-                   &nbsp;  <span>{parseInt(this.props.cardprod.price)}</span> 
-                 </span>
-                
-                 </>
-               ):
-               <span className="sp1 mt-1">
-                 <b>
-               <span>EGP</span>
-               &nbsp; <span>{parseInt(nprice)}</span>
-               </b>
-             </span>}
-             </p>
-             <p className="card-text text-left">
+                    {this.props.cardprod.discount > 0 ? (
+                      <>
+                        <span className="sp1 m-1 ">
+                          <b>
+                            <span>EGP</span>
+                            &nbsp; <span>{nprice}</span>
+                          </b>
+                        </span>
+                        <span className="sp2 m-1">
+                          <span>Egp</span>
+                          &nbsp;{" "}
+                          <span>{parseInt(this.props.cardprod.price)}</span>
+                        </span>
+                      </>
+                    ) : (
+                      <span className="sp1 mt-1">
+                        <b>
+                          <span>EGP</span>
+                          &nbsp; <span>{parseInt(nprice)}</span>
+                        </b>
+                      </span>
+                    )}
+                  </p>
+                  <p className="card-text text-center">
                     {this.rate(this.state.prod.rating)}
                   </p>
-                  </div> 
-                  </div>
-           
+                </div>
+              </div>
             </Link>
-            <button  onClick={()=>this.addToCart(this.state.prod.id)} style={{width:"100%",fontWeight:"600",fontSize:"16px",backgroundColor:"teal",color:"white"}}>Add to cart</button>
+            <div className="text-center mb-2 mt-3">
+              <button
+                className="btn "
+                onClick={() => this.addToCart(this.state.prod.id)}
+                style={{
+                  width: "60%",
+                  fontWeight: "600",
+                  fontSize: "16px",
+                  backgroundColor: "teal",
+                  color: "white",
+                }}
+              >
+                Add to cart
+              </button>
             </div>
+          </div>
         </div>
       </React.Fragment>
     );
   }
 }
 export default Card;
+

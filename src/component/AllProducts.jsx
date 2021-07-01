@@ -22,7 +22,7 @@ export class AllProducts extends Component {
            <div className="alert alert-primary">
           <div className="container row  ml-3">
             {
-              products.map(p=><Card cardprod={p} key={p.productid}/>)
+              products.map(p=><Card cardprod={p} key={p.id}/>)
             }
             
           </div>

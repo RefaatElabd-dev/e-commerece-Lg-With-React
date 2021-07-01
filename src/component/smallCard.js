@@ -13,27 +13,29 @@ class SmallCard extends Component {
     // console.log("card product data",this.props.cardprod)
     return (
       <React.Fragment>
-        <NavLink className="card col-md-2 m-2" 
+        <a className="card col-md-2 m-1 mb-3 h-100 item-box-blog" 
     
-          style={{ color: "black", textDecoration: "none",height:"260px" }}
-          to={"/product/" + this.props.cardprod.id}
+          style={{ color: "black", textDecoration: "none"}}
+          href={"/product/" + this.props.cardprod.id}
         >
          
           {/* IMAGES*/}
           <img
-          className="card-img-top"
+          className="card-img-top mt-1"
         height="150px"
             alt={this.props.cardprod.productName}
             src={`https://localhost:44340/images/${this.props.cardprod.image}`}
           />
 
-<div className="card-body" style={{height:"130px",direction:"ltr"}}>
-                 
-                 <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}>
-                   {this.props.cardprod.description}
-                  
-                 <p className="card-text text-left">
-              
+
+<h6 className="card-title text-center mt-1" style={{fontSize:"15px",fontWeight:"700",whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",color:"black"}}> {this.props.cardprod.productName}</h6>
+<div className="" style={{height:"80px"}}>
+{/* <p className="text-left" style={{fontSize:"15px",whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",color:"black"}}> 
+{this.props.cardprod.description}
+</p> */}
+
+                 {/* <div className="card-text text-left" style={{overflow:"hidden",textOverflow:"ellipsis",height:"150px"}}> */}
+                 <p className="card-text text-center">
               {this.props.cardprod.discount > 0 ? (
                 <> 
                    <span className="sp1 m-1 " >
@@ -57,11 +59,11 @@ class SmallCard extends Component {
             </span>}
             </p>
         
-                 </div> 
+{/* </div>  */}
                  </div>
          
          
-        </NavLink>
+        </a>
       </React.Fragment>
     );
   }

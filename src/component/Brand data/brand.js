@@ -8,16 +8,11 @@ class Brand extends Component {
     colors: [],
      sizes:[],
      prices:[],
-    
-     filtercolor: [],
-     filteredprods: [],
      fcolor: [],
- 
-   
-     fshipping:[],
-     fdiscount:"",
-     filteredArray: [],
-     filterDiscount:[]
+     frating: "",
+     fshipping: [],
+     fdiscount: "",
+     filteredArray: []
   };
   getbrandprods = (_id) => {
     axios(
@@ -45,29 +40,24 @@ class Brand extends Component {
    handlechecked = async (e) => {
     if (e.target) {
       if (e.target.name == "color") {
-        //Copy List of checked colors
-        let ncolors = this.state.fcolor;
-        //Push New color
-        if(e.target.checked){
-          ncolors.push(e.target.value)
-        }else{
-          let I = ncolors.indexOf(e.target.value);
-          ncolors.splice(I, 1);
-        }
-        await this.setState({ fcolor: ncolors })
-       if(this.state.filteredArray.length==0){
-        //get Filterd Products with fcolor array
-        let filteredProducts = this.state.brandprods.filter(item => this.state.fcolor.includes(item.color)) 
-        await this.setState({filteredArray: filteredProducts})
-      console.log(this.state.filteredArray)
+       //Copy List of checked colors
+       let ncolors = this.state.fcolor;
+       //Push New color
+       if (e.target.checked) {
+         ncolors.push(e.target.value)
+       } else {
+         let I = ncolors.indexOf(e.target.value);
+         ncolors.splice(I, 1);
+       }
+       await this.setState({ fcolor: ncolors })
+        let filteredProducts = this.state.brandprods.filter(item =>
+         (this.state.fcolor.includes(item.color))
+        || (this.state.fshipping.includes(item.ship))
+         || (item.rating >=parseFloat(this.state.frating))
+        || (item.discount >=parseFloat(this.state.fdiscount))
+        ||(item.price >= this.state.minslid && item.price <= parseFloat(this.state.slidprice)));
+       await this.setState({ filteredArray: filteredProducts })
       }
-    else{
-       let filteredProducts = this.state.brandprods.filter(item => this.state.fcolor.includes(item.color)) 
-        await this.setState({filteredArray: filteredProducts})
-      console.log(this.state.filteredArray)
-
-    }}
-      
    
       //=========================shipping filters=====================================================
       if (e.target.name == "shipping") {
@@ -75,105 +65,94 @@ class Brand extends Component {
         let nshipping = this.state.fshipping;
         //Push New brand
         if(e.target.checked){
-          nshipping.push(e.target.value)
+          nshipping.push(parseInt(e.target.value))
         }else{
-          let I = nshipping.indexOf(e.target.value);
+          let I = nshipping.indexOf(parseInt(e.target.value));
           nshipping.splice(I, 1);
         }
         
-        console.log(nshipping)
         await this.setState({ fnshipping: nshipping })
-        console.log("state fcolor",this.state.fshipping)
+        let filteredProducts = this.state.brandprods.filter(item =>
+          (this.state.fcolor.includes(item.color))
+         || (this.state.fshipping.includes(item.ship))
+          || (item.rating >=parseFloat(this.state.frating))
+         || (item.discount >=parseFloat(this.state.fdiscount))
+         ||(item.price >= this.state.minslid && item.price <= parseFloat(this.state.slidprice)));
+        await this.setState({ filteredArray: filteredProducts })
 
-
-        // Finsh updating fshipping Array
-
-        //get Filterd Products with fshipping array
-        if(this.state.filteredArray.length==0){
-        let filteredProducts = this.state.brandprods.filter(item =>this.state.fshipping.includes(`${item.ship}`) )
-        //console.log(this.state.fbrand.includes(1) )
-        await this.setState({filteredArray: filteredProducts})
-        console.log(filteredProducts)
         }
-        else{
-          let filteredProducts = this.state.brandprods.filter(item =>this.state.fshipping.includes(`${item.ship}`) )
-        //console.log(this.state.fbrand.includes(1) )
-        await this.setState({filteredArray: filteredProducts})
-        console.log(filteredProducts)
-        }
+         }}
     
-        
-      }
-    
-    }}
+ 
 
 
       handlercheckedradio=async(e)=>{
 
         //=========================discount filter=============================================
         if (e.target.name == "discount") {
-          if(this.state.filteredArray.length==0){
-          await  this.setState({filterDiscount:this.state.brandprods})
-          }
-        else{
-            await  this.setState({filterDiscount:this.state.filteredArray})
-           }
-          if (e.target.checked) { let filteredProducts = this.state.brandprods.filter(item =>item.discount >=parseFloat(e.target.value*.01)
-              )
-              await this.setState({ filteredArray: filteredProducts })
-              console.log(e.target.value*.01)
-              console.log(this.state.filteredArray)
-           }
+      
+          if (e.target.checked) {
+
+          await  this.setState({ fdiscount: parseInt(e.target.value) * .01 })
+          } else {
+         await   this.setState({ fdiscount: "" })
+            }
+            console.log(this.state.fdiscount,this.state.frating)
+            let filteredProducts = this.state.brandprods.filter(item =>
+              (this.state.fcolor.includes(item.color))
+            
+              || (this.state.fshipping.includes(item.ship))
+              || (item.rating >=parseFloat(this.state.frating))
+               || (item.discount >=(this.state.fdiscount))
+               ||(item.price >= this.state.minslid && item.price <= parseFloat(this.state.slidprice)));
+            await this.setState({ filteredArray: filteredProducts })
+        
+           console.log(this.state.filteredArray)
+
            }
            //===============================rating filter====================================
            if (e.target.name == "rating") {
              
-            if(this.state.filteredArray.length==0){
-            await  this.setState({filterDiscount:this.state.brandprods})
-            }
-          else{
-              await  this.setState({filterDiscount:this.state.filteredArray})
-             }
-            if (e.target.checked) { 
-              let filteredProducts = this.state.brandprods.filter(item =>item.rating >=parseFloat(e.target.value)
-                )
-                console.log(filteredProducts)
-                await this.setState({ filteredArray: filteredProducts })
-               // console.log(e.target.value*.01)
-               
-             }
+    if (e.target.checked) {
+
+      await   this.setState({ frating: parseInt(e.target.value) })
+   
+       } else {
+         await  this.setState({ frating: ""})
+   
+       } 
+        let filteredProducts = this.state.brandprods.filter(item =>
+        (this.state.fcolor.includes(item.color))
+        
+        || (this.state.fshipping.includes(item.ship))
+        || (item.rating >=parseFloat(this.state.frating))
+        || (item.discount >=parseFloat(this.state.fdiscount))
+        ||(item.price >= this.state.minslid && item.price <= parseFloat(this.state.slidprice)));
+      await this.setState({ filteredArray: filteredProducts })
+  
+      //console.log(this.state.filteredArray)
+         
              }
           }
-    
-       
-      
       //Color Filteration complete
       //TODO Rest Filters
       handleprice= async(e)=>{
         if(e.target.name=="price"){
-         this.setState({slidprice:e.target.value})
-          if(this.state.filteredArray.length==0){
-            await  this.setState({filterDiscount:this.state.brandprods})
-            }
-          else{
-              await  this.setState({filterDiscount:this.state.filteredArray})
-             }
+          await  this.setState({ slidprice: e.target.value,maxslid:e.target.max,minslid:e.target.min*.2 })
+         // console.log(this.state.minslid,this.state.slidprice)
+          let filteredProducts = this.state.brandprods.filter(item =>
+           (this.state.fcolor.includes(item.color))
            
-              let filteredProducts = this.state.brandprods.filter(item =>(item.price >=parseFloat(e.target.min)&& item.price <=parseFloat(e.target.value) )
-                )
-                await this.setState({ filteredArray: filteredProducts })
-               // console.log(this.state.filteredArray)
-               
-             
-
-        }
+           || (this.state.fshipping.includes(item.ship))
+           || (item.rating >=parseFloat(this.state.frating))
+           || (item.discount >=parseFloat(this.state.fdiscount))
+           ||(item.price >= this.state.minslid && item.price <= parseFloat(this.state.slidprice)));
+           await this.setState({ filteredArray: filteredProducts })
+           // console.log(this.state.filteredArray)
+           }
 
       }
     
- 
-
-
-
   async componentDidMount() {
     await this.getbrandprods(this.props.match.params.id);
     await this.getbrandcolors(this.props.match.params.id);
@@ -218,7 +197,8 @@ class Brand extends Component {
                       step={10}
 
                       onChange={this.handleprice}
-                    /><br/>from : &nbsp;{Math.min.apply(null,this.state.prices)} &nbsp; to &nbsp;: {this.state.slidprice} 
+                    /><br/>from : &nbsp;{parseInt(Math.min.apply(null, this.state.prices)
+                      *.2)} &nbsp; to &nbsp;: {Math.ceil(this.state.slidprice)}
 
 
                   </li>
@@ -240,8 +220,8 @@ class Brand extends Component {
                     Shipped from
                   </li>
                   <li className="nav-item ml-3">
-                   <input type="checkbox" name="shipping" value="1"  onChange={this.handlechecked} />  Shipped from Egypt <br/>
-                  <input type="checkbox" name="shipping"  name="shipping" value="2"  onChange={this.handlechecked}/>  Shipped from abroad
+                   <input type="checkbox" name="shipping" value="0"  onChange={this.handlechecked} />  Shipped from Egypt <br/>
+                  <input type="checkbox" name="shipping"  name="shipping" value="1"  onChange={this.handlechecked}/>  Shipped from abroad
                   </li>
                   <div className="dropdown-divider" />
                   <li className="nav-item  mt-2  mb-2 ">
@@ -257,7 +237,8 @@ class Brand extends Component {
                 </ul>
               </nav>
             </div>
-            {this.state.filteredArray.length>0 ?<DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />:<DisplayedProducts prods={this.state.brandprods} name={this.props.location.name} />}
+            {(this.state.filteredArray.length == 0 && this.state.fcolor == 0 && this.state.fshipping == 0)&&this.state.fdiscount==""&&this.state.frating=="" ?
+            <DisplayedProducts prods={this.state.brandprods} name={this.props.location.name} /> : <DisplayedProducts prods={this.state.filteredArray} name={this.props.location.name} />}
           </div>
         </div>
       </React.Fragment>

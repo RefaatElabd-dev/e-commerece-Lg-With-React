@@ -5,47 +5,10 @@ import Opened from "./OpenedOrders";
 import AuthService from "../Services/auth.service";
 import axios from 'axios';
 class Orders extends Component {
-  state = {
-    doneorders: [],
-    inprogress:[]
-  };
-  getdoneorders = async () => {
-    if (AuthService.getCurrentUser().id) {
-      axios
-        .get(
-          "https://localhost:44340/api/OrderApi/getOrderProductsInStatus/" +
-            AuthService.getCurrentUser().id +
-            "/" +
-            2
-        )
-        .then((res) => {
-          this.setState({ doneorders: res.data });
-          console.log(res.data);
-        });
-    }
-  };
-  
-  getinprogressorders = async () => {
-    if (AuthService.getCurrentUser().id) {
-      axios
-        .get(
-          "https://localhost:44340/api/OrderApi/getOrderProductsInStatus/" +
-            AuthService.getCurrentUser().id +
-            "/" +
-           0
-        )
-        .then((res) => {
-          this.setState({inprogress: res.data });
-          console.log(res.data);
-        });
-    }
-  };
-  async componentDidMount() {
-    await this.getdoneorders();
-    await this.getinprogressorders();
-  }
+
 
   render() {
+   // console.log(this.props.ondelievery,"hhh",this.props.doneorders)
     return (
       <React.Fragment>
         <div className="col-sm-8 col-md-12" style={{ marginTop: 10 }}>
@@ -71,10 +34,10 @@ class Orders extends Component {
                         className="nav-link  text-uppercase"
                         href="/Account/Orders/Opened"
                       >
-                        Orders InProgress(0)
+                        Orders ondelievery
                       </a>
                     </li>
-                    <li className="nav-item active">
+                    <li className="nav-item ">
                       <a
                         className="nav-link  text-uppercase"
                         href="/Account/Orders/Closed"
@@ -90,10 +53,10 @@ class Orders extends Component {
             <div className="row" style={{ textAlign: "center", marginTop: 60 }}>
               <Router>
                 <Switch>
-                  <Opened path="/Account/Orders/Opened" onprogress={this.state.inprogress}/>
+                  <Opened path="/Account/Orders/Opened" ondelievery={this.props.ondelievery}/>
                   <Closed
                     path="/Account/Orders/Closed"
-                    ondone={this.state.doneorders}
+                    ondone={this.props.doneorders}
                   />
                 </Switch>
               </Router>

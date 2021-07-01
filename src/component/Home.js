@@ -107,10 +107,11 @@ class Home extends Component {
                   {this.state.Catogeries.map((cat, i) => (
                     <div
                       className="text-left"
-                      style={{ borderBottom: "1px solid black", width: "100%" }}
+                      style={{width: "100%" }}
                     >
                       <Dropdown as={ButtonGroup}
                       style={{width:"100%"}}
+                      className="text-right"
                       drop="down"
                       >
                         <Link
@@ -132,12 +133,13 @@ class Home extends Component {
                           className="text text-right"
                           
                         />
-                        <Dropdown.Menu style={{fontWeight:"600",fontSize:"20px", width:"100%"}}>
+                        <Dropdown.Menu style={{fontWeight:"600",fontSize:"20px", width:"100%",whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",}}>
                           <h5 className="card-header text-center">Subcategories</h5>
                           {cat.subCategories.map((s, j) => (
                             <Dropdown.Item
                               href={"/subcategory/" + s.subcategoryId}
                               key={j}
+                              style={{whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",}}
                             >
                               {s.subcategoryName}
                             </Dropdown.Item>

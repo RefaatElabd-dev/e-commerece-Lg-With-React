@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { NavLink,Link} from "react-router-dom";
 import DisplayedProducts from './displyedproducts';
+import AllProducts from "./AllProducts";
 
 class SearchResult extends Component {
     
@@ -9,7 +10,7 @@ class SearchResult extends Component {
         console.log(this.props.location.state)
         return(
             <React.Fragment>
-            {(this.props.location.state.length==0)
+            {(!this.props.location.state||this.props.location.state.length==0)
               ?(
               <React.Fragment>
                 <div className="alert alert-danger container text-center">
@@ -19,8 +20,9 @@ class SearchResult extends Component {
               </React.Fragment>
               )
               :(
-                <div className="bg-danger container text-center p-4">
-                  <DisplayedProducts prods={this.props.location.state} name={this.props.location.name} />
+                <div className="container text-center p-4">
+                  {/* <DisplayedProducts prods={this.props.location.state}  /> */}
+                  <AllProducts products={this.props.location.state}  />
                 </div>
               )
             }
