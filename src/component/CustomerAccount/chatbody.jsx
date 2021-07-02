@@ -3,11 +3,11 @@ import axios from 'axios';
 import AuthService from '../Services/auth.service';
 
 //import { HubConnection } from '@aspnet/signalr';
-//import {HubConnection,HubConnectionBuilder,LogLevel} from "@microsoft/signalr";
+//import {HubConnection,HubConnectionBuilder} from "@microsoft/signalr";
 
 class Chatbody extends Component {
   state={
-  //  hubConnection:null ,
+   //hubConnection:null ,
     seller:{},
     messages:[],
     test:""
@@ -90,7 +90,7 @@ class Chatbody extends Component {
 //       .start()
 //       .then(() => console.log('Connection started!')).catch(err=>console.log(err))
       
-
+//   })
     // this.state.hubConnection.on('sendToAll', (nick, receivedMessage) => {
     //   const text = `${nick}: ${receivedMessage}`;
     //   const messages = this.state.messages.concat([text]);
@@ -103,7 +103,7 @@ class Chatbody extends Component {
  const {seller}=this.state;
     return (
       <React.Fragment>
-    <div className="col-md-6 col-xl-8 chat">
+    <div className="col-md-6 col-xl-8 chat offset-2 " style={{borderRadius:'20px'}} >
       <div className="card" style={{height:"500",borderRadius:"15",backgroundColor:"rgba(0,0,0,0.4)"}}>
         <div className="card-header msg_head">
           <div className="d-flex bd-highlight">
@@ -122,11 +122,11 @@ class Chatbody extends Component {
         <div className="card-body msg_card_body">
 
         {this.state.messages.map((m,i)=>
-        <div>
+        <>
           {
             m.userName==AuthService.getCurrentUser().userName ? 
             
-            <div className="d-flex justify-content-end mb-4">
+            <div className="d-flex justify-content-end mb-4 ">
             <a type="button"
              onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.deletemessage(m.id) } } 
               
@@ -134,8 +134,8 @@ class Chatbody extends Component {
             <div className="msg_cotainer_send">
               
              
-            {m.text} 
-              <span className="msg_time_send ">{m.when}</span>
+           {m.text} 
+           <span className="msg_time_send ">{m.when}</span>
               
             </div>
             </a>
@@ -149,7 +149,7 @@ class Chatbody extends Component {
            </div>
          
           }
-           </div>
+           </>
           )
          
           }

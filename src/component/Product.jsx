@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import authHeader from "./Services/auth-header";
+import { Link} from "react-router-dom";
 import "../Styles/Product.css";
 import AuthService from "./Services/auth.service";
 import Productreviews from "./productreviews";
+import { toast } from "react-toastify";
 class Product extends Component {
   state = {
     product: {},
@@ -20,11 +22,10 @@ class Product extends Component {
       let _PId = this.state.product.id;
      await axios.post(
           "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
-          { UserId: _id, id: _PId },
+          { UserId: _id, ProductId: _PId },
           { headers: authHeader() }
         )
-        .then //console.log(_id, _PId, authHeader())
-        ();
+        .then( res=>toast.success("item is saved"));
     }
   };
   findprod = (_id) => {
@@ -108,7 +109,7 @@ class Product extends Component {
       ? (nprice = this.state.product.price)
       : (nprice = this.state.product.price * (1 - this.state.product.discount));
   
-
+     console.log(nprice)
     return (
       <React.Fragment>
         <div className="container mt-2">
@@ -156,7 +157,7 @@ class Product extends Component {
                   {/*information box */}
                   <div className="row justify-content-between p-0 m-0">
                     <div className="d-flex justify-content-start badge badge-danger text-light " style={{height:"20px"}}>
-                      Official Store
+                    <Link to={`/chat/${this.state.product.sellerId}`} style={{color:"white"}}> chat with seller </Link>
                     </div>
                     <div className="d-flex justify-content-end heart">
                       <button
@@ -201,8 +202,8 @@ class Product extends Component {
                       <span className="sp3" style={{ fontSize: "17px" }}>
                         <span>Saving :</span>
                         <span>
-                          {parseInt(nprice) -
-                            parseInt(this.state.product.price)}{" "}
+                          {
+                            Math.floor( this.state.product.discount*100)}{" "}
                             
                         </span>
                       </span>

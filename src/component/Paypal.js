@@ -27,6 +27,7 @@ export default function Paypal() {
           console.log("Done");
           await axios.post("https://localhost:44340/api/OrderApi/approveOrder/"+_id)
           await axios.delete("https://localhost:44340/api/CartsItemAPi/DeleteCartProductsForCustomer/"+_id)
+          Window.location.reload();
         },
         onError: (err) => {
           console.log(err);

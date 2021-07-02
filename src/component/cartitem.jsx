@@ -39,7 +39,7 @@ class Cartitem extends Component {
     let nprice;
     this.state.prod.discount == 0 || this.state.prod.discount == null
       ? (nprice = this.state.prod.price)
-      : (nprice = parseInt(this.state.prod.price*(1-this.state.prod.discount)));
+      : (nprice = this.state.prod.price*(1-this.state.prod.discount));
 
     return (
       <React.Fragment>
@@ -121,21 +121,21 @@ class Cartitem extends Component {
               
               <span className="sp1 m-1 ">
                 <span>EGP</span>
-                <span>{parseInt(nprice)}</span>
+                <span>{Math.ceil(nprice)}</span>
               </span>
               <span className="sp2 m-1">
                 <span>Egp</span>
-                <span>{parseInt(this.state.prod.price)}</span>
+                <span>{Math.ceil(this.state.prod.price)}</span>
               </span>
               <span className="sp3">
                 <span>Saving :</span>
-                <span>  {Math.ceil(this.state.prod.discount*100)} </span>
+                <span>  {Math.floor(this.state.prod.discount*100)} </span>
               </span>
             </>)
             :
             <span className="sp1 m-1 ">
             <span>Egp</span>
-            <span>{parseInt(nprice)}</span>
+            <span>{Math.ceil(nprice)}</span>
           </span>
             }
             
