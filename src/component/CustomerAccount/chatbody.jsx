@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import AuthService from '../Services/auth.service';
-import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
+
+//import { HubConnection } from '@aspnet/signalr';
+//import {HubConnection,HubConnectionBuilder,LogLevel} from "@microsoft/signalr";
 
 class Chatbody extends Component {
   state={
-    connection:null,
+  //  hubConnection:null ,
     seller:{},
     messages:[],
     test:""
 
   }
+  //const [connection, setConnection] = useState<null | HubConnection>(null);
   getsellerdetails=async(_sid)=>{
     axios.get("https://localhost:44340/api/SellersAPI/"+_sid).then(
       res=>{
@@ -27,6 +30,7 @@ class Chatbody extends Component {
       res=>{
         console.log(res.data)
         this.setState({messages:res.data})
+       // window.location.reload();
  
       }
     ).catch(err=>
@@ -55,34 +59,52 @@ class Chatbody extends Component {
       )
 
   }}
-async componentDidMount(){
- await this.getsellerdetails(this.props.match.params.id);
-//await this.getchatmessage(this.props.match.params.id);
-const connect = new HubConnectionBuilder()
-      .withUrl("https://localhost:44340/ChatHubs")
-      .withAutomaticReconnect()
-      .build();
-this.setState({connection:connect});
-if (this.state.connection) {
-  this.state.connection
-    .start()
-    .then(() => {
-      this.state.connection.on("ReceiveMessage",
-      //this.getchatmessage(this.props.match.params.id)
-      console.log("done")
-      );
-    })
-    .catch((error) => console.log(error));
-}
+// async componentDidMount(){
+//  await this.getsellerdetails(this.props.match.params.id);
+// //await this.getchatmessage(this.props.match.params.id);
 
+// const hubConnection = new HubConnection('https://localhost:44340/ChatHubs');
+ 
+// this.setState({ hubConnection, nick }, () => {
+//   this.state.hubConnection
+//     .start()
+//     .then(() => console.log('Connection started!'))
+//     .catch(err => console.log('Error while establishing connection :('));
+
+// })
+
+// }
+ componentDidMount = async () => {
+ await this.getsellerdetails(this.props.match.params.id);
+ await this.getchatmessage(this.props.match.params.id);
+
+
+
+//  const hubConnection =new  HubConnectionBuilder()
+//     .withUrl('https://localhost:44340/ChatHubs')
+//     .configureLogging(LogLevel.Information)
+//     .build();
+
+//   this.setState({ hubConnection }, () => {
+//     this.state.hubConnection
+//       .start()
+//       .then(() => console.log('Connection started!')).catch(err=>console.log(err))
+      
+
+    // this.state.hubConnection.on('sendToAll', (nick, receivedMessage) => {
+    //   const text = `${nick}: ${receivedMessage}`;
+    //   const messages = this.state.messages.concat([text]);
+    //   this.setState({ messages });
+    // });
+ // });
 }
   render() {
-    console.log(this.state.connection)
+    console.log(this.state.hubConnection)
  const {seller}=this.state;
     return (
       <React.Fragment>
     <div className="col-md-6 col-xl-8 chat">
-      <div className="card">
+      <div className="card" style={{height:"500",borderRadius:"15",backgroundColor:"rgba(0,0,0,0.4)"}}>
         <div className="card-header msg_head">
           <div className="d-flex bd-highlight">
            
@@ -95,22 +117,7 @@ if (this.state.connection) {
           <span id="action_menu_btn">
             <i className="fas fa-ellipsis-v" />
           </span>
-          <div className="action_menu">
-            <ul>
-              <li>
-                <i className="fas fa-user-circle" /> View profile
-              </li>
-              <li>
-                <i className="fas fa-users" /> Add to close friends
-              </li>
-              <li>
-                <i className="fas fa-plus" /> Add to group
-              </li>
-              <li>
-                <i className="fas fa-ban" /> Block
-              </li>
-            </ul>
-          </div>
+          
         </div>
         <div className="card-body msg_card_body">
 
@@ -120,14 +127,18 @@ if (this.state.connection) {
             m.userName==AuthService.getCurrentUser().userName ? 
             
             <div className="d-flex justify-content-end mb-4">
+            <a type="button"
+             onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.deletemessage(m.id) } } 
+              
+            >
             <div className="msg_cotainer_send">
-              <button 
-              onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.deletemessage(m.id) } } 
-              >
+              
+             
             {m.text} 
               <span className="msg_time_send ">{m.when}</span>
-              </button>
+              
             </div>
+            </a>
             </div>:
              <div className="d-flex justify-content-start mb-4">
           

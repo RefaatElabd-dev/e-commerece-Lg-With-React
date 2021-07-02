@@ -175,7 +175,7 @@
 //     }
 //     export default Form;
 
-
+// import Chatbody from "./CustomerAccount/chatbody";
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import { Link, Route } from "react-router-dom";
@@ -443,7 +443,12 @@ class Form extends Component {
                   <div className="text-center w-100">
                     <p className="text-muted font-weight-bold">
                       Already Registered?{" "}
-                      <Link to="/Login" className="text-reset">
+                      <Link
+                      to={{
+                        pathname: "https://localhost:44340/",
+                      }} className="text-reset"
+                      target="_blank"
+                      >
                         Login
                       </Link>
                     </p>

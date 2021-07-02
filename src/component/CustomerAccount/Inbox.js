@@ -49,8 +49,8 @@ console.log(this.state.sellers)
 
 <div className="container-fluid h-100">
   <div className="row justify-content-center h-100">
-    <div className="col-md-6 col-xl-8 chat">
-      <div className="card mb-sm-3 mb-md-0 contacts_card">
+    <div className="col-md-6 col-xl-8 chat" style={{marginTop:"auto",marginBottom:"auto"}}>
+      <div className="card mb-sm-3 mb-md-0 contacts_card" style={{height:"500",borderRadius:"15",backgroundColor:"rgba(0,0,0,0.4)"}}> 
        
         <div className="card-body contacts_body">
           <ui className="contacts">

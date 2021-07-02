@@ -102,8 +102,8 @@ class Login extends Component {
                     className="login-card-img w-100"
                   />
                 </div>
-                <div className="col-md-7">
-                  <div className="card-body">
+                <div className="col-md-7 ">
+                  <div className="card-body" >
                     <div className="brand-wrapper">
                       <h1 className="text-warning">
                         {" "}
@@ -149,7 +149,7 @@ class Login extends Component {
                           onChange={this.handleChange}
                           id="Password"
                           type="password"
-                          placeholder="****"
+                          placeholder="**"
                           className="input100 mt-3"
                         />
                         <span class="focus-input100"></span>
@@ -197,22 +197,7 @@ class Login extends Component {
                         Register here
                       </Link>
                     </p>
-                    {/* <div className="form-group">
-                      <a
-                        href="#"
-                        className="btn btn-primary  btn-social btn-facebook mb-4  "
-                      >
-                        <i className="fa fa-facebook-f mr-2" />
-                        <span className="font-weight-bold">
-                          {" "}
-                          login with Facebook
-                        </span>
-                      </a>
-                    </div>
-                    <nav className="login-card-footer-nav">
-                      <a href="#!">Terms of use.</a>
-                      <a href="#!">Privacy policy</a>
-                    </nav> */}
+                   
                   </div>
                 </div>
               </div>

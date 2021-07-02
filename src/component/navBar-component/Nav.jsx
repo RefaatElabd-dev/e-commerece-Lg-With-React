@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-
 import { Link ,NavLink} from "react-router-dom";
 import { BiStar } from "react-icons/bi";
 import AuthService from "../Services/auth.service";
-import SearchResult from "../search";
-
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 class NavBar extends Component {
   state = {
     prod: this.props.cardprod,
@@ -44,11 +39,7 @@ addToCart = async (productid) => {
   await axios.get("https://localhost:44340/api/SearchsAPi/"+name)
   .then((res) => {
     this.setState({ searchResult: res.data })
-  
-    console.log(res.data)
     this.props.history.push("/search",res.data)
- 
-    
   })}
   catch {
     toast.error("Enter Valid String");
@@ -58,15 +49,14 @@ addToCart = async (productid) => {
 //Form input Search
 handleChange = (e) => {
   this.setState({searchString:e.target.value});
-  //console.log(e.currentTarget.value);
 };
   render() {
-   // console.log(this.props)
     return (
       <React.Fragment>
         <nav
-          className="navbar navbar-expand-lg navbar-light text-white fixed-top"
-          style={{ backgroundColor: "#343a40",position: "sticky",
+          className="navbar container navbar-expand-lg navbar-light text-white fixed-top"
+          style={{
+            backgroundColor: "#00348d",position: "sticky",
           display: "flex" }}
         >
           <div className="col-md-2 col-12 offset-md-1">
@@ -229,28 +219,6 @@ handleChange = (e) => {
                       Help Center
                     </NavLink>
                   </li>
-                  {/* <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <NavLink
-                      className="dropdown-item bg-light text-dark"
-                      to="#"
-                    >
-                      Place &amp; track Order
-                    </NavLink>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <NavLink
-                      className="dropdown-item bg-light text-dark"
-                      to="#"
-                    >
-                      Payment and Account
-                    </NavLink>
-                  </li> */}
                 </ul>
               </li>
               <li className="nav-item m-2">
@@ -272,6 +240,8 @@ handleChange = (e) => {
             </ul>
           </div>
         </nav>
+        <div className="container">
+
         <Link
           to="/Knowledge/Guide"
           target="_blank"
@@ -281,6 +251,7 @@ handleChange = (e) => {
           <BiStar size="22" /> Sell On Jumia
         </Link>
  
+        </div>
     
      
 

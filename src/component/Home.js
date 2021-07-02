@@ -93,21 +93,47 @@ class Home extends Component {
   render() {
     //console.log("id",this.state.user)
     if (this.state.Catogeries.length === 0) {
-      return <div>Loading......................</div>;
+      return <div className=" container mt-4 mb-4 alert alert-info text-center">
+      <h3>
+       Loading ...
+      </h3>  
+        </div>;
     } else {
       return (
         <React.Fragment>
           {/* Top */}
-          <div className="container my-2 mt-2">
+          <div className="container my-2 mt-2 p-5 rounded"
+          style={{
+            background:
+              "url('https://ewm.swiss/application/files/1415/9168/0697/7_Reasons_to_Choose_PrestaShop.jpg')  no-repeat",
+              // backgroundPosition: "left",
+              // backgroundRepeat: "no-repeat",
+              // backgroundAttachment: "inherit",
+              // backgroundOrigin: "border-box",
+              // backgroundClip: "border-box", 
+              // backgroundColor: "initial",
+              // backgroundSize: "contain",
+              backgroundSize: "cover",
+              // backgroundPositionX: "350px",
+              // backgroundPositionY: "10px",
+
+          }}
+          >
             <div className="row m-0 p-0">
               {/* Block1  Filter Categories*/}
-              <div className=" col-12 col-md-3 p-0 m-0 card rounded">
-                <div className="m-1 p-0" style={{overflowY:"auto",height: "380px",backgroundColor: "#fff"}}>
-                 <h4 className="card-header text-center">Categories</h4>
+              <div className=" col-12 col-md-3 p-0 m-0 card rounded" style={{backgroundColor:"unset",boxShadow:"none"}}>
+                <div className="m-1 p-0"
+                 style={{
+                  overflowY:"auto",height: "390px"
+                  
+                }}
+                >
+                 <h4 className="card-header text-center font-weight-bold text-light">Categories</h4>
                   {this.state.Catogeries.map((cat, i) => (
                     <div
                       className="text-left"
                       style={{width: "100%" }}
+                      
                     >
                       <Dropdown as={ButtonGroup}
                       style={{width:"100%"}}
@@ -116,7 +142,7 @@ class Home extends Component {
                       >
                         <Link
                           variant="Warning"
-                          className="dropItem m-2"
+                          className="dropItem ml-xl-2 ml-5 ml-md-0 text-light"
                           style={{textDecoration:"none",fontSize:"20px",fontWeight:"600"}}
                           to={{
                             pathname: `/category/${cat.categoryId}`,
@@ -130,7 +156,7 @@ class Home extends Component {
                           split
                           variant=""
                           id={i}
-                          className="text text-right"
+                          className="text text-light text-right"
                           
                         />
                         <Dropdown.Menu style={{fontWeight:"600",fontSize:"20px", width:"100%",whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",}}>
@@ -139,7 +165,7 @@ class Home extends Component {
                             <Dropdown.Item
                               href={"/subcategory/" + s.subcategoryId}
                               key={j}
-                              style={{whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis",}}
+                              style={{whiteSpace: "nowrap",overflow:"hidden",textOverflow:"ellipsis"}}
                             >
                               {s.subcategoryName}
                             </Dropdown.Item>
@@ -151,7 +177,7 @@ class Home extends Component {
                 </div>
               </div>
               {/* Block2 Slider*/}
-              <div className="d-none d-md-inline-block col-md-8 bloc1 mt-0 bg-dark ml-5 p-2">
+              <div className="d-none d-md-inline-block col-md-5 offset-md-4  mt-0 bg-dark  p-2">
                 <div className=" ">
                   <div
                     id="carouselExampleCaptions"
@@ -176,18 +202,30 @@ class Home extends Component {
                         data-target="#carouselExampleCaptions"
                         data-slide-to={3}
                       />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={4}
+                      />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={5}
+                      />
+                      <li
+                        data-target="#carouselExampleCaptions"
+                        data-slide-to={6}
+                      />
                     </ol>
                     <div className="carousel-inner bloc1">
                       <div className="carousel-item active sliditem">
-                        <Link to={`/category/${this.state.Catogeries[0].categoryId}`} >
+                        <Link to={`/category/${this.state.Catogeries[4].categoryId}`} >
                         <img
-                          src={`https://localhost:44340/${this.state.Catogeries[0].image}`}
+                          src={`https://localhost:44340/${this.state.Catogeries[4].image}`}
                           className="d-block w-100 h-100 img-fluid imgslid"
                           alt="..."
                         />
                         </Link>
                       </div>
-                      {this.state.Catogeries.slice(1,4).map((c,i)=><div key={i} className="carousel-item bloc1">
+                      {this.state.Catogeries.slice(5,11).map((c,i)=><div key={i} className="carousel-item bloc1">
                         <Link to={`/category/${c.categoryId}`}>
                         <img
                          // src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
@@ -229,8 +267,23 @@ class Home extends Component {
             </div>
           </div>
           {/* Sections */}
-          
-          <div className="container my-2">
+          <div className="container my-2 rounded"
+             style={{
+              background:
+                "url('https://art4muslim.com/blog/custom-posts/32-37/32/assets/images/sec-1.jpg') fixed no-repeat",
+                // backgroundPosition: "right",
+                // backgroundRepeat: "no-repeat",
+                // backgroundAttachment: "inherit",
+                // backgroundOrigin: "border-box",
+                // backgroundClip: "border-box", 
+                // backgroundColor: "initial",
+                // backgroundSize: "contain",
+                backgroundSize: "cover",
+                // backgroundPositionX: "350px",
+                // backgroundPositionY: "10px",
+  
+            }}
+          >
             {/* Shop By Brand */}
             <Brand sendBrands={this.state.Brands} imgpath="https://localhost:44340/"/>
             {/* Top Picks for you */}
@@ -261,7 +314,7 @@ class Home extends Component {
               heading="Top Selling"
             />}
           </div>
-        
+
         </React.Fragment>
       );
     }

@@ -183,3 +183,14 @@
     background:rgb(0, 139, 182);
   }
 /* End Scroll Style */
+/* pagination button Style */
+  .pagination button:hover:not(.active) {background-color:#ddd ;color:black;}
+  .pagination button {
+      color: black;
+  font-size: 18px;
+  font-weight: 700;
+  }
+  .pagination button:focus {
+    background-color:rgb(1 54 104);
+    color: white;
+    }

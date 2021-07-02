@@ -3,7 +3,6 @@ import axios from "axios";
 import authHeader from "./Services/auth-header";
 import "../Styles/Product.css";
 import AuthService from "./Services/auth.service";
-import { Link} from "react-router-dom";
 import Productreviews from "./productreviews";
 class Product extends Component {
   state = {
@@ -21,7 +20,7 @@ class Product extends Component {
       let _PId = this.state.product.id;
      await axios.post(
           "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
-          { UserId: _id, ProductId: _PId },
+          { UserId: _id, id: _PId },
           { headers: authHeader() }
         )
         .then //console.log(_id, _PId, authHeader())
@@ -46,16 +45,15 @@ class Product extends Component {
        })
       .catch((err) => console.log(err));
   };
-  rate = (v) => {
-    let t=parseFloat(v);
-    if (t >= 1 && t < 1.5) {
+  rate = (t) => {
+    if (t === 1) {
       return (
         <div>
           {" "}
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t >= 1.5 && t < 2.5) {
+    } else if (t > 1 && t <= 2) {
       return (
         <div>
           {" "}
@@ -63,7 +61,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t > 2.5 && t < 3.5) {
+    } else if (t > 2 && t <= 3) {
       return (
         <div>
           {" "}
@@ -72,7 +70,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t >= 3.5 && t < 4.5) {
+    } else if (t > 3 && t <= 4) {
       return (
         <div>
           {" "}
@@ -82,7 +80,7 @@ class Product extends Component {
           <i className="fa fa-star" />
         </div>
       );
-    } else if (t >= 4.5 && t <= 5) {
+    } else if (t > 4 && t <= 5) {
       return (
         <div>
           {" "}
@@ -114,9 +112,25 @@ class Product extends Component {
     return (
       <React.Fragment>
         <div className="container mt-2">
-          <div className="row m-0 p-0">
+          <div className="row m-0 p-0"
+          style={{
+            background:
+              "url('https://www.almrsal.com/wp-content/uploads/2015/01/shopping.jpg') fixed  no-repeat",
+              // backgroundPosition: "left",
+              // backgroundRepeat: "no-repeat",
+              // backgroundAttachment: "inherit",
+              // backgroundOrigin: "border-box",
+              // backgroundClip: "border-box", 
+              // backgroundColor: "initial",
+              // backgroundSize: "contain",
+              // backgroundSize: "cover",
+              backgroundPositionX: "260px",
+              // backgroundPositionY: "0px",
+
+          }}
+          >
             <div className="col-12 rounded">
-              <div className="row m-0 p-0  mt-3">
+              <div className="row m-0 p-0 mt-3">
                 {/*product section */}
                 {/* left */}
                 <div className="col-12 col-md-5 p-0">
@@ -140,36 +154,45 @@ class Product extends Component {
                   style={{ fontFamily: "cursive " }}
                 >
                   {/*information box */}
-                  <div className="row justify-content-between p-2">
-                    <div className="d-flex justify-content-start badge badge-danger text-light">
-                    <Link to={`/chat/${this.state.product.sellerId}`}> chat with seller </Link>
+                  <div className="row justify-content-between p-0 m-0">
+                    <div className="d-flex justify-content-start badge badge-danger text-light " style={{height:"20px"}}>
+                      Official Store
                     </div>
                     <div className="d-flex justify-content-end heart">
                       <button
-                        className="btn btn-light mb-2 text-danger col-12"
+                        className="btn mb-2 text-danger col-12"
                         onClick={this.SaveItems}
+                        // style={{ backgroundColor: "rgb(0, 139, 182)" }}
                       >
-                        <i className="fa fa-heart mr-2"></i>
+                        <i className="fa fa-heart fa-2x "></i>
                       </button>
                     </div>
                   </div>
                   <div>
-                    <h3>{this.state.product.productName}</h3>
+                    <h3 className="font-weight-bold">{this.state.product.productName}</h3>
                   </div>
-                  <div className="">
-                    <h5>{this.state.product.description}</h5>
-                  </div>
-                  <div className="align-items-center mt-2 text-center">
+                  {/* <div className=""
+                  style={{
+                    width:"50px",
+                    // whiteSpace: "nowrap",
+                    // overflow: "hidden",
+                    // textOverflow: "ellipsis",
+                }}
+                  >
+                    <span style={{width:"100px"}}>{this.state.product.description}</h5>
+                  </div> */}
+                  <div className="align-items-center mt-2 text-left" style={{color:"gold"}}>
                     <span>{this.rate(this.state.product.rating)}</span>
                   </div>
                   <hr className="m-0 mb-2 mt-2 d-md-block" />
-                  <div className="p-0 text-center">
-                    <h2 className="mb-0 badge badge-pill oranged text-white p-2">
+                  <div className="p-0 text-left">
+                    <p className="mb-0 badge badge-pill oranged text-white p-3 font-weight-bold"
+                    >
                       EGP <span>{Math.ceil(nprice)}</span>
-                    </h2>
+                    </p>
 
                     {this.state.product.discount > 0 && (
-                      <span className="sp2 m-1" style={{ fontSize: "17px" }}>
+                      <span className="sp2 m-1 text-danger" style={{ fontSize: "17px" }}>
                         <span>Egp</span>
                         <span>{Math.ceil(this.state.product.price)}</span>
                       </span>
@@ -185,9 +208,9 @@ class Product extends Component {
                       </span>
                     )}
                   </div>
-                  <div className="text-center text-white cursor col-12 row m-0 p-2">
+                  <div className="text-left text-white cursor col-12 row m-0 p-2">
                     <button
-                      style={{ backgroundColor: "teal" }}
+                      style={{ backgroundColor: "rgb(0, 139, 182)" }}
                       onClick={() => this.props.onAdd(this.state.product.id)}
                       className="btn text-uppercase text-white font-weight-bold mb-2 offset-md-2 col-12 col-md-8"
                     >
@@ -199,11 +222,12 @@ class Product extends Component {
                 <hr className="my-2 m-0" />
                 {/* Product details */}
                 <div
-                  className="card  mt-2 mb-2 p-2 font-size-small item-box-blog text-left"
+                  className="card mt-2 mb-2 p-2  item-box-blog text-left"
+                  style={{backgroundColor:"unset",boxShadow:"none"}}
                   id="details"
                 >
                   <header className="h">
-                    <h2 className="">Product details</h2>
+                    <h2 className="">product details</h2>
                   </header>
                   <ul style={{ fontFamily: "cursive " }}>
                     <li>
@@ -213,7 +237,7 @@ class Product extends Component {
                       </div>
                     </li>
                     <li>
-                      <div className="">
+                      <div className="w-50">
                         <span style={{ fontWeight: "700" }}>
                           Description :{" "}
                         </span>
@@ -249,7 +273,17 @@ class Product extends Component {
                     <li>
                       <div className="">
                         <span style={{ fontWeight: "700" }}>Size : </span>
-                        {this.state.product.size}
+                        {this.state.product.size == 0 ? "NotApplicable"
+                         :(this.state.product.size == 1 ? "M"
+                            :(this.state.product.size == 2 ? "L"
+                              :(this.state.product.size == 3 ? "XL"
+                                :( this.state.product.size == 4 ? "XXL"
+                                  :(this.state.product.size == 5 ? "XXXL":"Spesific")
+                                )
+                              )
+                            )
+                          )
+                        }
                       </div>
                     </li>
                     <li>

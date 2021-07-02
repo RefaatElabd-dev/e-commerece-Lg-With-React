@@ -35,18 +35,18 @@ class Eachreview extends Component {
       }
       handlerclick=async(_pid,_id)=>{
           console.log(_pid,_id,this.state.ratetext,this.state.ratevalue)
-          try{
       await axios.put("https://localhost:44340/api/ProductsAPi/EditReview",{
         "CustomerId":_id,
         "ProductId":_pid,
         "Comment":this.state.ratetext,
         "Rating":this.state.ratevalue
-      })
-      toast.done("done")
-      window.location.reload()
+      }).then(res=>
+          {
+              toast.done("done")
+              window.location.reload()
               
         }
-      catch{toast.error("invalid")}
+      )
      }
        
  async getcustomername (_id){
@@ -79,7 +79,6 @@ await this.getcustomername(this.props.review.customerId);
 
            
             <select className="col-12" name="ratevalue"onChange={(e)=>this.handlerchange(e)}   >
-                   <option>choose</option>
                     <option value="5">5</option>
                     <option value="4">4</option>
                     <option value="3">3</option>

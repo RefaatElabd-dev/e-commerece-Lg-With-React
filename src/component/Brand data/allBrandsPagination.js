@@ -23,7 +23,11 @@ export class AllBrandsPagination extends Component {
   render() {
     //console.log("location",this.props.location)
     if (this.state.brands === undefined) {
-      return <div>Loading.............................</div>;
+      return <div className=" container mt-4 mb-4 p-4 text-center alert alert-info">
+      <h3>
+      Brands Loading ...
+      </h3>  
+        </div>;
     } else {
       const { currentPage, brandsPerPage, brands } = this.state;
 

@@ -12,11 +12,10 @@ import "../Styles/ChangePassword.css";
 import "../Styles/Product.css";
 import "../Styles/Category.css";
 import "../Styles/chat.css";
-import "../Styles/checkout.css"
+ import "../Styles/checkout.css"
 import "../Styles/Login.css";
 import Footer from "./navBar-component/Footer";
 import DisplayedProducts from './displyedproducts';
-
 import JumiaAccount from "./CustomerAccount/JumiaAccount";
 import Category from "./Category data/category";
 import AuthService from "./Services/auth.service";
@@ -55,7 +54,6 @@ import Search from "./navBar-component/Search";
 import SearchResult from "./search";
 import CheckOut from './Checkout';
 import Chatbody from "./CustomerAccount/chatbody";
-
 class App extends Component {
   state = {
     Customers: [],
@@ -95,15 +93,7 @@ class App extends Component {
     }};
  
 
-//  getsellerdetails=async(_sid)=>{
-//    axios.get("https://localhost:44340/api/SellersAPI/"+_sid).then(
-//      res=>{
-
-//      }
-//    ).catch(err=>
-//     console.log(err))
-
-//  }
+ 
  
  
   // Add To Cart

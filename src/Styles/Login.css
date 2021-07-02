@@ -1,24 +1,24 @@
-input {
+
+  input {
     outline: none;
     border: none;
   }
-  
   button {
     outline: none !important;
     border: none;
     background: transparent;
   }
-  
+
   button:hover {
     cursor: pointer;
   }
-  
+
   .wrap-input100 {
     position: relative;
     width: 100%;
     z-index: 1;
   }
-  
+
   .input100 {
     font-family: Montserrat-Bold;
     font-size: 15px;
@@ -26,14 +26,13 @@ input {
     color: #333333;
     display: block;
     width: 100%;
-    background: #fff;
+    background: rgb(248, 245, 245);
     height: 50px;
     border-radius: 25px;
     padding: 0 30px 0 53px;
   }
-  
-  /*------------------------------------------------------------------
-  [ Focus ]*/
+
+
   .focus-input100 {
     display: block;
     position: absolute;
@@ -46,26 +45,26 @@ input {
     box-shadow: 0px 0px 0px 0px;
     color: rgba(0, 91, 234, 0.6);
   }
-  
+
   .input100:focus + .focus-input100 {
     -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
     animation: anim-shadow 0.5s ease-in-out forwards;
   }
-  
+
   @-webkit-keyframes anim-shadow {
     to {
       box-shadow: 0px 0px 80px 30px;
       opacity: 0;
     }
   }
-  
+
   @keyframes anim-shadow {
     to {
       box-shadow: 0px 0px 80px 30px;
       opacity: 0;
     }
   }
-  
+
   .symbol-input100 {
     font-size: 15px;
     color: #999999;
@@ -88,13 +87,13 @@ input {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
   }
-  
+
   .input100:focus + .focus-input100 + .symbol-input100 {
     color: #00c6fb;
     padding-left: 23px;
   }
+
   
-  /--------[ Button ]/
   .container-login100-form-btn {
     width: 100%;
     display: -webkit-box;
@@ -105,7 +104,7 @@ input {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .login100-form-btn {
     font-family: Montserrat-Bold;
     font-size: 15px;
@@ -130,7 +129,7 @@ input {
     position: relative;
     z-index: 1;
   }
-  
+
   .login100-form-btn::before {
     content: "";
     display: block;
@@ -148,12 +147,12 @@ input {
     transition: all 0.4s;
     opacity: 0;
   }
-  
+
   .login100-form-btn:hover {
     background: transparent;
     color: #fff;
   }
-  
+
   .login100-form-btn:hover:before {
     opacity: 1;
-  }
+  } 

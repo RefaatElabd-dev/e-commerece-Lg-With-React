@@ -75,11 +75,11 @@ catch{
         {ondone.map((o, i) =>
           <>
             <h4 className="text text-left">order {i + 1}</h4>
-            <div key={i} className="">
+            <div key={i} className="row p-0 m-0" style={{alignItems:"center"}}>
 
               {o.products.map((p, j) =>
-                <div >
-                  <SmallCard key={j} cardprod={p} />
+               < >
+                  <SmallCard key={j} cardprod={p}  />
                   <select className="col-12" name="ratevalue" onChange={(e)=>this.handlerchange(e)}>
                    <option>choose</option>
                     <option value="5">5</option>
@@ -92,7 +92,7 @@ catch{
                   <input className="col-10" type="text" name="ratetext" placeholder="set your review" onChange={(e)=>this.handlerchange(e)}  />
                   <button className="col-2 bg-primary" onClick={()=>this.handlerclick(p.id)}>enter</button>
                
-                </div>
+                </>
 
               )}
             </div>

@@ -222,7 +222,7 @@ class CheckOut extends Component {
                     type="text"
                     className="form-control mt-3"
                   />
-                     <a  href="/Account/NewAdress" type="button" className=" button form-control text-white mt-4">Create New Adress</a>
+                     <a  href="/Account/NewAdress" type="button" className="btnaddress button form-control text-white mt-4" >Create New Adress</a>
                 </div>
                 <hr />
                 <div className="text-center">

@@ -56,7 +56,7 @@ class Cartitem extends Component {
                 // src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
                 src={`https://localhost:44340/${this.state.prod.image}`}
                 alt={this.state.prod.productName}
-                className="mr-2 mt-3 rounded-circle"
+                className="rounded"
                 width="80"
                 height="80"
               />
@@ -64,12 +64,17 @@ class Cartitem extends Component {
           </td>
           {/* Item */}
           <td>
-            <p className="mb-0 col-12">
+            <p className="mb-0 col-12"
+            style={{whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",width:"200px"}}
+            >
               <Link
                 to={{
                   pathname: `/Product/${this.props.prodid}`,
                 }}
                 className="link"
+                
               >
                 {" "}
                 {this.state.prod.productName}{" "}
@@ -77,10 +82,9 @@ class Cartitem extends Component {
             </p>
             <p
               className="mb-0 col-12"
-              style={{
+              style={{whiteSpace: "nowrap",
                 overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
+                textOverflow: "ellipsis",width:"200px"}}
             >
               {" "}
               {this.state.prod.description}

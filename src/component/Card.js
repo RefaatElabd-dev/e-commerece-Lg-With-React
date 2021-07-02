@@ -1,9 +1,9 @@
-
 import axios from "axios";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link,BrowserRouter as Router, Route, Switch  } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import AuthService from "./Services/auth.service";
+
 class Card extends Component {
   state = {
     prod: this.props.cardprod,
@@ -113,8 +113,10 @@ class Card extends Component {
       <React.Fragment>
         {/* Toast just for notification  */}
         <ToastContainer />
-        <div className="col-md-3 col-12 mt-2">
-          <div className="card item-box-blog">
+        <div className=" col-6 col-md-3 mt-2">
+          <div className="card item-box-blog"
+          //  style={{backgroundColor: "rgb(0 0 0 / 8%)",boxShadow:"none"}}
+           >
             <Link
               to={{
                 pathname: `/Product/${this.state.prod.id}`,
@@ -123,12 +125,81 @@ class Card extends Component {
               onClick={this.SaveinViews}
               style={{ color: "black", textDecoration: "none" }}
             >
-              <img
+              <Router>
+              <Switch>
+              <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/" exact
+                         />
+                         <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/Home" exact
+                         />
+                         <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/category"
+                         />
+                          <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/subcategory"
+                         />
+                            <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/search"
+                         />
+                          <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/images/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/brand"
+                         />
+                         
+              <Route 
+                 render={(props) => <img
+                  className="card-img-top"
+                  src={`https://localhost:44340/${this.state.prod.image}`}
+                  alt={`${this.state.prod.productName}`}
+                  height="200px"
+                />}
+                  path="/allbestselling" exact
+                         />
+                  
+              </Switch>
+              </Router>
+              {/* <img
                 className="card-img-top"
                 src={`https://localhost:44340/images/${this.state.prod.image}`}
                 alt={`${this.state.prod.productName}`}
                 height="200px"
-              />
+              /> */}
               <h6
                 className="card-title text-center mt-1"
                 style={{
@@ -143,8 +214,6 @@ class Card extends Component {
                 {" "}
                 {this.state.prod.productName}
               </h6>
-
-              <div className="" style={{ height: "100px", direction: "ltr" }}>
                 <div
                   className="card-text text-left"
                   style={{
@@ -152,50 +221,50 @@ class Card extends Component {
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    height: "100px",
+                    height: "90px",
                   }}
                 >
                   {this.state.prod.description}
 
-                  <p className="card-text text-left">
+                  <p className="card-text text-left ">
                     {this.props.cardprod.discount > 0 ? (
                       <>
-                        <span className="sp1 m-1 ">
+                        <span className="sp1 mt-1 m-0">
                           <b>
                             <span>EGP</span>
                             &nbsp; <span>{nprice}</span>
                           </b>
                         </span>
-                        <span className="sp2 m-1">
+                        <span className="sp2 mt-1 m-0 text-danger">
                           <span>Egp</span>
                           &nbsp;{" "}
                           <span>{parseInt(this.props.cardprod.price)}</span>
                         </span>
                       </>
                     ) : (
-                      <span className="sp1 mt-1">
+                      <span className="sp1 mt-1 m-0">
                         <b>
                           <span>EGP</span>
                           &nbsp; <span>{parseInt(nprice)}</span>
                         </b>
                       </span>
                     )}
-                  </p>
-                  <p className="card-text text-center">
+                  <span className=" text-center m-0" style={{color:"gold"}}>
                     {this.rate(this.state.prod.rating)}
+                  </span>
                   </p>
                 </div>
-              </div>
+             
             </Link>
             <div className="text-center mb-2 mt-3">
               <button
-                className="btn "
+                className="btn"
                 onClick={() => this.addToCart(this.state.prod.id)}
                 style={{
-                  width: "60%",
+                  // width: "60%",
                   fontWeight: "600",
                   fontSize: "16px",
-                  backgroundColor: "teal",
+                  backgroundColor: "rgb(0, 139, 182)",
                   color: "white",
                 }}
               >
@@ -209,4 +278,3 @@ class Card extends Component {
   }
 }
 export default Card;
-

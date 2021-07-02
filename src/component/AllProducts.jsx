@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import AuthService from "./Services/auth.service";
-import axios from "axios";
+import { ToastContainer } from "react-toastify";
 import  Card  from './Card';
 
 
@@ -19,15 +16,11 @@ export class AllProducts extends Component {
       <React.Fragment>
        
         <ToastContainer />
-           <div className="alert alert-primary">
-          <div className="container row  ml-3">
+          <div className="row m-0 p-0 mb-3 p-2">
             {
               products.map(p=><Card cardprod={p} key={p.id}/>)
             }
-            
           </div>
-          </div>
-        
       </React.Fragment>
     );
   }
