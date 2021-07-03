@@ -43,11 +43,11 @@ catch{
   
   render() {
     const { ondone } = this.props;
-    if (ondone.lenghth == 0) {
+    if (ondone.length == 0) {
       return (
         <React.Fragment>
           <div className="container mt-2 " id="ClosedOrders">
-            <img src="../img/ordercart.png" width="120px" height="120px" />
+            {/* <img src="../img/message.jpg" width="120px" height="120px" /> */}
             <br /> <br />
             <div className=" form  col-lg-12 " style={{ textAlign: "center" }}>
               <h6>
@@ -59,13 +59,8 @@ catch{
                 {" "}
                 <i>All your Closed Orders will be saved here.</i>
               </p>
-              <button
-                type="button"
-                className="btn btn-warning "
-                style={{ color: "white", marginTop: 30 }}
-              >
-                <b>Start Shopping </b>
-              </button>
+              <a type="button" href="/home" className="btn btn-warning mb-3 " style={{color: 'white', marginTop: 30}}> <b>Continue Shopping</b></a>
+            
             </div>
           </div>
         </React.Fragment>
@@ -74,7 +69,7 @@ catch{
       return (<div className="container " >
         {ondone.map((o, i) =>
           <>
-            <h4 className="text text-left">order {i + 1}</h4>
+            <h4 className="text text-center">order {i + 1}</h4>
             <div key={i} className="row p-0 m-0" style={{alignItems:"center"}}>
 
               {o.products.map((p, j) =>

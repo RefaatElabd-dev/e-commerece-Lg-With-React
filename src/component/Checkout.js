@@ -193,7 +193,7 @@ class CheckOut extends Component {
                   </p>
 
                   
-                  <input
+                  {/* <input
                     id="Region"
                     type="Region"
                     name="Region"
@@ -221,7 +221,7 @@ class CheckOut extends Component {
                     id="street"
                     type="text"
                     className="form-control mt-3"
-                  />
+                  /> */}
                      <a  href="/Account/NewAdress" type="button" className="btnaddress button form-control text-white mt-4" >Create New Adress</a>
                 </div>
                 <hr />
@@ -230,7 +230,7 @@ class CheckOut extends Component {
                     Estimated Delivery Between 4 to 15 Days
                   </p>
                   <div className="App mt-5">
-                    <PayPal />
+                    <PayPal street={this.state.street} country={this.state.country} city={this.state.city}/>
                   </div>
                 </div>
               </div>

@@ -104,7 +104,7 @@ class Chatbody extends Component {
     return (
       <React.Fragment>
     <div className="col-md-6 col-xl-8 chat offset-2 " style={{borderRadius:'20px'}} >
-      <div className="card" style={{height:"500",borderRadius:"15",backgroundColor:"rgba(0,0,0,0.4)"}}>
+      <div className="card m-5" style={{height:"400",borderRadius:"30px",backgroundColor:"rgba(0,0,0,0.4)"}}>
         <div className="card-header msg_head">
           <div className="d-flex bd-highlight">
            
@@ -131,20 +131,23 @@ class Chatbody extends Component {
              onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.deletemessage(m.id) } } 
               
             >
-            <div className="msg_cotainer_send">
-              
-             
-           {m.text} 
+          <div className="msg_cotainer_send">
+            {m.text} 
+            </div>
+             <div>
            <span className="msg_time_send ">{m.when}</span>
               
             </div>
             </a>
             </div>:
-             <div className="d-flex justify-content-start mb-4">
+             <div className="justify-content-start mb-4 ">
           
-             <div className="msg_cotainer">
+             <div className="msg_cotainer col-2">
                 {seller.firstName}: {m.text}
-               <span className="msg_time mt-3">{m.when}</span>
+                </div>
+               
+                <div className="col-3 ">
+               <span className="msg_time_send">{m.when}</span>
              </div>
            </div>
          
