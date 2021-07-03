@@ -57,7 +57,7 @@ render(){
                           {this.state.prod.productName}
                         </h6>
                         {/* Price */}
-                        <p className="card-text">{this.state.prod.price} Egp</p>
+                        <p className="card-text">{Math.ceil(this.state.prod.price*(1-this.state.prod.discount))} Egp</p>
                         {/* Quantity */}
                         <p className="card-text">Qty: {this.props.q}</p>
                       </div>

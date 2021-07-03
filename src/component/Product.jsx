@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import authHeader from "./Services/auth-header";
+import { Link} from "react-router-dom";
+import "../Styles/Product.css";
 import AuthService from "./Services/auth.service";
 import "../Styles/Product.css";
 import Productreviews from "./productreviews";
 import { toast, ToastContainer}from "react-toastify";
-
 class Product extends Component {
   state = {
     product: {},
@@ -139,7 +140,6 @@ class Product extends Component {
       ? (nprice = this.state.product.price)
       : (nprice = this.state.product.price * (1 - this.state.product.discount));
   
-
     return (
       <React.Fragment>
         <ToastContainer/>
@@ -188,7 +188,7 @@ class Product extends Component {
                   {/*information box */}
                   <div className="row justify-content-between p-0 m-0">
                     <div className="d-flex justify-content-start badge badge-danger text-light " style={{height:"20px"}}>
-                      Official Store
+                    <Link to={`/chat/${this.state.product.sellerId}`} style={{color:"white"}}> chat with seller </Link>
                     </div>
                     <div className="d-flex justify-content-end heart">
                       <button
@@ -235,8 +235,8 @@ class Product extends Component {
                       <span className="sp3" style={{ fontSize: "17px" }}>
                         <span>Saving :</span>
                         <span>
-                          {parseInt(nprice) -
-                            parseInt(this.state.product.price)}{" "}
+                          {
+                            Math.floor( this.state.product.discount*100)}{" "}
                             
                         </span>
                       </span>

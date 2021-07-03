@@ -34,7 +34,7 @@ class Orders extends Component {
                         className="nav-link  text-uppercase"
                         href="/Account/Orders/Opened"
                       >
-                        Orders ondelievery
+                       {(this.props.ondelievery) && <span> ondelievery ({this.props.ondelievery.length}) </span>}
                       </a>
                     </li>
                     <li className="nav-item ">
@@ -42,7 +42,7 @@ class Orders extends Component {
                         className="nav-link  text-uppercase"
                         href="/Account/Orders/Closed"
                       >
-                        Orders Done(0)
+                        {(this.props.doneorders) && <span> Orders Done ({this.props.doneorders.length})</span>}
                       </a>
                     </li>
                   </Router>

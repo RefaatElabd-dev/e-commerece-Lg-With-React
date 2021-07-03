@@ -257,20 +257,7 @@ async componentDidMount() {
     return (
       <div
         className="container mb-2 p-2 rounded"
-        // style={{
-        //   background:
-        //     "url('https://www.hiamag.com/sites/default/files/article/19/09/2018/7242506-1865873101.jpg') fixed no-repeat",
-        //   // backgroundPosition: "right",
-        //   // backgroundRepeat: "no-repeat",
-        //   // backgroundAttachment: "inherit",
-        //   // backgroundOrigin: "border-box",
-        //   // backgroundClip: "border-box",
-        //   // backgroundColor: "initial",
-        //   // backgroundSize: "contain",
-        //   backgroundSize: "cover",
-        //   // backgroundPositionX: "350px",
-        //   // backgroundPositionY: "10px",
-        // }}
+       
       >
         <div className="container p-0 rounded">
           <div className="row m-0 p-0">
@@ -297,7 +284,7 @@ async componentDidMount() {
                   style={{ fontSize: "16px", fontWeight: "600" }}
                 >
                   <h4 className="text-center card-header">Filter By</h4>
-                  <li className="nav-item  mt-2  mb-2 ">Product Rating</li>
+                  {/* <li className="nav-item  mt-2  mb-2 ">Product Rating</li>
                   <IconContext.Provider
                     value={{ color: "", className: "mr-1" }}
                   >
@@ -351,7 +338,7 @@ async componentDidMount() {
                       &amp; above
                       <br />
                     </li>
-                  </IconContext.Provider>
+                  </IconContext.Provider> */}
                   <div className="dropdown-divider" />
                   {this.state.Catbrands && (
                     <>
@@ -469,6 +456,62 @@ async componentDidMount() {
                     />{" "}
                     20% or more <br />
                   </li>
+                  <div className="dropdown-divider" />
+                  <li className="nav-item  mt-2  mb-2 ">Product Rating</li>
+                  <IconContext.Provider
+                    value={{ color: "", className: "mr-1" }}
+                  >
+                    <li className="nav-item ml-3 ni ">
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        className="mr-2"
+                        name="rating"
+                        value={4}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        className="mr-2"
+                        name="rating"
+                        value={3}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="rating"
+                        value={2}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="rating"
+                        value={1}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                    </li>
+                  </IconContext.Provider>
                 </ul>
               </nav>
             </div>

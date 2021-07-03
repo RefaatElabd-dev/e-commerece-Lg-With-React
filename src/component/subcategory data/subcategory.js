@@ -252,63 +252,26 @@ class  Subcategory extends Component {
                   style={{ fontSize: "16px", fontWeight: "600" }}
                 >
                   <h4 className="text-center card-header">Filter By</h4>
-                  <li className="nav-item  mt-2  mb-2 ">Product Rating</li>
-                  <IconContext.Provider
-                    value={{ color: "", className: "mr-1" }}
-                  >
-                    <li className="nav-item ml-3 ni ">
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        className="mr-2"
-                        name="rating"
-                        value={4}
-                        onChange={this.handlercheckedradio}
-                      />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      &amp; above
-                      <br />
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        className="mr-2"
-                        name="rating"
-                        value={3}
-                        onChange={this.handlercheckedradio}
-                      />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      &amp; above
-                      <br />
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        name="rating"
-                        value={2}
-                        onChange={this.handlercheckedradio}
-                      />
-                      <FaStar />
-                      <FaStar />
-                      &amp; above
-                      <br />
-                      <input
-                        type="radio"
-                        className="mr-2"
-                        name="rating"
-                        value={1}
-                        onChange={this.handlercheckedradio}
-                      />
-                      <FaStar />
-                      &amp; above
-                      <br />
-                    </li>
-                  </IconContext.Provider>
-                  
                   <div className="dropdown-divider" />
+                  {this.state.subcatatbrands && (
+                    <>
+                      {" "}
+                      <li className="nav-item mt-2  mb-2">Brand</li>
+                      <li className="nav-item ml-3 ni">
+                        {this.state.subcatatbrands.map((c, i) => (
+                          <div key={i}>
+                            <input
+                              value={c.brandId}
+                              name="brand"
+                              type="checkbox"
+                              onChange={this.handlechecked}
+                            />{" "}
+                            {c.brandName}
+                          </div>
+                        ))}
+                      </li>
+                    </>
+                  )}
                   <li className="nav-item mt-2  mb-2">PRICE(EGP)</li>
                   <li className="nav-item ml-3">
                     <input
@@ -333,18 +296,7 @@ class  Subcategory extends Component {
                     </span>{" "}
                     EGY
                   </li>
-                  <div className="dropdown-divider" />
-                  {this.state.sizes && (
-                    <>
-                      {" "}
-                      <li className="nav-item mt-2  mb-2">SIZE</li>
-                      <li className="nav-item ml-3 ni">
-                        <input type="checkbox" /> XXS
-                        <br />
-                      </li>
-                    </>
-                  )}
-                  <div className="dropdown-divider" />
+                  
                   {this.state.colors && (
                     <>
                       <li className="nav-item mt-2  mb-2">Color</li>
@@ -415,6 +367,64 @@ class  Subcategory extends Component {
                     />{" "}
                     20% or more <br />
                   </li>
+                  <div className="dropdown-divider" />
+                  <li className="nav-item  mt-2  mb-2 ">Product Rating</li>
+                  <IconContext.Provider
+                    value={{ color: "", className: "mr-1" }}
+                  >
+                    <li className="nav-item ml-3 ni ">
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        className="mr-2"
+                        name="rating"
+                        value={4}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        className="mr-2"
+                        name="rating"
+                        value={3}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="rating"
+                        value={2}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                      <input
+                        type="radio"
+                        className="mr-2"
+                        name="rating"
+                        value={1}
+                        onChange={this.handlercheckedradio}
+                      />
+                      <FaStar />
+                      &amp; above
+                      <br />
+                    </li>
+                  </IconContext.Provider>
+                  
+                 
                 </ul>
               </nav>
             </div>

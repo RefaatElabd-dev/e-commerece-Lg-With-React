@@ -7,9 +7,9 @@ class SmallCard extends Component {
     let nprice;
     this.props.cardprod.discount == 0 || this.props.cardprod.discount == null
       ? (nprice = this.props.cardprod.price)
-      : (nprice = parseInt(
+      : (nprice = 
           this.props.cardprod.price * (1 - this.props.cardprod.discount)
-        ));
+        );
     return (
       <React.Fragment>
         <NavLink
@@ -51,12 +51,12 @@ class SmallCard extends Component {
                   <span className="sp1 m-1 ">
                     <b>
                       <span>EGP</span>
-                      &nbsp; <span>{nprice}</span>
+                      &nbsp; <span>{Math.ceil(nprice)}</span>
                     </b>
                   </span>
                   <span className="sp2 m-1 text-danger">
                     <span>Egp</span>
-                    &nbsp; <span>{parseInt(this.props.cardprod.price)}</span>
+                    &nbsp; <span>{Math.ceil(this.props.cardprod.price)}</span>
                   </span>
                 </>
               ) : (
