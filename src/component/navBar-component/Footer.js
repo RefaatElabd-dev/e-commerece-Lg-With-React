@@ -5,7 +5,7 @@ class Footer extends Component {
   render() {
     return (
       // <!-- Footer -->
-      <footer className="container text-center text-white"
+      <footer className="col-12  text-center text-white"
       style={{
         backgroundColor: "#00348d"
       }}

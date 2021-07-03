@@ -54,7 +54,7 @@ handleChange = (e) => {
     return (
       <React.Fragment>
         <nav
-          className="navbar container navbar-expand-lg navbar-light text-white fixed-top"
+          className="navbar col-12 navbar-expand-lg navbar-light text-white fixed-top"
           style={{
             backgroundColor: "#00348d",position: "sticky",
           display: "flex" }}
@@ -242,14 +242,7 @@ handleChange = (e) => {
         </nav>
         <div className="container">
 
-        <Link
-          to="/Knowledge/Guide"
-          target="_blank"
-          className="m-2 font-weight-bolder"
-          style={{ color: "teal" }}
-        >
-          <BiStar size="22" /> Sell On Jumia
-        </Link>
+      
  
         </div>
     

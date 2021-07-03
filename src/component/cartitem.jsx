@@ -1,27 +1,49 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {toast}from "react-toastify";
 import { Link } from "react-router-dom";
 import authHeader from "./Services/auth-header";
 import AuthService from "./Services/auth.service";
 class Cartitem extends Component {
   state = {
     prod: {},
+    IsSaved: false
   };
   SaveItems = () => {
-    console.log(localStorage.getItem("user").id, this.props.prodid);
+    //console.log(localStorage.getItem("user").id, this.props.prodid);
     if (AuthService.getCurrentUser()) {
       let _id = AuthService.getCurrentUser().id;
       let _PId = this.props.prodid;
-      axios
-        .post(
-          "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
-          { UserId: _id, ProductId: _PId },
-          { headers: authHeader() }
-        )
-        .then //console.log(_id, _PId, authHeader())
-        ();
+      if(!this.state.IsSaved){
+        axios
+          .post(
+            "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
+            { UserId: _id, ProductId: _PId },
+            { headers: authHeader() }
+          )
+          .then((res) => {
+            toast.success(`Changed To Saved Items`);
+           this.changeSavedColor();
+          });
+      }else{
+        axios
+          .delete(
+            "https://localhost:44340/api/UserBagApi/DeleteSavedItem/"+_id+"/"+_PId,
+            null,
+            { headers: authHeader() }
+          )
+          .then((res) => {
+            toast.success(`RemovedFrom Saved Items`);
+           this.changeSavedColor();
+          });
+      }
     }
   };
+
+  changeSavedColor = async () => {
+    let x = await axios.get("https://localhost:44340/api/UserBagApi/IsSaved/"+ JSON.parse(localStorage.getItem('user')).id +"/"+this.props.prodid)
+    await this.setState({IsSaved:x.data})
+  }
 
   getprod = async () => {
     axios
@@ -33,11 +55,12 @@ class Cartitem extends Component {
   };
   async componentDidMount() {
     this.getprod();
+    this.changeSavedColor();
   }
   render() {
 
     let nprice;
-    this.state.prod.discount == 0 || this.state.prod.discount == null
+    this.state.prod.discount === 0 || this.state.prod.discount === null
       ? (nprice = this.state.prod.price)
       : (nprice = parseInt(this.state.prod.price*(1-this.state.prod.discount)));
 
@@ -54,7 +77,8 @@ class Cartitem extends Component {
             >
               <img
                 // src="https://www.westernheights.k12.ok.us/wp-content/uploads/2020/01/No-Photo-Available.jpg"
-                src={`https://localhost:44340/${this.state.prod.image}`}
+                //src={`https://localhost:44340/${this.state.prod.image}`}
+                src={this.state.prod.image ? `https://localhost:44340/${this.state.prod.image}`: ""}
                 alt={this.state.prod.productName}
                 className="rounded"
                 width="80"
@@ -101,7 +125,7 @@ class Cartitem extends Component {
             >
               <i className="fas fa-plus-circle fa-2x"></i>
             </button>
-            {this.props.q == 0
+            {this.props.q === 0
               ? this.props.onDelete(this.props.prodid)
               : this.props.q}
             <button
@@ -150,10 +174,10 @@ class Cartitem extends Component {
           {/* Saved/Removed Buttons */}
           <td>
             <button
-              className="btn btn-light mb-2 text-danger col-12"
+              className={this.state.IsSaved === true ? "btn btn-light mb-2 col-12 text-light bg-danger " : "btn btn-light mb-2 col-12 text-danger"}
               onClick={this.SaveItems}
             >
-              <i className="fa fa-heart mr-2"></i>
+              <i className="fa fa-heart mr-2 "></i>
             </button>
             <button
               onClick={(event) => {

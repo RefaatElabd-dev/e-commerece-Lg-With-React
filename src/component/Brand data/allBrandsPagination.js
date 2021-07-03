@@ -70,7 +70,8 @@ export class AllBrandsPagination extends Component {
                       className="m-0 p-0"
                       height="100%"
                       width="100%"
-                      src={`https://localhost:44340/${c.image}`}
+                      src={c.image ? `https://localhost:44340/${c.image}`: ""}
+                      // src={`https://localhost:44340/${c.image}`}
                    />
                   </div>
                   <div className="bg-warning">

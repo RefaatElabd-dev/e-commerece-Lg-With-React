@@ -195,7 +195,6 @@ class Brand extends Component {
                       <input
                         type="radio"
                         className="mr-2"
-                        className="mr-2"
                         name="rating"
                         value={4}
                         onChange={this.handlercheckedradio}
@@ -208,7 +207,6 @@ class Brand extends Component {
                       <br />
                       <input
                         type="radio"
-                        className="mr-2"
                         className="mr-2"
                         name="rating"
                         value={3}
@@ -320,7 +318,6 @@ class Brand extends Component {
                     Shipped from Egypt <br />
                     <input
                       type="checkbox"
-                      name="shipping"
                       name="shipping"
                       value="2"
                       onChange={this.handlechecked}

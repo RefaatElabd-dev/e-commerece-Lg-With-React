@@ -15,7 +15,6 @@ import "../Styles/chat.css";
  import "../Styles/checkout.css"
 import "../Styles/Login.css";
 import Footer from "./navBar-component/Footer";
-import DisplayedProducts from './displyedproducts';
 import JumiaAccount from "./CustomerAccount/JumiaAccount";
 import Category from "./Category data/category";
 import AuthService from "./Services/auth.service";
@@ -31,7 +30,6 @@ import ContactUs from "./ContactUs";
 import HelpCenter from "./HelpCenter";
 import Cart from "./Cart";
 import NavSeller from "./SellerComponent/NavSeller";
-import FooterSeller from "./SellerComponent/FooterSeller";
 import Knowledge from "./SellerComponent/KnowledgeTraning/Knowledge";
 import Community from "./SellerComponent/VendorCommunity/Community";
 import Stories from "./SellerComponent/VendorCommunity/Stories";
@@ -50,7 +48,6 @@ import Subcategory from "./subcategory data/subcategory";
 import SavedItems from "./CustomerAccount/SavedItems";
 import AllBrandsPagination from "./Brand data/allBrandsPagination";
 import Form from './SellerComponent/Training/Form';
-import Search from "./navBar-component/Search";
 import SearchResult from "./search";
 import CheckOut from './Checkout';
 import Chatbody from "./CustomerAccount/chatbody";
@@ -256,7 +253,7 @@ class App extends Component {
                 <Route component={JumiaTrain} path="/JumiaTrain" />
                 <Route component={ClaimForm} path="/ClaimForm" />
               </div>
-              <FooterSeller />
+              {/* <FooterSeller /> */}
             </Router>
           </Switch>
           <RecentlyViewed prods={this.state.RecentlyViewed} />

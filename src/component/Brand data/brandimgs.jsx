@@ -31,9 +31,9 @@ class Brand extends Component {
 
       const paginate = pageNum => this.setState({ currentPage: pageNum });
 
-      const nextPage = () => {if(currentPage!=sendBrands.length)this.setState({ currentPage: currentPage + 1 })};
+      const nextPage = () => {if(currentPage !== sendBrands.length)this.setState({ currentPage: currentPage + 1 })};
 
-      const prevPage = () =>{if(currentPage!=1)this.setState({ currentPage: currentPage - 1 })};
+      const prevPage = () =>{if(currentPage !== 1)this.setState({ currentPage: currentPage - 1 })};
       return (
       <React.Fragment>
         <div className="container text-center"

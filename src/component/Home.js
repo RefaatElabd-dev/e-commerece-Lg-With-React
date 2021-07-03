@@ -7,6 +7,7 @@ import Categoriesimages from "./Category data/Categoriesimags";
 import CarouselData from "./carouselData";
 import Subcategory from './subcategory data/subcategory';
 import AuthService from "./Services/auth.service.js";
+import { BiStar } from 'react-icons/bi';
 
 class Home extends Component {
   state = {
@@ -101,6 +102,14 @@ class Home extends Component {
     } else {
       return (
         <React.Fragment>
+            <Link
+          to="/Knowledge/Guide"
+          target="_blank"
+          className="m-2 font-weight-bolder"
+          style={{ color: "teal" }}
+        >
+          <BiStar size="22" /> Sell On J6
+        </Link>
           {/* Top */}
           <div className="container my-2 mt-2 p-5 rounded"
           style={{
@@ -229,7 +238,7 @@ class Home extends Component {
                         <Link to={`/category/${c.categoryId}`}>
                         <img
                          // src="https://eg.jumia.is/cms/ramadan-21/sliders/Slider-Desktop-EN_.jpg"
-                         src={`https://localhost:44340/${c.image}`}
+                         src={c.image ? `https://localhost:44340/${c.image}` : ""}
                           className="d-block w-100 h-100 imgslid img-fluid "
                           alt="..."
                         />

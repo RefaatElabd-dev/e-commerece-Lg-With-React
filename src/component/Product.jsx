@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import authHeader from "./Services/auth-header";
-import "../Styles/Product.css";
 import AuthService from "./Services/auth.service";
+import "../Styles/Product.css";
 import Productreviews from "./productreviews";
+import { toast, ToastContainer}from "react-toastify";
+
 class Product extends Component {
   state = {
     product: {},
@@ -11,6 +13,7 @@ class Product extends Component {
     prodimgs: "",
     mainimg: "",
     user: JSON.parse(localStorage.getItem("user")),
+    IsSaved:false
   };
 
   SaveItems = async() => {
@@ -18,15 +21,36 @@ class Product extends Component {
     if (AuthService.getCurrentUser()) {
       let _id = AuthService.getCurrentUser().id;
       let _PId = this.state.product.id;
-     await axios.post(
-          "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
-          { UserId: _id, id: _PId },
-          { headers: authHeader() }
-        )
-        .then //console.log(_id, _PId, authHeader())
-        ();
+      console.log(_PId);
+      if(!this.state.IsSaved)
+      {
+        axios
+          .post(
+            "https://localhost:44340/api/UserBagApi/SetProductToSavedItems",
+            { UserId: _id, ProductId: _PId },
+            { headers: authHeader() }
+          )
+          .then((res) => {
+            toast.success(`Changed To Saved Items`);
+           this.changeSavedColor();
+          });
+      }
+      else
+      {
+        axios
+          .delete(
+            "https://localhost:44340/api/UserBagApi/DeleteSavedItem/"+_id+"/"+_PId,
+            null,
+            { headers: authHeader() }
+          )
+          .then(async (res) => {
+            toast.success(`Removed From Saved Items`);
+           await this.changeSavedColor();
+          });
+      }
     }
   };
+
   findprod = (_id) => {
     axios
       .get("https://localhost:44340/api/ProductsAPi/" + _id)
@@ -37,6 +61,12 @@ class Product extends Component {
       })
       .catch((err) => console.log(err));
   };
+
+  changeSavedColor = async () => {
+    let x = await axios.get("https://localhost:44340/api/UserBagApi/IsSaved/"+ JSON.parse(localStorage.getItem('user')).id +"/"+this.state.product.id)
+    await this.setState({IsSaved:x.data})
+  }
+
   getprodreviews = (_id) => {
     axios
       .get("https://localhost:44340/api/ProductsAPi/GetAllReviewsOfProduct/" + _id)
@@ -98,6 +128,7 @@ class Product extends Component {
  async componentDidMount() {
  await   this.findprod(this.props.match.params.id);
  await   this.getprodreviews(this.props.match.params.id);
+  await  this.changeSavedColor();
 
   }
   render() {
@@ -111,6 +142,7 @@ class Product extends Component {
 
     return (
       <React.Fragment>
+        <ToastContainer/>
         <div className="container mt-2">
           <div className="row m-0 p-0"
           style={{
@@ -138,7 +170,7 @@ class Product extends Component {
                   {/* Main Image */}
                   <div>
                     <img
-                      src={`https://localhost:44340/${this.state.product.image}`}
+                      src={this.state.product.image ? `https://localhost:44340/${this.state.product.image}`: ""}
                       id="basicImage"
                       width="100%"
                       height="280px"
@@ -164,7 +196,9 @@ class Product extends Component {
                         onClick={this.SaveItems}
                         // style={{ backgroundColor: "rgb(0, 139, 182)" }}
                       >
-                        <i className="fa fa-heart fa-2x "></i>
+                        <i className={this.state.IsSaved === true ? "fa fa-heart fa-2x text-danger " : "fa fa-heart fa-2x text-primary"}
+                        
+                        ></i>
                       </button>
                     </div>
                   </div>
