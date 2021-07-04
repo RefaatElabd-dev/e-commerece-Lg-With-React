@@ -64,9 +64,10 @@ class Product extends Component {
   };
 
   changeSavedColor = async () => {
+    if(JSON.parse(localStorage.getItem('user'))){
     let x = await axios.get("https://localhost:44340/api/UserBagApi/IsSaved/"+ JSON.parse(localStorage.getItem('user')).id +"/"+this.state.product.id)
     await this.setState({IsSaved:x.data})
-  }
+  }}
 
   getprodreviews = (_id) => {
     axios

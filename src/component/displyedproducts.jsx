@@ -6,7 +6,7 @@ class DisplayedProducts extends Component {
     state = {
        
         currentPage: 1,
-        productsPerPage: 8
+        productsPerPage: 20
       };
       componentDidMount() {
       }

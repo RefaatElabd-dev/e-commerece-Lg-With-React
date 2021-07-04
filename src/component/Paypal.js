@@ -22,7 +22,7 @@ export default function Paypal(props) {
               {
                 description: "Cool looking table",
                 amount: {
-                  value: 20.0,
+                  value:Math.ceil(props.cost),
                 },
               },
             ],
@@ -33,7 +33,7 @@ export default function Paypal(props) {
           console.log("Done");
           await axios.post("https://localhost:44340/api/OrderApi/approveOrder/"+_id)
           await axios.delete("https://localhost:44340/api/CartsItemAPi/DeleteCartProductsForCustomer/"+_id)
-          Window.location.reload();
+          window.location.replace("http://localhost:3000/home")
         },
         onError: (err) => {
           console.log(err);
@@ -41,7 +41,7 @@ export default function Paypal(props) {
       })
       .render(paypal.current);
   }, []);
-console.log(props)
+console.log(props.cost)
   return (
     <div>
       <div ref={paypal}></div>

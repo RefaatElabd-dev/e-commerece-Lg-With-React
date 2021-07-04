@@ -230,7 +230,7 @@ class CheckOut extends Component {
                     Estimated Delivery Between 4 to 15 Days
                   </p>
                   <div className="App mt-5">
-                    <PayPal street={this.state.street} country={this.state.country} city={this.state.city}/>
+                    <PayPal street={this.state.street} country={this.state.country} city={this.state.city} cost={this.state.totalPrice}/>
                   </div>
                 </div>
               </div>

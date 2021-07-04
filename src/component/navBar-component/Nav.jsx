@@ -196,7 +196,7 @@ handleChange = (e) => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item m-2 dropdown">
+              {/* <li className="nav-item m-2 dropdown">
                 <NavLink
                   className="nav-NavLink dropdown-toggle text-light font-weight-bolder"
                   to="#"
@@ -220,7 +220,7 @@ handleChange = (e) => {
                     </NavLink>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li className="nav-item m-2">
                 <NavLink
                   className="nav-NavLink text-white font-weight-bolder"
