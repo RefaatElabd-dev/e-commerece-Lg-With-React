@@ -32,7 +32,7 @@ class SavedItems extends Component {
         .delete(
           "https://localhost:44340/api/UserBagApi/DeleteSavedItem/" +
             AuthService.getCurrentUser().id +
-            "?ProductId=" +
+            "/" +
             _pid,
           { headers: authHeader() }
         )

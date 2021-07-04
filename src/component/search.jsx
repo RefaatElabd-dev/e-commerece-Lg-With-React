@@ -29,7 +29,7 @@ class SearchResult extends Component {
               </React.Fragment>
               )
               :(
-                <div className="container text-center p-4"
+                <div className="container text-center offset-md-2 p-4"
               
                 >
                   <DisplayedProducts  prods={this.props.location.state} name={this.props.location.name} />

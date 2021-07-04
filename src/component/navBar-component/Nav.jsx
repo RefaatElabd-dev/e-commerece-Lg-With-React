@@ -167,12 +167,17 @@ handleChange = (e) => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <NavLink
+                    {JSON.parse(localStorage.getItem("user"))? <NavLink
                       className="dropdown-item bg-light text-dark"
-                      to="/Account/Orders"
+                      to="Account/Orders/Opened"
                     >
                       <i className="fas fa-shopping-cart mr-2"></i>Social Orders
-                    </NavLink>
+                    </NavLink>:<NavLink
+                      className="dropdown-item bg-light text-dark"
+                      to="/Login"
+                    >
+                      <i className="fas fa-shopping-cart mr-2"></i>Social Orders
+                    </NavLink>}
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
@@ -196,7 +201,7 @@ handleChange = (e) => {
                   </li>
                 </ul>
               </li>
-              {/* <li className="nav-item m-2 dropdown">
+              <li className="nav-item m-2 dropdown">
                 <NavLink
                   className="nav-NavLink dropdown-toggle text-light font-weight-bolder"
                   to="#"
@@ -220,7 +225,7 @@ handleChange = (e) => {
                     </NavLink>
                   </li>
                 </ul>
-              </li> */}
+              </li>
               <li className="nav-item m-2">
                 <NavLink
                   className="nav-NavLink text-white font-weight-bolder"
